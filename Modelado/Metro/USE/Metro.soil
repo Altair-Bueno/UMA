@@ -1,0 +1,177 @@
+reset
+
+-- Estaciones
+!new Estacion('e1')
+!new Estacion('e2')
+!new Estacion('e3')
+!new Estacion('e4')
+!new Estacion('e5')
+!new Estacion('e6')
+!new Estacion('e8')
+
+-- Línea
+!new Linea('L1')
+!new Linea('L2')
+!new Linea('L3')
+
+-- Segmentos y vías
+!new Segmento('s0')
+!new Via('s0_1')
+!new Via('s0_2')
+!s0_1.sentido:=Sentido::Ascendente
+!s0_2.sentido:=Sentido::Ascendente
+!insert(s0,s0_1) into Vias
+!insert(s0,s0_2) into Vias
+
+!new Segmento('s1')
+!new Via('s1_1')
+!new Via('s1_2')
+!s1_1.sentido:=Sentido::Ascendente
+!s1_2.sentido:=Sentido::Ascendente
+!insert(s1,s1_1) into Vias
+!insert(s1,s1_2) into Vias
+
+!new Segmento('s2')
+!new Via('s2_1')
+!new Via('s2_2')
+!s2_1.sentido:=Sentido::Ascendente
+!s2_2.sentido:=Sentido::Ascendente
+!insert(s2,s2_1) into Vias
+!insert(s2,s2_2) into Vias
+
+!new Segmento('s4')
+!new Via('s4_1')
+!new Via('s4_2')
+!s4_1.sentido:=Sentido::Ascendente
+!s4_2.sentido:=Sentido::Ascendente
+!insert(s4,s4_1) into Vias
+!insert(s4,s4_2) into Vias
+
+!new Segmento('s5')
+!new Via('s5_1')
+!new Via('s5_2')
+!s5_1.sentido:=Sentido::Ascendente
+!s5_2.sentido:=Sentido::Ascendente
+!insert(s5,s5_1) into Vias
+!insert(s5,s5_2) into Vias
+
+!new Segmento('s8')
+!new Via('s8_1')
+!new Via('s8_2')
+!s8_1.sentido:=Sentido::Ascendente
+!s8_2.sentido:=Sentido::Ascendente
+!insert(s8,s8_1) into Vias
+!insert(s8,s8_2) into Vias
+
+!new Segmento('s9')
+!new Via('s9_1')
+!new Via('s9_2')
+!s9_1.sentido:=Sentido::Ascendente
+!s9_2.sentido:=Sentido::Ascendente
+!insert(s9,s9_1) into Vias
+!insert(s9,s9_2) into Vias
+
+!new Segmento('sa')
+!new Via('sa_1')
+!new Via('sa_2')
+!sa_1.sentido:=Sentido::Ascendente
+!sa_2.sentido:=Sentido::Ascendente
+!insert(sa,sa_1) into Vias
+!insert(sa,sa_2) into Vias
+
+-- Clock
+
+!new Reloj('clock')
+!insert(e1,clock) into Tiempo
+!insert(e2,clock) into Tiempo
+!insert(e3,clock) into Tiempo
+!insert(e4,clock) into Tiempo
+!insert(e5,clock) into Tiempo
+!insert(e6,clock) into Tiempo
+!insert(e8,clock) into Tiempo
+
+
+-- Tren
+-- Impares ascendente
+!new Tren('t1')
+!t1.sentido:=Sentido::Ascendente
+!new Tren('t2')
+!t2.sentido:=Sentido::Descendente
+!new Tren('t3')
+!t3.sentido:=Sentido::Ascendente
+!new Tren('t4')
+!t4.sentido:=Sentido::Descendente
+!new Tren('t5')
+!t5.sentido:=Sentido::Ascendente
+!new Tren('t6')
+!t6.sentido:=Sentido::Descendente
+
+-- Estaciones: Linea y estación
+!insert (L1,e4) into Estaciones
+!insert (L1,e1) into Estaciones
+!insert (L1,e2) into Estaciones
+!insert (L1,e3) into Estaciones
+!insert (L2,e4) into Estaciones
+!insert (L2,e1) into Estaciones
+!insert (L2,e5) into Estaciones
+!insert (L2,e6) into Estaciones
+!insert (L3,e4) into Estaciones
+!insert (L3,e8) into Estaciones
+!insert (L3,e5) into Estaciones
+!insert (L3,e6) into Estaciones
+
+-- Lineas - Segmentos
+!insert (L1,s0) into Segmentos
+!insert (L1,s1) into Segmentos
+!insert (L1,s2) into Segmentos
+
+!insert (L2,s0) into Segmentos
+!insert (L2,s4) into Segmentos
+!insert (L2,s5) into Segmentos
+
+!insert (L3,s8) into Segmentos
+!insert (L3,s9) into Segmentos
+!insert (L3,sa) into Segmentos
+
+-- Segmentos - Estaciones
+!insert (s0,e1) into Salidas
+!insert (s4,e1) into Salidas
+!insert (s1,e1) into Salidas
+
+!insert (s1,e2) into Salidas
+!insert (s2,e2) into Salidas
+!insert (s2,e3) into Salidas
+
+!insert (s0,e4) into Salidas
+!insert (s8,e4) into Salidas
+
+!insert (s4,e5) into Salidas
+!insert (s5,e5) into Salidas
+!insert (sa,e5) into Salidas
+!insert (s9,e5) into Salidas
+
+!insert (s5,e6) into Salidas
+!insert (sa,e6) into Salidas
+
+!insert (s8,e8) into Salidas
+!insert (s9,e8) into Salidas
+
+-- Trenes: Tren y linea
+
+!insert (t1,L1) into Trenes
+!insert (t2,L1) into Trenes
+!insert (t3,L2) into Trenes
+!insert (t4,L2) into Trenes
+!insert (t5,L3) into Trenes
+!insert (t6,L3) into Trenes
+
+-- Parada: Estación y tren
+
+!insert(e4,t1) into Parada
+!insert(e3,t2) into Parada
+!insert(e4,t3) into Parada
+!insert(e6,t4) into Parada
+!insert(e4,t5) into Parada
+!insert(e6,t6) into Parada
+
+check

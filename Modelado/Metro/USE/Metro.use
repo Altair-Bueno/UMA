@@ -1,0 +1,238 @@
+model Metro
+
+enum Sentido {
+    Ascendente,
+    Descendente
+}
+
+class Reloj --CARMEN
+attributes
+    NOW:Integer init = 0 -- Minutos
+operations
+    tick() --Propaga tick a estacion.
+constraints
+    inv OneClock:
+        Reloj.allInstances() -> 
+        size() = 1
+    inv ValidTime:
+        NOW <> null
+    -- Todas las fechas tienen que ser pasadas, no podemos tener fechas en el futuro
+statemachines
+    psm Reloj
+        states
+            s:initial
+            tiempo
+        transitions
+            s->tiempo{create}
+            tiempo->tiempo{tick()}
+    end
+end
+
+class Linea --CARMEN
+operations
+    cabezaDeLinea():Estacion = self.estacion->first()
+    finalDeLinea():Estacion = self.estacion->last()
+     -- Siguiente en el orden ascendente normal
+    siguiente(estacion:Estacion):Estacion = 
+        let index = self.estacion -> indexOf(estacion)
+        in self.estacion->at(index + 1)
+    
+    anterior(estacion:Estacion):Estacion -- Anterior en el orden ascendente normal
+    -- PISTA: at(index(e) +-1)
+end
+
+class Segmento --FRAN
+operations
+    tick() -- Propaga un tick de tiempo a las vías que tienen trenes a punto de salir
+constraints
+    inv OneLine:
+        -- Todos los segmentos
+        Segmento.allInstances() -> 
+        -- Los segmentos conectan las mismas dos estaciones
+        select(x| self.estacion = x.estacion) ->
+        -- Los segmentos tienen la mismas líneas
+        select(x| self.linea = x.linea) ->
+        -- Solo puede haber un segmento
+        size() = 1
+    -- Las vías de un segmento tienen que ser de sentidos contrarios
+end
+
+class Estacion --JOTA
+attributes
+    tiempoParada:Integer init = 1 -- 1 minuto de parada
+operations
+    estaVacio():Boolean = self.tren->isEmpty()
+    tick() --Propaga un tick de tiempo a los segmentos y trenes parados
+    llegaTren(t:Tren) --TODO
+    saleTren() --TODO
+constraints
+statemachines
+psm Estacion
+    states
+        s:initial
+        vacio[self.estaVacio()]
+        ocupado[not self.estaVacio()]
+    transitions
+        s->vacio{create}
+        vacio->ocupado{llegaTren()}
+        ocupado->vacio{saleTren()}
+        ocupado->ocupado{saleTren()}
+    end
+end
+
+class Via --ALTAIR
+attributes
+    sentido:Sentido
+    tiempoRecorrido:Integer init = 2 -- Dos minutos entre estaciones
+operations
+    estaVacio():Boolean = self.tren->isEmpty()
+    lineas():Set(Linea) = self.segmento.linea
+    proximaSalida():Tren = 
+        if cruzar.llegada + tiempoRecorrido >= Reloj.allInstances() -> any(true).NOW 
+        then self.tren
+        else null
+        endif
+    llegaTren(t:Tren)
+        begin
+            insert(self,t) into Cruzar;
+        end
+        pre libre: estaVacio()
+        pre noAveriado: not t.averiado
+        post: not estaVacio()
+    saleTren()
+        begin
+            declare a:Estacion,b:Estacion,tren:Tren;
+            a:=self.segmento.estacion -> any(true);
+            b:=self.segmento.estacion -> any(x|x<>a);
+            tren:=self.tren;
+            delete (self,tren) from Cruzar;
+            if (tren.linea.siguiente(a) = b) xor (self.sentido = Sentido::Ascendente)
+            then insert(a,tren) into Parada;
+            else insert(b,tren) into Parada;
+            end
+        end
+        pre estaOcupado: not estaVacio()
+        pre noTeletransporte: self.tiempoRecorrido = 
+            Reloj.allInstances() -> 
+            any(true).NOW - self.cruzar.llegada
+        post libre: estaVacio()
+constraints
+    inv sentidoValido: sentido <> null
+    inv tiempoValido: tiempoRecorrido >= 0
+statemachines 
+psm Via
+    states
+        s:initial -- Estado inicial
+        vacio[self.estaVacio()] --Vacio, se pone funcion estaVacio() que posteriormente haremos.
+        ocupado[not self.estaVacio() ] --...
+        --f:final opcional
+    transitions
+        s->vacio{create} --De s transiciona a vacío en el momento de su creación.
+        vacio->ocupado{llegaTren()}
+        ocupado->vacio{saleTren()}
+    end
+end
+
+class Tren --CARLOS
+attributes
+    sentido:Sentido
+    averiado:Boolean init = false
+operations
+    enEstacion():Boolean = self.estacion->notEmpty()
+    enMovimiento():Boolean = self.via->notEmpty()
+    saleEstacion(v:Via)
+        begin
+            delete (self.estacion,self) from Parada;
+            insert (v,self) into Cruzar;
+        end
+        pre mismoSentido: v.sentido = self.sentido
+        pre mismaLinea: v.lineas()->includes(self.linea)
+        pre viaVacia: v.estaVacio()
+        pre noAveriado: not self.averiado
+        pre enEstacion: self.enEstacion()
+        pre estacionCorrespondeLinea: v.segmento.estacion->includes(self.estacion)
+        post noEnEstacion: self.enMovimiento()
+        post viaOcupada: not v.estaVacio()
+    llegaEstacion(e:Estacion) --Lo contrario que sale estacion.
+    averia() -- activar la averia del tren
+    reparaTren() --desactivar la averia del tren
+    darLaVuelta() --cambiar sentido del tren una vez se llega a final de línea
+statemachines
+psm Movimiento
+    states
+        s:initial
+        enParada
+        enTransito[self.enMovimiento()]
+    transitions
+        s->enParada{create}
+        enParada->enTransito{saleEstacion()}
+        enTransito->enParada{llegaEstacion()}
+        enParada->enParada{darLaVuelta()}
+    end
+psm AveriasTren
+    states
+        s:initial
+        disponible
+        averiado
+    transitions
+        s->disponible{create}
+        disponible->averiado{averia()}
+        averiado->disponible{reparaTren()}
+    end
+end
+
+aggregation Tiempo
+between
+    Estacion [*]
+    Reloj [1]
+end
+
+association Estaciones
+between
+    Linea [1..*]
+    Estacion [2..*] ordered
+end
+
+aggregation Segmentos
+between
+    Linea [1..*]
+    Segmento [1..*]
+end
+
+association Salidas
+between
+    Segmento [1..*]
+    Estacion [2]
+end
+
+associationclass Parada
+between
+    Estacion [0..1]
+    Tren [*]
+attributes
+    -- El momento en el que llega a la estación
+    llegada:Integer init = Reloj.allInstances() -> any(true).NOW
+end
+
+associationclass Cruzar
+between
+    Via [0..1]
+    Tren [0..1]
+attributes
+    llegada:Integer -- El momento en el que llega a la vía (sale de la estación)
+constraints
+    inv llegadaValida: llegada <> null
+end
+
+composition Vias 
+between
+    Segmento [1]
+    Via [2]
+end
+
+association Trenes
+between
+    Tren [*]
+    Linea [1]
+end
+
