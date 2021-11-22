@@ -9,7 +9,13 @@ class Reloj --CARMEN
 attributes
     NOW:Integer init = 0 -- Minutos
 operations
-    tick() --Propaga tick a estacion.
+    tick()  --Propaga tick a estacion.
+        begin
+            self.NOW:=self.NOW+1;
+            --self.estacion->forAll(e | e.tick());
+        end
+        pre a: true
+        post b: true
 constraints
     inv OneClock:
         Reloj.allInstances() -> 
@@ -37,8 +43,9 @@ operations
         let index = self.estacion -> indexOf(estacion)
         in self.estacion->at(index + 1)
     
-    anterior(estacion:Estacion):Estacion -- Anterior en el orden ascendente normal
-    -- PISTA: at(index(e) +-1)
+    anterior(estacion:Estacion):Estacion = -- Anterior en el orden ascendente normal
+        let index = self.estacion -> indexOf(estacion)
+        in self.estacion->at(index - 1)
 end
 
 class Segmento --FRAN
