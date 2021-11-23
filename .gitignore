@@ -4,3 +4,4 @@
 # Archivos cache USE
 *.slt
 *.clt
+.vscode

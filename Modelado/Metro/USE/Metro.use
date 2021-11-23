@@ -54,6 +54,21 @@ end
 class Segmento --FRAN
 operations
     tick() -- Propaga un tick de tiempo a las vías que tienen trenes a punto de salir
+        begin
+            declare t: Tren;
+            declare sigestacion: Estacion;
+            for v in (self.vias->select(v | v.proximaSalida() <> null)) do
+                v.tick();
+                v.saleTren();
+                t:=v.proximaSalida();
+                if (t.linea.estacion->indexOf(self.estacion->asSequence()->at(1)) > t.linea.estacion->indexOf(self.estacion->asSequence()->at(2))) then
+                    t.llegaEstacion(self.estacion->asSequence()->at(1));  
+                else
+                    t.llegaEstacion(self.estacion->asSequence()->at(2));
+                end;
+                
+            end;
+        end
 constraints
     inv OneLine:
         -- Todos los segmentos
@@ -65,6 +80,8 @@ constraints
         -- Solo puede haber un segmento
         size() = 1
     -- Las vías de un segmento tienen que ser de sentidos contrarios
+    inv DistintosSentidosVias:
+        self.vias->asSequence()->at(1).sentido <> self.vias->asSequence()->at(2).sentido
 end
 
 class Estacion --JOTA
