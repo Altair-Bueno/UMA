@@ -124,40 +124,39 @@ attributes
     sentido:Sentido
     tiempoRecorrido:Integer init = 2 -- Dos minutos entre estaciones
 operations
+    -- Devuelve si esta via está vacío o no
     estaVacio():Boolean = self.tren->isEmpty()
+    -- Devuelve las líneas con las que está relacionada esta vía
     lineas():Set(Linea) = self.segmento.linea
-    proximaSalida():Tren = --Si ha recorrido toda la via, continuando su recorrido, devuelve el tren, y si no devuelve null.
-        if cruzar.llegada + tiempoRecorrido >= Reloj.allInstances() -> any(true).NOW 
+    -- Devuelve el proximo tren que saldrá, o null si no hay tren o todavía no ha llegado al final
+    -- (similar a un peek)
+    proximaSalida():Tren = if cruzar.llegada + tiempoRecorrido >= Reloj.allInstances() -> any(true).NOW 
         then self.tren
         else null
         endif
+    -- El tren recibido como parámetro llega a la vía y se añade (push)
     llegaTren(t:Tren)
         begin
             insert(self,t) into Cruzar;
         end
         pre libre: estaVacio()
+        pre mismoSentido: self.sentido = t.sentido
+        pre trenSinConectar: t.estacion -> isEmpty() and t.via -> isEmpty()
         pre noAveriado: not t.averiado
         post: not estaVacio()
-    saleTren()
+    -- Se elimina el tren almacenado y se devuelve como resultado de la operación (pop)
+    saleTren():Tren
         begin
-            declare a:Estacion,b:Estacion,tren:Tren;
-            a:=self.segmento.estacion -> any(true);
-            b:=self.segmento.estacion -> any(x|x<>a);
-            tren:=self.tren;
-            delete (self,tren) from Cruzar;
-            if (tren.linea.siguiente(a) = b) xor (self.sentido = Sentido::Ascendente)
-            then insert(a,tren) into Parada;
-            else insert(b,tren) into Parada;
-            end
+            result:=self.tren;
+            delete (self,self.tren) from Cruzar;
         end
         pre estaOcupado: not estaVacio()
-        pre noTeletransporte: self.tiempoRecorrido = 
-            Reloj.allInstances() -> 
-            any(true).NOW - self.cruzar.llegada
+        pre noTeletransporte: proximaSalida() <> null
         post libre: estaVacio()
 constraints
     inv sentidoValido: sentido <> null
     inv tiempoValido: tiempoRecorrido >= 0
+    inv mismoSentido: self.sentido = self.tren.sentido
 statemachines 
 psm Via
     states
