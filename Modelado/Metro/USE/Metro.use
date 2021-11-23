@@ -12,10 +12,10 @@ operations
     tick()  --Propaga tick a estacion.
         begin
             self.NOW:=self.NOW+1;
-            --self.estacion->forAll(e | e.tick());
+            for e in Estacion.allInstances do
+                e.tick()
+            end
         end
-        pre a: true
-        post b: true
 constraints
     inv OneClock:
         Reloj.allInstances() -> 
@@ -23,6 +23,9 @@ constraints
     inv ValidTime:
         NOW <> null
     -- Todas las fechas tienen que ser pasadas, no podemos tener fechas en el futuro
+    inv TimeNotFuture:
+        Parada.allInstances->forAll(p | p.llegada <= self.NOW) and
+        Cruzar.allInstances->forAll(c | c.llegada <= self.NOW)
 statemachines
     psm Reloj
         states
