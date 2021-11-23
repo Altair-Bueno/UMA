@@ -61,10 +61,39 @@ class Estacion --JOTA
 attributes
     tiempoParada:Integer init = 1 -- 1 minuto de parada
 operations
+    proximaSalida():Set(Tren) = self.tren->select(t | (t.parada.llegada + tiempoParada >= self.reloj.NOW))
+                                        ->select(t | not t.averiado)
+                                        ->select(t | t.siguienteVia().estaVacio())
+                                        
     estaVacio():Boolean = self.tren->isEmpty()
     tick() --Propaga un tick de tiempo a los segmentos y trenes parados
-    llegaTren(t:Tren) --TODO
-    saleTren() --TODO
+        begin
+            for s in self.segmento do --Propaga un tick de reloj a los segmentos para que ellos los propaguen a los trenes que se encuentran en ellos.
+                s.tick();
+            end;
+
+            for t in self.proximaSalida() do --Para cada tren que puede salir:
+                self.saleTren(t);
+            end;
+        end
+        post algunoHabraSalidoSiHabiaTrenesOperativos: (self@pre.proximaSalida()->notEmpty()) implies (self.proximaSalida() <> self@pre.proximaSalida())
+    llegaTren(t:Tren)
+        begin
+            insert(self,t) into Parada
+        end
+        pre noEstaEnEstacion: t.enMovimiento()
+        pre estaEnViaConectadaALaEstacion: --TO DO
+        pre llegaATiempo: --TO DO
+        post estaEnEstacion: not t.enMovimiento() and self.tren->includes(t)
+    saleTren(t:Tren)
+        begin
+            t.saleEstacion(t.siguienteVia()) --HACER OPERACION t.siguienteVia()!!!!!
+        end
+        pre enEstacion: self.tren->includes(t)
+        pre siguienteViaVacia: t.siguienteVia().estaVacio()
+        pre noRoto: not t.averiado
+        post noEnEstacion: self.tren->excludes(t)
+        post viaOcupada: not t.siguienteVia().estaVacio()
 constraints
 statemachines
 psm Estacion
@@ -137,6 +166,7 @@ attributes
     sentido:Sentido
     averiado:Boolean init = false
 operations
+    siguienteVia()
     enEstacion():Boolean = self.estacion->notEmpty()
     enMovimiento():Boolean = self.via->notEmpty()
     saleEstacion(v:Via)
@@ -218,7 +248,7 @@ between
     Via [0..1]
     Tren [0..1]
 attributes
-    llegada:Integer -- El momento en el que llega a la vía (sale de la estación)
+    llegada:Integer init = Reloj.allInstances() -> any(true).NOW 
 constraints
     inv llegadaValida: llegada <> null
 end
