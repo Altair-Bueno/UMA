@@ -121,6 +121,7 @@ operations
         pre noRoto: not t.averiado
         post noEnEstacion: self.tren->excludes(t)
         post viaOcupada: not t.siguienteVia().estaVacio()
+    -- nuevoTren() -- ??? La máquina de estados empieza vacía, por lo que no puede transicionar
 constraints
 statemachines
 psm Estacion
@@ -158,6 +159,7 @@ operations
         end
         pre libre: estaVacio()
         pre mismoSentido: self.sentido = t.sentido
+        pre mismaLinea: self.lineas() -> includes(self.tren.linea)
         pre trenSinConectar: t.estacion -> isEmpty() and t.via -> isEmpty()
         pre noAveriado: not t.averiado
         post: not estaVacio()
@@ -174,6 +176,7 @@ constraints
     inv sentidoValido: sentido <> null
     inv tiempoValido: tiempoRecorrido >= 0
     inv mismoSentido: self.tren <> null implies self.sentido = self.tren.sentido
+    inv mismaLinea: self.tren <>null implies self.lineas() -> includes(self.tren.linea)
 statemachines 
 psm Via
     states
