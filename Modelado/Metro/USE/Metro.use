@@ -55,9 +55,7 @@ class Segmento --FRAN
 operations
     tick() -- Propaga un tick de tiempo a las vías que tienen trenes a punto de salir
         begin
-            declare t: Tren;
-            declare e1 Estacion;
-            declare e2: Estacion;
+            declare t: Tren, e1: Estacion, e2: Estacion;
             for v in (self.vias->select(v | v.proximaSalida() <> null)) do
                 v.tick(); 
                 -- Sale el tren de la vía
@@ -112,8 +110,8 @@ operations
             insert(self,t) into Parada
         end
         pre noEstaEnEstacion: t.enMovimiento()
-        pre estaEnViaConectadaALaEstacion: --TO DO
-        pre llegaATiempo: --TO DO
+        pre estaEnViaConectadaALaEstacion: true --TODO
+        pre llegaATiempo: true --TODO
         post estaEnEstacion: not t.enMovimiento() and self.tren->includes(t)
     saleTren(t:Tren)
         begin
@@ -202,12 +200,12 @@ operations
                                 self.estacion.segmento->any(
                                 s | s.estacion->includes(
                                 self.linea.siguiente(self.estacion)) and
-                                self.linea = s.linea).via->any(v | v.sentido = self.sentido)
+                                s.linea->includes(self.linea)).via->any(v | v.sentido = self.sentido)
                             else
                                 self.estacion.segmento->any(
                                 s | s.estacion->includes(
                                 self.linea.anterior(self.estacion)) and
-                                self.linea = s.linea).via->any(v | v.sentido = self.sentido)
+                                s.linea->includes(self.linea)).via->any(v | v.sentido = self.sentido)
                             endif
     saleEstacion(v:Via)
         begin
@@ -250,15 +248,15 @@ operations
     darLaVuelta() 
         begin
             if self.sentido = Sentido::Ascendente then
-                self.sentido = Sentido::Descendente
+                self.sentido := Sentido::Descendente
             else    
-                self.sentido = Sentido::Ascendente
+                self.sentido := Sentido::Ascendente
             end
         end 
-        pre self.enEstacion()
-        pre self.estacion.linea.estacion->asSequence()->first() = self.estacion or
+        pre trenEnEstacion: self.enEstacion()
+        pre enColaDeLinea: self.estacion.linea.estacion->asSequence()->first() = self.estacion or
             self.estacion.linea.estacion->asSequence()->last() = self.estacion 
-        post self.sentido <> self.sentido@pre
+        post cambiaSentido: self.sentido <> self.sentido@pre
 statemachines
 psm Movimiento
     states
