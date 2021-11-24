@@ -140,6 +140,8 @@ attributes
 operations
     enEstacion():Boolean = self.estacion->notEmpty()
     enMovimiento():Boolean = self.via->notEmpty()
+    siguienteVia(): Via =   if self.sentido = Sentido::Ascendente then
+                                self.estacion.linea.estacion->indexOf(self.estacion) + 1 
     saleEstacion(v:Via)
         begin
             delete (self.estacion, self) from Parada;
@@ -185,9 +187,11 @@ operations
             else    
                 self.sentido = Sentido::Ascendente
             end
-        end
-        pre self.enEstacion() 
-        post
+        end 
+        pre self.enEstacion()
+        pre self.estacion.linea.estacion->asSequence()->first() = self.estacion or
+            self.estacion.linea.estacion->asSequence()->last() = self.estacion 
+        post self.sentido <> self.sentido@pre
 statemachines
 psm Movimiento
     states
