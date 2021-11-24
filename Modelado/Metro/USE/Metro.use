@@ -195,11 +195,19 @@ attributes
     sentido:Sentido
     averiado:Boolean init = false
 operations
-    siguienteVia()
     enEstacion():Boolean = self.estacion->notEmpty()
     enMovimiento():Boolean = self.via->notEmpty()
     siguienteVia(): Via =   if self.sentido = Sentido::Ascendente then
-                                self.estacion.linea.estacion->indexOf(self.estacion) + 1 
+                                self.estacion.segmento->any(
+                                s | s.estacion->includes(
+                                self.linea.siguiente(self.estacion)) and
+                                self.linea = s.linea).via->any(v | v.sentido = self.sentido)
+                            else
+                                self.estacion.segmento->any(
+                                s | s.estacion->includes(
+                                self.linea.anterior(self.estacion)) and
+                                self.linea = s.linea).via->any(v | v.sentido = self.sentido)
+                            endif
     saleEstacion(v:Via)
         begin
             delete (self.estacion, self) from Parada;
