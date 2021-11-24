@@ -9,7 +9,13 @@ class Reloj --CARMEN
 attributes
     NOW:Integer init = 0 -- Minutos
 operations
-    tick() --Propaga tick a estacion.
+    tick()  --Propaga tick a estacion.
+        begin
+            self.NOW:=self.NOW+1;
+            for e in Estacion.allInstances do
+                e.tick()
+            end
+        end
 constraints
     inv OneClock:
         Reloj.allInstances() -> 
@@ -17,6 +23,9 @@ constraints
     inv ValidTime:
         NOW <> null
     -- Todas las fechas tienen que ser pasadas, no podemos tener fechas en el futuro
+    inv TimeNotFuture:
+        Parada.allInstances->forAll(p | p.llegada <= self.NOW) and
+        Cruzar.allInstances->forAll(c | c.llegada <= self.NOW)
 statemachines
     psm Reloj
         states
@@ -37,13 +46,31 @@ operations
         let index = self.estacion -> indexOf(estacion)
         in self.estacion->at(index + 1)
     
-    anterior(estacion:Estacion):Estacion -- Anterior en el orden ascendente normal
-    -- PISTA: at(index(e) +-1)
+    anterior(estacion:Estacion):Estacion = -- Anterior en el orden ascendente normal
+        let index = self.estacion -> indexOf(estacion)
+        in self.estacion->at(index - 1)
 end
 
 class Segmento --FRAN
 operations
     tick() -- Propaga un tick de tiempo a las vías que tienen trenes a punto de salir
+        begin
+            declare t: Tren;
+            declare e1, e2: Estacion;
+            for v in (self.vias->select(v | v.proximaSalida() <> null)) do
+                v.tick(); 
+                -- Sale el tren de la vía
+                t:=v.saleTren();
+                -- Llega el tren a la siguiente estación establecida, consultándola a la linea
+                e1:=self.estacion->asSequence()->at(1);
+                e2:=self.estacion->asSequence()->at(2);
+                if (t.linea.estacion->indexOf(e1) > t.linea.estacion->indexOf(e2)) then
+                    t.llegaEstacion(e1);  
+                else
+                    t.llegaEstacion(e2);
+                end;
+            end;
+        end
 constraints
     inv OneLine:
         -- Todos los segmentos
@@ -55,16 +82,47 @@ constraints
         -- Solo puede haber un segmento
         size() = 1
     -- Las vías de un segmento tienen que ser de sentidos contrarios
+    inv DistintosSentidosVias:
+        self.vias->asSequence()->at(1).sentido <> self.vias->asSequence()->at(2).sentido
 end
 
 class Estacion --JOTA
 attributes
     tiempoParada:Integer init = 1 -- 1 minuto de parada
 operations
+    proximaSalida():Set(Tren) = self.tren->select(t | (t.parada.llegada + tiempoParada >= self.reloj.NOW))
+                                        ->select(t | not t.averiado)
+                                        ->select(t | t.siguienteVia().estaVacio())
+                                        
     estaVacio():Boolean = self.tren->isEmpty()
     tick() --Propaga un tick de tiempo a los segmentos y trenes parados
-    llegaTren(t:Tren) --TODO
-    saleTren() --TODO
+        begin
+            for s in self.segmento do --Propaga un tick de reloj a los segmentos para que ellos los propaguen a los trenes que se encuentran en ellos.
+                s.tick();
+            end;
+
+            for t in self.proximaSalida() do --Para cada tren que puede salir:
+                self.saleTren(t);
+            end;
+        end
+        post algunoHabraSalidoSiHabiaTrenesOperativos: (self@pre.proximaSalida()->notEmpty()) implies (self.proximaSalida() <> self@pre.proximaSalida())
+    llegaTren(t:Tren)
+        begin
+            insert(self,t) into Parada
+        end
+        pre noEstaEnEstacion: t.enMovimiento()
+        pre estaEnViaConectadaALaEstacion: --TO DO
+        pre llegaATiempo: --TO DO
+        post estaEnEstacion: not t.enMovimiento() and self.tren->includes(t)
+    saleTren(t:Tren)
+        begin
+            t.saleEstacion(t.siguienteVia()) --HACER OPERACION t.siguienteVia()!!!!!
+        end
+        pre enEstacion: self.tren->includes(t)
+        pre siguienteViaVacia: t.siguienteVia().estaVacio()
+        pre noRoto: not t.averiado
+        post noEnEstacion: self.tren->excludes(t)
+        post viaOcupada: not t.siguienteVia().estaVacio()
 constraints
 statemachines
 psm Estacion
@@ -85,40 +143,39 @@ attributes
     sentido:Sentido
     tiempoRecorrido:Integer init = 2 -- Dos minutos entre estaciones
 operations
+    -- Devuelve si esta via está vacío o no
     estaVacio():Boolean = self.tren->isEmpty()
+    -- Devuelve las líneas con las que está relacionada esta vía
     lineas():Set(Linea) = self.segmento.linea
-    proximaSalida():Tren = 
-        if cruzar.llegada + tiempoRecorrido >= Reloj.allInstances() -> any(true).NOW 
+    -- Devuelve el proximo tren que saldrá, o null si no hay tren o todavía no ha llegado al final
+    -- (similar a un peek)
+    proximaSalida():Tren = if cruzar.llegada + tiempoRecorrido >= Reloj.allInstances() -> any(true).NOW 
         then self.tren
         else null
         endif
+    -- El tren recibido como parámetro llega a la vía y se añade (push)
     llegaTren(t:Tren)
         begin
             insert(self,t) into Cruzar;
         end
         pre libre: estaVacio()
+        pre mismoSentido: self.sentido = t.sentido
+        pre trenSinConectar: t.estacion -> isEmpty() and t.via -> isEmpty()
         pre noAveriado: not t.averiado
         post: not estaVacio()
-    saleTren()
+    -- Se elimina el tren almacenado y se devuelve como resultado de la operación (pop)
+    saleTren():Tren
         begin
-            declare a:Estacion,b:Estacion,tren:Tren;
-            a:=self.segmento.estacion -> any(true);
-            b:=self.segmento.estacion -> any(x|x<>a);
-            tren:=self.tren;
-            delete (self,tren) from Cruzar;
-            if (tren.linea.siguiente(a) = b) xor (self.sentido = Sentido::Ascendente)
-            then insert(a,tren) into Parada;
-            else insert(b,tren) into Parada;
-            end
+            result:=self.tren;
+            delete (self,self.tren) from Cruzar;
         end
         pre estaOcupado: not estaVacio()
-        pre noTeletransporte: self.tiempoRecorrido = 
-            Reloj.allInstances() -> 
-            any(true).NOW - self.cruzar.llegada
+        pre noTeletransporte: proximaSalida() <> null
         post libre: estaVacio()
 constraints
     inv sentidoValido: sentido <> null
     inv tiempoValido: tiempoRecorrido >= 0
+    inv mismoSentido: self.sentido = self.tren.sentido
 statemachines 
 psm Via
     states
@@ -138,6 +195,7 @@ attributes
     sentido:Sentido
     averiado:Boolean init = false
 operations
+    siguienteVia()
     enEstacion():Boolean = self.estacion->notEmpty()
     enMovimiento():Boolean = self.via->notEmpty()
     siguienteVia(): Via =   if self.sentido = Sentido::Ascendente then
@@ -254,7 +312,7 @@ between
     Via [0..1]
     Tren [0..1]
 attributes
-    llegada:Integer -- El momento en el que llega a la vía (sale de la estación)
+    llegada:Integer init = Reloj.allInstances() -> any(true).NOW 
 constraints
     inv llegadaValida: llegada <> null
 end

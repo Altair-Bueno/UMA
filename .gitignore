@@ -1,0 +1,7 @@
+# Archivos cache magicdraw
+*.bak
+
+# Archivos cache USE
+*.slt
+*.clt
+.vscode
