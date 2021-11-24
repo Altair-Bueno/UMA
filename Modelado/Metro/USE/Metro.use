@@ -56,17 +56,19 @@ operations
     tick() -- Propaga un tick de tiempo a las vías que tienen trenes a punto de salir
         begin
             declare t: Tren;
-            declare sigestacion: Estacion;
+            declare e1, e2: Estacion;
             for v in (self.vias->select(v | v.proximaSalida() <> null)) do
-                v.tick();
-                v.saleTren();
-                t:=v.proximaSalida();
-                if (t.linea.estacion->indexOf(self.estacion->asSequence()->at(1)) > t.linea.estacion->indexOf(self.estacion->asSequence()->at(2))) then
-                    t.llegaEstacion(self.estacion->asSequence()->at(1));  
+                v.tick(); 
+                -- Sale el tren de la vía
+                t:=v.saleTren();
+                -- Llega el tren a la siguiente estación establecida, consultándola a la linea
+                e1:=self.estacion->asSequence()->at(1);
+                e2:=self.estacion->asSequence()->at(2);
+                if (t.linea.estacion->indexOf(e1) > t.linea.estacion->indexOf(e2)) then
+                    t.llegaEstacion(e1);  
                 else
-                    t.llegaEstacion(self.estacion->asSequence()->at(2));
+                    t.llegaEstacion(e2);
                 end;
-                
             end;
         end
 constraints
