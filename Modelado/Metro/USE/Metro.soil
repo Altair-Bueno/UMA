@@ -175,3 +175,30 @@ reset
 !insert(e6,t6) into Parada
 
 check
+
+
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
+!clock.tick()
