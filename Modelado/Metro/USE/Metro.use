@@ -53,11 +53,10 @@ end
 
 class Segmento --FRAN
 operations
-    tick() -- Propaga un tick de tiempo a las vías que tienen trenes a punto de salir
+    tick()
         begin
             declare t: Tren, e1: Estacion, e2: Estacion;
-            for v in (self.vias->select(v | v.proximaSalida() <> null)) do
-                v.tick(); 
+            for v in (self.via->select(v | v.proximaSalida() <> null)) do
                 -- Sale el tren de la vía
                 t:=v.saleTren();
                 -- Llega el tren a la siguiente estación establecida, consultándola a la linea
@@ -82,7 +81,7 @@ constraints
         size() = 1
     -- Las vías de un segmento tienen que ser de sentidos contrarios
     inv DistintosSentidosVias:
-        self.vias->asSequence()->at(1).sentido <> self.vias->asSequence()->at(2).sentido
+        self.via->asSequence()->at(1).sentido <> self.via->asSequence()->at(2).sentido
 end
 
 class Estacion --JOTA
