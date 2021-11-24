@@ -56,7 +56,8 @@ operations
     tick() -- Propaga un tick de tiempo a las vías que tienen trenes a punto de salir
         begin
             declare t: Tren;
-            declare e1, e2: Estacion;
+            declare e1 Estacion;
+            declare e2: Estacion;
             for v in (self.vias->select(v | v.proximaSalida() <> null)) do
                 v.tick(); 
                 -- Sale el tren de la vía
