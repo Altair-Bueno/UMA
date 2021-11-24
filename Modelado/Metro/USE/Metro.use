@@ -142,8 +142,8 @@ operations
     enMovimiento():Boolean = self.via->notEmpty()
     saleEstacion(v:Via)
         begin
-            delete (self.estacion,self) from Parada;
-            insert (v,self) into Cruzar;
+            delete (self.estacion, self) from Parada;
+            insert (v, self) into Cruzar;
         end
         pre mismoSentido: v.sentido = self.sentido
         pre mismaLinea: v.lineas()->includes(self.linea)
@@ -153,10 +153,41 @@ operations
         pre estacionCorrespondeLinea: v.segmento.estacion->includes(self.estacion)
         post noEnEstacion: self.enMovimiento()
         post viaOcupada: not v.estaVacio()
-    llegaEstacion(e:Estacion) --Lo contrario que sale estacion.
-    averia() -- activar la averia del tren
-    reparaTren() --desactivar la averia del tren
-    darLaVuelta() --cambiar sentido del tren una vez se llega a final de línea
+    --Lo contrario que sale estacion.
+    llegaEstacion(e:Estacion) 
+        begin
+            delete (self.via, self) from Cruzar;
+            insert (e, self) into Parada;
+        end
+        pre enVia: self.via->size() = 1
+        pre viaConectaEstacion: self.via.segmento.estacion->includes(e)
+        post enEstacion: self.enEstacion()
+        post viaLibre: self.via.estaVacio()
+    -- activar la averia del tren
+    averia()
+        begin
+            self.averiado := true
+        end
+        pre noEstaAveriado: not self.averiado
+        post estaAveriado: self.averiado
+    --desactivar la averia del tren
+    reparaTren() 
+        begin
+            self.averiado := false
+        end
+        pre estaAveriado: self.averiado
+        post noEstaAveriado: not self.averiado
+    --cambiar sentido del tren una vez se llega a final de línea
+    darLaVuelta() 
+        begin
+            if self.sentido = Sentido::Ascendente then
+                self.sentido = Sentido::Descendente
+            else    
+                self.sentido = Sentido::Ascendente
+            end
+        end
+        pre self.enEstacion() 
+        post
 statemachines
 psm Movimiento
     states
