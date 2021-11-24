@@ -173,7 +173,7 @@ operations
 constraints
     inv sentidoValido: sentido <> null
     inv tiempoValido: tiempoRecorrido >= 0
-    inv mismoSentido: self.sentido = self.tren.sentido
+    inv mismoSentido: self.tren <> null implies self.sentido = self.tren.sentido
 statemachines 
 psm Via
     states

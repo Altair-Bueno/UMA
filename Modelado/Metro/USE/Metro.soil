@@ -19,7 +19,7 @@ reset
 !new Via('s0_1')
 !new Via('s0_2')
 !s0_1.sentido:=Sentido::Ascendente
-!s0_2.sentido:=Sentido::Ascendente
+!s0_2.sentido:=Sentido::Descendente
 !insert(s0,s0_1) into Vias
 !insert(s0,s0_2) into Vias
 
@@ -27,7 +27,7 @@ reset
 !new Via('s1_1')
 !new Via('s1_2')
 !s1_1.sentido:=Sentido::Ascendente
-!s1_2.sentido:=Sentido::Ascendente
+!s1_2.sentido:=Sentido::Descendente
 !insert(s1,s1_1) into Vias
 !insert(s1,s1_2) into Vias
 
@@ -35,7 +35,7 @@ reset
 !new Via('s2_1')
 !new Via('s2_2')
 !s2_1.sentido:=Sentido::Ascendente
-!s2_2.sentido:=Sentido::Ascendente
+!s2_2.sentido:=Sentido::Descendente
 !insert(s2,s2_1) into Vias
 !insert(s2,s2_2) into Vias
 
@@ -43,7 +43,7 @@ reset
 !new Via('s4_1')
 !new Via('s4_2')
 !s4_1.sentido:=Sentido::Ascendente
-!s4_2.sentido:=Sentido::Ascendente
+!s4_2.sentido:=Sentido::Descendente
 !insert(s4,s4_1) into Vias
 !insert(s4,s4_2) into Vias
 
@@ -51,7 +51,7 @@ reset
 !new Via('s5_1')
 !new Via('s5_2')
 !s5_1.sentido:=Sentido::Ascendente
-!s5_2.sentido:=Sentido::Ascendente
+!s5_2.sentido:=Sentido::Descendente
 !insert(s5,s5_1) into Vias
 !insert(s5,s5_2) into Vias
 
@@ -59,7 +59,7 @@ reset
 !new Via('s8_1')
 !new Via('s8_2')
 !s8_1.sentido:=Sentido::Ascendente
-!s8_2.sentido:=Sentido::Ascendente
+!s8_2.sentido:=Sentido::Descendente
 !insert(s8,s8_1) into Vias
 !insert(s8,s8_2) into Vias
 
@@ -67,7 +67,7 @@ reset
 !new Via('s9_1')
 !new Via('s9_2')
 !s9_1.sentido:=Sentido::Ascendente
-!s9_2.sentido:=Sentido::Ascendente
+!s9_2.sentido:=Sentido::Descendente
 !insert(s9,s9_1) into Vias
 !insert(s9,s9_2) into Vias
 
@@ -75,7 +75,7 @@ reset
 !new Via('sa_1')
 !new Via('sa_2')
 !sa_1.sentido:=Sentido::Ascendente
-!sa_2.sentido:=Sentido::Ascendente
+!sa_2.sentido:=Sentido::Descendente
 !insert(sa,sa_1) into Vias
 !insert(sa,sa_2) into Vias
 
