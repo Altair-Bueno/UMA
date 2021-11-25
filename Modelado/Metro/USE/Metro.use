@@ -32,8 +32,8 @@ statemachines
             s:initial
             tiempo
         transitions
-            s->tiempo{create}
-            tiempo->tiempo{tick()}
+            s->tiempo {create}
+            tiempo->tiempo {tick()}
     end
 end
 
@@ -56,7 +56,8 @@ operations
     tick()
         begin
             declare t: Tren, e1: Estacion, e2: Estacion;
-            for v in (self.via->select(v | v.proximaSalida() <> null)) do
+            for v in self.via->select(v | v.proximaSalida() <> null) do
+                -- TODO esta no esta bien??
                 -- Sale el tren de la vía
                 t:=v.saleTren();
                 -- Llega el tren a la siguiente estación establecida, consultándola a la linea
@@ -81,16 +82,19 @@ constraints
         size() = 1
     -- Las vías de un segmento tienen que ser de sentidos contrarios
     inv DistintosSentidosVias:
-        self.via->asSequence()->at(1).sentido <> self.via->asSequence()->at(2).sentido
+        let seq= self.via->asSequence()
+        in seq -> at(1).sentido <> seq->at(2).sentido
 end
 
 class Estacion --JOTA
 attributes
     tiempoParada:Integer init = 1 -- 1 minuto de parada
 operations
-    proximaSalida():Set(Tren) = self.tren->select(t | (t.parada.llegada + tiempoParada >= self.reloj.NOW))
-                                        ->select(t | not t.averiado)
-                                        ->select(t | t.siguienteVia().estaVacio())
+    proximaSalida():Set(Tren) = 
+        self.tren->
+        select(t | (t.parada.llegada + tiempoParada >= self.reloj.NOW))->
+        select(t | not t.averiado) ->
+        select(t | t.siguienteVia().estaVacio())
                                         
     estaVacio():Boolean = self.tren->isEmpty()
     tick() --Propaga un tick de tiempo a los segmentos y trenes parados
@@ -99,6 +103,7 @@ operations
                 s.tick();
             end;
 
+            -- TODO condición de carrera: que pasa si un tren podía salir antes y ya no?
             for t in self.proximaSalida() do --Para cada tren que puede salir:
                 self.saleTren(t);
             end;
@@ -112,20 +117,21 @@ operations
         pre estaEnViaConectadaALaEstacion: true --TODO
         pre llegaATiempo: true --TODO
         post estaEnEstacion: not t.enMovimiento() and self.tren->includes(t)
+    -- TODO pre y post condiciones
     adquirirTren(t:Tren)
         begin
             insert(self,t) into Parada 
         end
+    -- TODO no funciona
     saleTren(t:Tren)
         begin
             t.saleEstacion(t.siguienteVia()) --HACER OPERACION t.siguienteVia()!!!!!
         end
         pre enEstacion: self.tren->includes(t)
-        pre siguienteViaVacia: t.siguienteVia().estaVacio()
+        -- pre siguienteViaVacia: t.siguienteVia().estaVacio()
         pre noRoto: not t.averiado
         post noEnEstacion: self.tren->excludes(t)
-        post viaOcupada: not t.siguienteVia().estaVacio()
-    -- nuevoTren() -- ??? La máquina de estados empieza vacía, por lo que no puede transicionar
+        -- post viaOcupada: not t@pre.siguienteVia().estaVacio()
 constraints
 statemachines
 psm Estacion
@@ -135,10 +141,14 @@ psm Estacion
         ocupado[not self.estaVacio()]
     transitions
         s->vacio{create}
-        vacio->ocupado{llegaTren()}
-        vacio->ocupado{adquirirTren()}
-        ocupado->vacio{saleTren()}
-        ocupado->ocupado{saleTren()}
+        
+        vacio->ocupado {llegaTren()}
+        vacio->ocupado {adquirirTren()}
+        
+        ocupado->vacio {saleTren()}
+        ocupado->ocupado {saleTren()}
+        ocupado -> ocupado {llegaTren()}
+        ocupado -> ocupado {adquirirTren()}
     end
 end
 
@@ -244,7 +254,7 @@ operations
         end
         pre noEstaAveriado: not self.averiado
         post estaAveriado: self.averiado
-    --desactivar la averia del tren
+    --desactivar la averia del tren --TODO un tren se puede arregar en medio de una vía??
     reparaTren() 
         begin
             self.averiado := false
@@ -261,8 +271,8 @@ operations
             end
         end 
         pre trenEnEstacion: self.enEstacion()
-        pre enColaDeLinea: self.estacion.linea.estacion->asSequence()->first() = self.estacion or
-            self.estacion.linea.estacion->asSequence()->last() = self.estacion 
+        pre enColaDeLinea: self.estacion.linea.cabezaDeLinea() = self.estacion or
+            self.estacion.linea.finalDeLinea() = self.estacion 
         post cambiaSentido: self.sentido <> self.sentido@pre
 statemachines
 psm Movimiento
@@ -272,9 +282,9 @@ psm Movimiento
         enTransito[self.enMovimiento()]
     transitions
         s->enParada{create}
-        enParada->enTransito{saleEstacion()}
-        enTransito->enParada{llegaEstacion()}
-        enParada->enParada{darLaVuelta()}
+        enParada->enTransito {saleEstacion()}
+        enTransito->enParada {llegaEstacion()}
+        enParada->enParada {darLaVuelta()}
     end
 psm AveriasTren
     states
