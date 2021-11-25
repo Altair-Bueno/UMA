@@ -167,38 +167,10 @@ reset
 
 -- Parada: Estación y tren
 
-!insert(e4,t1) into Parada
-!insert(e3,t2) into Parada
-!insert(e4,t3) into Parada
-!insert(e6,t4) into Parada
-!insert(e4,t5) into Parada
-!insert(e6,t6) into Parada
-
-check
-
-
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
+--!insert(e4,t1) into Parada
+!e4.adquirirTren(t1)
+--!insert(e3,t2) into Parada
+--!insert(e4,t3) into Parada
+--!insert(e6,t4) into Parada
+--!insert(e4,t5) into Parada
+--!insert(e6,t6) into Parada

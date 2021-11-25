@@ -112,6 +112,10 @@ operations
         pre estaEnViaConectadaALaEstacion: true --TODO
         pre llegaATiempo: true --TODO
         post estaEnEstacion: not t.enMovimiento() and self.tren->includes(t)
+    adquirirTren(t:Tren)
+        begin
+            insert(self,t) into Parada 
+        end
     saleTren(t:Tren)
         begin
             t.saleEstacion(t.siguienteVia()) --HACER OPERACION t.siguienteVia()!!!!!
@@ -132,6 +136,7 @@ psm Estacion
     transitions
         s->vacio{create}
         vacio->ocupado{llegaTren()}
+        vacio->ocupado{adquirirTren()}
         ocupado->vacio{saleTren()}
         ocupado->ocupado{saleTren()}
     end
