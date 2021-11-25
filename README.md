@@ -9,8 +9,8 @@ Proyectos varios a a realizar en la UMA
 
 ## Requisitos
 
-- [ ] Casos de uso, pruebas e interfaces de Ebury
-- [ ] [Documento de casos de uso](https://bit.ly/3HZiQlc)
+- [x] Casos de uso, pruebas e interfaces de Ebury
+- [x] [Documento de casos de uso](https://bit.ly/3HZiQlc)
 
 # Personas 
 
