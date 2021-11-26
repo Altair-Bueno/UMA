@@ -271,8 +271,8 @@ operations
             end
         end 
         pre trenEnEstacion: self.enEstacion()
-        pre enColaDeLinea: self.estacion.linea.cabezaDeLinea() = self.estacion or
-            self.estacion.linea.finalDeLinea() = self.estacion 
+        pre enColaDeLinea: self.estacion.linea.cabezaDeLinea()-> any(true) = self.estacion or
+            self.estacion.linea.finalDeLinea()->any(true) = self.estacion 
         post cambiaSentido: self.sentido <> self.sentido@pre
 statemachines
 psm Movimiento

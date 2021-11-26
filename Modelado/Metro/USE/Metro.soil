@@ -174,23 +174,6 @@ reset
 !e4.adquirirTren(t5)
 !e6.adquirirTren(t6)
 
-
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
-!clock.tick()
+for i in Sequence {1..100} do
+  !clock.tick()
+end;
