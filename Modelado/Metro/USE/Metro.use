@@ -14,8 +14,16 @@ operations
             self.NOW:=self.NOW+1;
             for e in Estacion.allInstances do
                 e.tick()
-            end
+            end;
         end
+        post: self.NOW@pre + 1 = self.NOW
+    avanceRapido(ticks:Integer)
+        begin
+            for a in Sequence {1..ticks} do
+                self.tick();
+            end;
+        end
+        pre: ticks > 0
 constraints
     inv OneClock:
         Reloj.allInstances() -> 
@@ -30,7 +38,7 @@ statemachines
     psm Reloj
         states
             s:initial
-            tiempo
+            tiempo [self.NOW <> null]
         transitions
             s->tiempo {create}
             tiempo->tiempo {tick()}
@@ -45,29 +53,19 @@ operations
     siguiente(estacion:Estacion):Estacion = 
         let index = self.estacion -> indexOf(estacion)
         in self.estacion->at(index + 1)
-    
-    anterior(estacion:Estacion):Estacion = -- Anterior en el orden ascendente normal
+    -- Anterior en el orden ascendente normal
+    anterior(estacion:Estacion):Estacion = 
         let index = self.estacion -> indexOf(estacion)
         in self.estacion->at(index - 1)
+
 end
 
 class Segmento --FRAN
 operations
     tick()
         begin
-            declare t: Tren, e1: Estacion, e2: Estacion;
             for v in self.via->select(v | v.proximaSalida() <> null) do
-                -- TODO esta no esta bien??
-                -- Sale el tren de la vía
-                t:=v.saleTren();
-                -- Llega el tren a la siguiente estación establecida, consultándola a la linea
-                e1:=self.estacion->asSequence()->at(1);
-                e2:=self.estacion->asSequence()->at(2);
-                if (t.linea.estacion->indexOf(e1) > t.linea.estacion->indexOf(e2)) then
-                    t.llegaEstacion(e1);  
-                else
-                    t.llegaEstacion(e2);
-                end;
+                v.proximaSalida().llegaEstacion();
             end;
         end
 constraints
@@ -82,7 +80,7 @@ constraints
         size() = 1
     -- Las vías de un segmento tienen que ser de sentidos contrarios
     inv DistintosSentidosVias:
-        let seq= self.via->asSequence()
+        let seq = self.via->asSequence()
         in seq -> at(1).sentido <> seq->at(2).sentido
 end
 
@@ -91,8 +89,8 @@ attributes
     tiempoParada:Integer init = 1 -- 1 minuto de parada
 operations
     proximaSalida():Set(Tren) = 
-        self.tren->
-        select(t | (t.parada.llegada + tiempoParada >= self.reloj.NOW))->
+        self.tren ->
+        select(t | (self.reloj.NOW - t.parada.llegada >= tiempoParada)) ->
         select(t | not t.averiado) ->
         select(t | t.siguienteVia().estaVacio())
                                         
@@ -103,35 +101,39 @@ operations
                 s.tick();
             end;
 
-            -- TODO condición de carrera: que pasa si un tren podía salir antes y ya no?
-            for t in self.proximaSalida() do --Para cada tren que puede salir:
-                self.saleTren(t);
+            for t in self.tren do --Para cada tren que puede salir:
+                if self.proximaSalida() -> includes(t)
+                then 
+                    t.saleEstacion();
+                end;
             end;
         end
         post algunoHabraSalidoSiHabiaTrenesOperativos: (self@pre.proximaSalida()->notEmpty()) implies (self.proximaSalida() <> self@pre.proximaSalida())
     llegaTren(t:Tren)
         begin
-            insert(self,t) into Parada
+            insert(self,t) into Parada;
         end
         pre noEstaEnEstacion: t.enMovimiento()
-        pre estaEnViaConectadaALaEstacion: true --TODO
-        pre llegaATiempo: true --TODO
-        post estaEnEstacion: not t.enMovimiento() and self.tren->includes(t)
+        pre estaEnViaConectadaALaEstacion: self.segmento.via -> includes(t.via) 
+        pre puedeSalir: t.via.proximaSalida() = t
+        post estaEnEstacion: self.tren->includes(t)
     -- TODO pre y post condiciones
     adquirirTren(t:Tren)
         begin
-            insert(self,t) into Parada 
+            insert(self,t) into Parada;
         end
-    -- TODO no funciona
+        pre mismaLinea: self.linea -> includes(t.linea)
+        pre noPerteneceAOtraEstacion: t.estacion -> isEmpty()
+        pre noPerteneceAOtraVia: t.via -> isEmpty()
+        post perteneceALaEstacion: t.estacion -> notEmpty()
+        post: self.tren -> notEmpty()
     saleTren(t:Tren)
         begin
-            t.saleEstacion(t.siguienteVia()) --HACER OPERACION t.siguienteVia()!!!!!
+            delete(self,t) from Parada;
         end
         pre enEstacion: self.tren->includes(t)
-        -- pre siguienteViaVacia: t.siguienteVia().estaVacio()
         pre noRoto: not t.averiado
         post noEnEstacion: self.tren->excludes(t)
-        -- post viaOcupada: not t@pre.siguienteVia().estaVacio()
 constraints
 statemachines
 psm Estacion
@@ -163,8 +165,8 @@ operations
     lineas():Set(Linea) = self.segmento.linea
     -- Devuelve el proximo tren que saldrá, o null si no hay tren o todavía no ha llegado al final
     -- (similar a un peek)
-    proximaSalida():Tren = if cruzar.llegada + tiempoRecorrido >= Reloj.allInstances() -> any(true).NOW 
-        then self.tren
+    proximaSalida():Tren = if Reloj.allInstances() -> any(true).NOW - cruzar.llegada >= tiempoRecorrido
+        then self.tren 
         else null
         endif
     -- El tren recibido como parámetro llega a la vía y se añade (push)
@@ -174,8 +176,7 @@ operations
         end
         pre libre: estaVacio()
         pre mismoSentido: self.sentido = t.sentido
-        pre mismaLinea: self.lineas() -> includes(self.tren.linea)
-        pre trenSinConectar: t.estacion -> isEmpty() and t.via -> isEmpty()
+        pre mismaLinea: self.lineas() -> includes(t.linea)
         pre noAveriado: not t.averiado
         post: not estaVacio()
     -- Se elimina el tren almacenado y se devuelve como resultado de la operación (pop)
@@ -195,12 +196,11 @@ constraints
 statemachines 
 psm Via
     states
-        s:initial -- Estado inicial
-        vacio[self.estaVacio()] --Vacio, se pone funcion estaVacio() que posteriormente haremos.
-        ocupado[not self.estaVacio() ] --...
-        --f:final opcional
+        s:initial
+        vacio[self.estaVacio()]
+        ocupado[not self.estaVacio() ] 
     transitions
-        s->vacio{create} --De s transiciona a vacío en el momento de su creación.
+        s->vacio{create} 
         vacio->ocupado{llegaTren()}
         ocupado->vacio{saleTren()}
     end
@@ -213,40 +213,62 @@ attributes
 operations
     enEstacion():Boolean = self.estacion->notEmpty()
     enMovimiento():Boolean = self.via->notEmpty()
-    siguienteVia(): Via =   if self.sentido = Sentido::Ascendente then
-                                self.estacion.segmento->any(
-                                s | s.estacion->includes(
-                                self.linea.siguiente(self.estacion)) and
-                                s.linea->includes(self.linea)).via->any(v | v.sentido = self.sentido)
-                            else
-                                self.estacion.segmento->any(
-                                s | s.estacion->includes(
-                                self.linea.anterior(self.estacion)) and
-                                s.linea->includes(self.linea)).via->any(v | v.sentido = self.sentido)
-                            endif
-    saleEstacion(v:Via)
+    siguienteEstacion():Estacion = 
+        let 
+            linea = self.linea,
+            estaciones = self.via.segmento.estacion -> asSequence(),
+            e1= estaciones -> at(1),
+            e2= estaciones -> at(2)
+        in
+            if (linea.estacion -> indexOf(e1) > linea.estacion -> indexOf(e2) xor self.sentido = Sentido::Ascendente)
+            then e2
+            else e1
+            endif
+
+    siguienteVia(): Via =   
+        if self.sentido = Sentido::Ascendente 
+        then
+            self.estacion.segmento->any(
+                s | s.estacion->includes(self.linea.siguiente(self.estacion)) and s.linea->includes(self.linea)
+            ).via->any(v | v.sentido = self.sentido)
+        else
+            self.estacion.segmento->any(
+                s | s.estacion->includes(self.linea.anterior(self.estacion)) and s.linea->includes(self.linea)
+                ).via->any(v | v.sentido = self.sentido)
+        endif
+    -- llegaVia
+    saleEstacion()
         begin
-            delete (self.estacion, self) from Parada;
-            insert (v, self) into Cruzar;
+            declare v:Via;
+            v:=siguienteVia();
+            v.llegaTren(self);
+            self.estacion.saleTren(self);
         end
-        pre mismoSentido: v.sentido = self.sentido
-        pre mismaLinea: v.lineas()->includes(self.linea)
-        pre viaVacia: v.estaVacio()
+        pre mismoSentido: siguienteVia().sentido = self.sentido
+        pre mismaLinea: siguienteVia().lineas()->includes(self.linea)
+        pre viaVacia: siguienteVia().estaVacio()
         pre noAveriado: not self.averiado
         pre enEstacion: self.enEstacion()
-        pre estacionCorrespondeLinea: v.segmento.estacion->includes(self.estacion)
+        pre estacionCorrespondeLinea: siguienteVia().segmento.estacion->includes(self.estacion)
         post noEnEstacion: self.enMovimiento()
-        post viaOcupada: not v.estaVacio()
+        --post viaOcupada: not self@pre.siguienteVia().estaVacio()
     --Lo contrario que sale estacion.
-    llegaEstacion(e:Estacion) 
+    llegaEstacion() 
         begin
-            delete (self.via, self) from Cruzar;
-            insert (e, self) into Parada;
+            declare e:Estacion;
+            e:= siguienteEstacion();
+            e.llegaTren(self);
+            self.via.saleTren();
+            
+            if self.estacion = self.linea.cabezaDeLinea() or self.estacion = self.linea.finalDeLinea()
+            then
+                self.darLaVuelta();
+            end;
         end
         pre enVia: self.via->size() = 1
-        pre viaConectaEstacion: self.via.segmento.estacion->includes(e)
+        pre viaConectaEstacion: self.via.segmento.estacion->includes(siguienteEstacion())
         post enEstacion: self.enEstacion()
-        post viaLibre: self.via.estaVacio()
+        --post viaLibre: self@pre.siguienteVia().estaVacio()
     -- activar la averia del tren
     averia()
         begin
@@ -262,7 +284,7 @@ operations
         pre estaAveriado: self.averiado
         post noEstaAveriado: not self.averiado
     --cambiar sentido del tren una vez se llega a final de línea
-    darLaVuelta() 
+    darLaVuelta()
         begin
             if self.sentido = Sentido::Ascendente then
                 self.sentido := Sentido::Descendente
