@@ -6,3 +6,4 @@
 *.clt
 .vscode
 .idea
+.DS_Store
