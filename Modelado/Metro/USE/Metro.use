@@ -126,7 +126,7 @@ operations
         pre noPerteneceAOtraEstacion: t.estacion -> isEmpty()
         pre noPerteneceAOtraVia: t.via -> isEmpty()
         post perteneceALaEstacion: t.estacion -> notEmpty()
-        post: self.tren -> notEmpty()
+        post alMenosUnTrenEnEstacion: self.tren -> notEmpty()
     saleTren(t:Tren)
         begin
             delete(self,t) from Parada;
