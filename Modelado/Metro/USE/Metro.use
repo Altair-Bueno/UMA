@@ -24,6 +24,7 @@ operations
             end;
         end
         pre: ticks > 0
+        post: self.NOW@pre + ticks = self.NOW
 constraints
     inv OneClock:
         Reloj.allInstances() -> 
@@ -95,6 +96,8 @@ operations
         select(t | t.siguienteVia().estaVacio())
                                         
     estaVacio():Boolean = self.tren->isEmpty()
+    --Devuelve el numero de trenes que hay en la estacion
+    cantidadTrenes(): Integer = self.tren->size()
     tick() --Propaga un tick de tiempo a los segmentos y trenes parados
         begin
             for s in self.segmento do --Propaga un tick de reloj a los segmentos para que ellos los propaguen a los trenes que se encuentran en ellos.
@@ -246,12 +249,12 @@ operations
         end
         pre mismoSentido: siguienteVia().sentido = self.sentido
         pre mismaLinea: siguienteVia().lineas()->includes(self.linea)
-        pre viaVacia: siguienteVia().estaVacio()
+        pre viaVacia: self.siguienteVia().estaVacio()
         pre noAveriado: not self.averiado
         pre enEstacion: self.enEstacion()
         pre estacionCorrespondeLinea: siguienteVia().segmento.estacion->includes(self.estacion)
         post noEnEstacion: self.enMovimiento()
-        --post viaOcupada: not self@pre.siguienteVia().estaVacio()
+        post viaOcupada: not self.via.estaVacio()
     --Lo contrario que sale estacion.
     llegaEstacion() 
         begin
@@ -267,8 +270,8 @@ operations
         end
         pre enVia: self.via->size() = 1
         pre viaConectaEstacion: self.via.segmento.estacion->includes(siguienteEstacion())
-        post enEstacion: self.enEstacion()
-        --post viaLibre: self@pre.siguienteVia().estaVacio()
+        post enEstacionOcupada: self.enEstacion() and not self.estacion.estaVacio()
+        --post viaLibre: self@pre.via.estaVacio()
     -- activar la averia del tren
     averia()
         begin
@@ -301,7 +304,7 @@ psm Movimiento
     states
         s:initial
         enParada
-        enTransito[self.enMovimiento()]
+        enTransito [self.enMovimiento()]
     transitions
         s->enParada{create}
         enParada->enTransito {saleEstacion()}
@@ -314,9 +317,9 @@ psm AveriasTren
         disponible
         averiado
     transitions
-        s->disponible{create}
-        disponible->averiado{averia()}
-        averiado->disponible{reparaTren()}
+        s->disponible {create}
+        disponible->averiado {averia()}
+        averiado->disponible {reparaTren()}
     end
 end
 
