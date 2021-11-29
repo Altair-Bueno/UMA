@@ -175,7 +175,17 @@ reset
 !e6.adquirirTren(t6)
 
 
---Ejecucion 1: apartado D
+--Ejecucion 2: apartado E
 
-!clock.avanceRapido(12)
+!clock.avanceRapido(3)
+!t2.averia()
+!clock.avanceRapido(3)
+!t2.reparaTren()
+!clock.avanceRapido(2)
+!t5.averia()
+!clock.avanceRapido(4)
+!t5.reparaTren()
+!clock.avanceRapido(8)
+
+
 
