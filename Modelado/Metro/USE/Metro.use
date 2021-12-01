@@ -157,7 +157,7 @@ psm Estacion
     end
 end
 
-class Via --ALTAIR
+class Via
 attributes
     sentido:Sentido
     tiempoRecorrido:Integer init = 2 -- Dos minutos entre estaciones
@@ -209,7 +209,7 @@ psm Via
     end
 end
 
-class Tren --CARLOS
+class Tren
 attributes
     sentido:Sentido
     averiado:Boolean init = false
