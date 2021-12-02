@@ -224,7 +224,7 @@
     <ownedEnd xmi:type="uml:Property" xmi:id="_pxLI8k7rEeydieOBcwhM_w" name="via" type="_rZnNwE7oEeydieOBcwhM_w" association="_pxKh4E7rEeydieOBcwhM_w">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xl0xAE7rEeydieOBcwhM_w"/>
     </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_pxM-IE7rEeydieOBcwhM_w" name="tren" type="_D7kvAETVEeyVhulJTQONAQ" association="_pxKh4E7rEeydieOBcwhM_w">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_pxM-IE7rEeydieOBcwhM_w" name="tren" type="_pxKh4E7rEeydieOBcwhM_w" association="_pxKh4E7rEeydieOBcwhM_w">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yBGXwE7rEeydieOBcwhM_w"/>
     </ownedEnd>
   </packagedElement>
