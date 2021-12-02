@@ -1,3 +1,4 @@
 [submodule "Requisitos/Ebury-UMA"]
 	path = Requisitos/Ebury-UMA
 	url = https://github.com/Altair-Bueno/Ebury-UMA
+	branch = main
