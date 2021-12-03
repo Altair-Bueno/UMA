@@ -4,6 +4,22 @@
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
   </packageImport>
   <packagedElement xmi:type="uml:Class" xmi:id="_-WyQwETUEeyVhulJTQONAQ" name="Segmento">
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_W7LrgFLqEeytgMFcpS00aw" name="OneLine">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_W7M5oFLqEeytgMFcpS00aw" name="OneLine">
+        <language>OCL</language>
+        <body>Segmento.allInstances()-> 
+        select(x| self.estacion = x.estacion)->
+        select(x| self.linea = x.linea)->
+        size() = 1</body>
+      </specification>
+    </ownedRule>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_dDSSMFLqEeytgMFcpS00aw" name="DistintosSentidosDosVias">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_dDTgUFLqEeytgMFcpS00aw" name="constraintSpec">
+        <language>OCL</language>
+        <body>let seq = self.via->asSequence()
+        in seq->at(1).sentido &lt;> seq->at(2).sentido</body>
+      </specification>
+    </ownedRule>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_O8su8E7tEeydieOBcwhM_w" name="tick"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_DASLcETVEeyVhulJTQONAQ" name="Estacion" classifierBehavior="_EbWIsE7wEeydieOBcwhM_w">
@@ -61,6 +77,19 @@
     <ownedOperation xmi:type="uml:Operation" xmi:id="_DfoOsE7tEeydieOBcwhM_w" name="anterior"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_F2VLgETVEeyVhulJTQONAQ" name="Reloj" classifierBehavior="_ntzmME7vEeydieOBcwhM_w">
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_7imJwFLpEeytgMFcpS00aw" name="OneClock">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_7inX4FLpEeytgMFcpS00aw" name="OneClock">
+        <language>OCL</language>
+        <body>Reloj::allInstances()->size() = 1</body>
+      </specification>
+    </ownedRule>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_JLscsFLqEeytgMFcpS00aw" name="TimeNotFuture">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_JLtq0FLqEeytgMFcpS00aw" name="TimeNotFuture">
+        <language>OCL</language>
+        <body>Parada::allInstances()->forAll(p:Parada | p.llegada &lt;= self.NOW) and
+        Cruzar::allInstances()->forAll(c:Cruzar | c.llegada &lt;= self.NOW)</body>
+      </specification>
+    </ownedRule>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_x2VEEETYEeyVhulJTQONAQ" name="NOW">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
     </ownedAttribute>
@@ -72,7 +101,14 @@
         <subvertex xmi:type="uml:State" xmi:id="_r_sSIE7vEeydieOBcwhM_w" name="Tiempo"/>
       </region>
     </ownedBehavior>
-    <ownedOperation xmi:type="uml:Operation" xmi:id="_cf31gE7sEeydieOBcwhM_w" name="tick"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_cf31gE7sEeydieOBcwhM_w" name="tick">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="_E7Dt8FLqEeytgMFcpS00aw" name="ValidTime">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_E7E8EFLqEeytgMFcpS00aw" name="ValidTime">
+          <language>OCL</language>
+          <body>self.NOW &lt;> null</body>
+        </specification>
+      </ownedRule>
+    </ownedOperation>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_eGLE8E7sEeydieOBcwhM_w" name="avanceRapido"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_J2bucETWEeyVhulJTQONAQ" name="Salidas" memberEnd="_J2c8kUTWEeyVhulJTQONAQ _J2djoETWEeyVhulJTQONAQ">
@@ -113,6 +149,30 @@
     <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_jOvvoETYEeyVhulJTQONAQ" name="Descendente"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_rZnNwE7oEeydieOBcwhM_w" name="Via" visibility="public" classifierBehavior="_bwo0IE7wEeydieOBcwhM_w">
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_lUONoFLqEeytgMFcpS00aw" name="SentidoValido">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_lUO0sFLqEeytgMFcpS00aw" name="SentidoValido">
+        <language>OCL</language>
+        <body>sentido &lt;> null</body>
+      </specification>
+    </ownedRule>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_q73LkFLqEeytgMFcpS00aw" name="TiempoValido">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_q73yoFLqEeytgMFcpS00aw" name="TiempoValido">
+        <language>OCL</language>
+        <body>tiempoRecorrido >= 0</body>
+      </specification>
+    </ownedRule>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_vIoG8FLqEeytgMFcpS00aw" name="MismoSentido">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_vIouAFLqEeytgMFcpS00aw" name="MismoSentido">
+        <language>OCL</language>
+        <body>self.tren &lt;> null implies self.sentido = self.tren.sentido</body>
+      </specification>
+    </ownedRule>
+    <ownedRule xmi:type="uml:Constraint" xmi:id="_y2wlkFLqEeytgMFcpS00aw" name="MismaLinea">
+      <specification xmi:type="uml:OpaqueExpression" xmi:id="_y2xMoFLqEeytgMFcpS00aw" name="MismaLinea">
+        <language>OCL</language>
+        <body>self.tren &lt;>null implies self.lineas() -> includes(self.tren.linea)</body>
+      </specification>
+    </ownedRule>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_xqA00E7oEeydieOBcwhM_w" name="sentido" type="_dk-qwETYEeyVhulJTQONAQ"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_dB2okE7pEeydieOBcwhM_w" name="tiempoRecorrido">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -164,7 +224,7 @@
     <ownedEnd xmi:type="uml:Property" xmi:id="_pxLI8k7rEeydieOBcwhM_w" name="via" type="_rZnNwE7oEeydieOBcwhM_w" association="_pxKh4E7rEeydieOBcwhM_w">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xl0xAE7rEeydieOBcwhM_w"/>
     </ownedEnd>
-    <ownedEnd xmi:type="uml:Property" xmi:id="_pxM-IE7rEeydieOBcwhM_w" name="tren" type="_D7kvAETVEeyVhulJTQONAQ" association="_pxKh4E7rEeydieOBcwhM_w">
+    <ownedEnd xmi:type="uml:Property" xmi:id="_pxM-IE7rEeydieOBcwhM_w" name="tren" type="_pxKh4E7rEeydieOBcwhM_w" association="_pxKh4E7rEeydieOBcwhM_w">
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yBGXwE7rEeydieOBcwhM_w"/>
     </ownedEnd>
   </packagedElement>

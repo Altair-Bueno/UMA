@@ -9,12 +9,12 @@ reset
 !new Estacion('e6')
 !new Estacion('e8')
 
--- Línea
+-- Linea
 !new Linea('L1')
 !new Linea('L2')
 !new Linea('L3')
 
--- Segmentos y vías
+-- Segmentos y vias
 !new Segmento('s0')
 !new Via('s0_1')
 !new Via('s0_2')
@@ -106,7 +106,7 @@ reset
 !new Tren('t6')
 !t6.sentido:=Sentido::Descendente
 
--- Estaciones: Linea y estación
+-- Estaciones: Linea y Estacion
 !insert (L1,e4) into Estaciones
 !insert (L1,e1) into Estaciones
 !insert (L1,e2) into Estaciones
@@ -156,7 +156,7 @@ reset
 !insert (s8,e8) into Salidas
 !insert (s9,e8) into Salidas
 
--- Trenes: Tren y linea
+-- Trenes: Tren y Linea
 
 !insert (t1,L1) into Trenes
 !insert (t2,L1) into Trenes
@@ -165,7 +165,7 @@ reset
 !insert (t5,L3) into Trenes
 !insert (t6,L3) into Trenes
 
--- Parada: Estación y tren
+-- Parada: Estacion y Tren
 
 !e4.adquirirTren(t1)
 !e3.adquirirTren(t2)
