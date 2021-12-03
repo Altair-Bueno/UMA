@@ -150,8 +150,8 @@ psm Estacion
         vacio->ocupado {llegaTren()}
         vacio->ocupado {adquirirTren()}
         
-        ocupado->vacio {[self.cantidadTrenes = 1] saleTren()}
-        ocupado->ocupado {[self.cantidadTrenes > 1] saleTren()}
+        ocupado->vacio {[self.cantidadTrenes() = 1] saleTren()}
+        ocupado->ocupado {[self.cantidadTrenes() > 1] saleTren()}
         ocupado->ocupado {llegaTren()}
         ocupado->ocupado {adquirirTren()}
     end
@@ -296,11 +296,12 @@ operations
         pre enColaDeLinea: self.estacion.linea.cabezaDeLinea()->any(true) = self.estacion or
             self.estacion.linea.finalDeLinea()->any(true) = self.estacion 
         post cambiaSentido: self.sentido <> self.sentido@pre
+
 statemachines
 psm Movimiento
     states
         s:initial
-        enParada [self.enEstacion()]
+        enParada 
         enTransito [self.enMovimiento()]
     transitions
         s->enParada {create}
