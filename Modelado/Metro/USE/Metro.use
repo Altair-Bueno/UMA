@@ -181,7 +181,7 @@ operations
         pre mismoSentido: self.sentido = t.sentido
         pre mismaLinea: self.lineas() -> includes(t.linea)
         pre noAveriado: not t.averiado
-        post: not estaVacio()
+        post ocupada: not estaVacio()
     -- Se elimina el tren almacenado y se devuelve como resultado de la operación (pop)
     saleTren():Tren
         begin
