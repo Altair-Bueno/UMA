@@ -142,16 +142,16 @@ statemachines
 psm Estacion
     states
         s:initial
-        vacio[self.estaVacio()]
-        ocupado[not self.estaVacio()]
+        vacio [self.estaVacio()]
+        ocupado [not self.estaVacio()]
     transitions
-        s->vacio{create}
+        s->vacio {create}
         
         vacio->ocupado {llegaTren()}
         vacio->ocupado {adquirirTren()}
         
-        ocupado->vacio {saleTren()}
-        ocupado->ocupado {saleTren()}
+        ocupado->vacio {[self.cantidadTrenes = 1] saleTren()}
+        ocupado->ocupado {[self.cantidadTrenes > 1] saleTren()}
         ocupado->ocupado {llegaTren()}
         ocupado->ocupado {adquirirTren()}
     end
@@ -200,12 +200,12 @@ statemachines
 psm Via
     states
         s:initial
-        vacio[self.estaVacio()]
-        ocupado[not self.estaVacio() ] 
+        vacio [self.estaVacio()]
+        ocupado [not self.estaVacio()] 
     transitions
-        s->vacio{create} 
-        vacio->ocupado{llegaTren()}
-        ocupado->vacio{saleTren()}
+        s->vacio {create} 
+        vacio->ocupado {llegaTren()}
+        ocupado->vacio {saleTren()}
     end
 end
 
@@ -300,10 +300,10 @@ statemachines
 psm Movimiento
     states
         s:initial
-        enParada
+        enParada [self.enEstacion()]
         enTransito [self.enMovimiento()]
     transitions
-        s->enParada{create}
+        s->enParada {create}
         enParada->enTransito {saleEstacion()}
         enTransito->enParada {llegaEstacion()}
         enParada->enParada {darLaVuelta()}
@@ -311,8 +311,8 @@ psm Movimiento
 psm AveriasTren
     states
         s:initial
-        disponible
-        averiado
+        disponible [self.averiado = false]
+        averiado [self.averiado = true]
     transitions
         s->disponible {create}
         disponible->averiado {averia()}
