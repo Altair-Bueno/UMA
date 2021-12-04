@@ -352,6 +352,8 @@ between
 attributes
     -- El momento en el que llega a la estación
     llegada:Integer init = Reloj.allInstances() -> any(true).NOW
+constraints
+    inv llegadaAEstacionValida: llegada <> null
 end
 
 associationclass Cruzar
@@ -361,7 +363,7 @@ between
 attributes
     llegada:Integer init = Reloj.allInstances() -> any(true).NOW 
 constraints
-    inv llegadaValida: llegada <> null
+    inv llegadaAViaValida: llegada <> null
 end
 
 composition Vias 
