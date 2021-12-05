@@ -177,5 +177,5 @@ reset
 
 --Ejecucion 1: apartado D
 
---!clock.avanceRapido(12)
+!clock.avanceRapido(12)
 
