@@ -7,3 +7,6 @@
 .vscode
 .idea
 .DS_Store
+
+# Archivos de error Pandoc
+*.err
