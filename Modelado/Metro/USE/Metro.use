@@ -301,7 +301,7 @@ statemachines
 psm Movimiento
     states
         s:initial
-        enParada 
+        enParada [self.enEstacion()]
         enTransito [self.enMovimiento()]
     transitions
         s->enParada {create}
