@@ -28,12 +28,52 @@
     </ownedAttribute>
     <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_EbWIsE7wEeydieOBcwhM_w" name="Estacion">
       <region xmi:type="uml:Region" xmi:id="_FBzEsE7wEeydieOBcwhM_w" name="Region1">
-        <transition xmi:type="uml:Transition" xmi:id="_QjEvgE7wEeydieOBcwhM_w" source="_L9tt8E7wEeydieOBcwhM_w" target="_Gzx_sE7wEeydieOBcwhM_w"/>
-        <transition xmi:type="uml:Transition" xmi:id="_RWUKUE7wEeydieOBcwhM_w" source="_Gzx_sE7wEeydieOBcwhM_w" target="_ISq_kE7wEeydieOBcwhM_w"/>
-        <transition xmi:type="uml:Transition" xmi:id="_SMs_wE7wEeydieOBcwhM_w" source="_ISq_kE7wEeydieOBcwhM_w" target="_Gzx_sE7wEeydieOBcwhM_w"/>
-        <transition xmi:type="uml:Transition" xmi:id="_WGnQkE7wEeydieOBcwhM_w" source="_ISq_kE7wEeydieOBcwhM_w" target="_ISq_kE7wEeydieOBcwhM_w"/>
-        <subvertex xmi:type="uml:State" xmi:id="_Gzx_sE7wEeydieOBcwhM_w" name="Vacio"/>
-        <subvertex xmi:type="uml:State" xmi:id="_ISq_kE7wEeydieOBcwhM_w" name="Ocupado"/>
+        <transition xmi:type="uml:Transition" xmi:id="_QjEvgE7wEeydieOBcwhM_w" name="create" source="_L9tt8E7wEeydieOBcwhM_w" target="_Gzx_sE7wEeydieOBcwhM_w"/>
+        <transition xmi:type="uml:Transition" xmi:id="_RWUKUE7wEeydieOBcwhM_w" source="_Gzx_sE7wEeydieOBcwhM_w" target="_ISq_kE7wEeydieOBcwhM_w">
+          <trigger xmi:type="uml:Trigger" xmi:id="_X9P_kFUmEeyQMffr1HwEmw" event="_XrN0YFUmEeyQMffr1HwEmw"/>
+        </transition>
+        <transition xmi:type="uml:Transition" xmi:id="_SMs_wE7wEeydieOBcwhM_w" source="_ISq_kE7wEeydieOBcwhM_w" target="_Gzx_sE7wEeydieOBcwhM_w">
+          <trigger xmi:type="uml:Trigger" xmi:id="_wKx6kFUmEeyQMffr1HwEmw" event="_v60L8FUmEeyQMffr1HwEmw"/>
+        </transition>
+        <transition xmi:type="uml:Transition" xmi:id="_WGnQkE7wEeydieOBcwhM_w" guard="_9WhjIFUmEeyQMffr1HwEmw" source="_ISq_kE7wEeydieOBcwhM_w" target="_ISq_kE7wEeydieOBcwhM_w">
+          <ownedRule xmi:type="uml:Constraint" xmi:id="_9WhjIFUmEeyQMffr1HwEmw">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_9WhjIVUmEeyQMffr1HwEmw">
+              <language>OCL</language>
+              <body>self.cantidadTrenes()>1</body>
+            </specification>
+          </ownedRule>
+          <trigger xmi:type="uml:Trigger" xmi:id="_3B1R8FUmEeyQMffr1HwEmw" event="_EAsxkFUmEeyQMffr1HwEmw"/>
+        </transition>
+        <transition xmi:type="uml:Transition" xmi:id="_whMr8FUlEeyQMffr1HwEmw" guard="_Og9EQFUmEeyQMffr1HwEmw" source="_Gzx_sE7wEeydieOBcwhM_w" target="_ISq_kE7wEeydieOBcwhM_w">
+          <ownedRule xmi:type="uml:Constraint" xmi:id="_Og9EQFUmEeyQMffr1HwEmw">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_Og9EQVUmEeyQMffr1HwEmw">
+              <language>OCL</language>
+              <body>self.cantidadTrenes() = 1</body>
+            </specification>
+          </ownedRule>
+          <trigger xmi:type="uml:Trigger" xmi:id="_EVTIkFUmEeyQMffr1HwEmw" name="saleTren" event="_EAsxkFUmEeyQMffr1HwEmw"/>
+        </transition>
+        <transition xmi:type="uml:Transition" xmi:id="_GMIR4FUnEeyQMffr1HwEmw" source="_ISq_kE7wEeydieOBcwhM_w" target="_ISq_kE7wEeydieOBcwhM_w">
+          <trigger xmi:type="uml:Trigger" xmi:id="_Yr5_4FUnEeyQMffr1HwEmw" event="_v60L8FUmEeyQMffr1HwEmw"/>
+        </transition>
+        <transition xmi:type="uml:Transition" xmi:id="_LFJPQFUnEeyQMffr1HwEmw" source="_ISq_kE7wEeydieOBcwhM_w" target="_ISq_kE7wEeydieOBcwhM_w">
+          <trigger xmi:type="uml:Trigger" xmi:id="_SPKl8FUnEeyQMffr1HwEmw" event="_SDzDcFUnEeyQMffr1HwEmw"/>
+        </transition>
+        <subvertex xmi:type="uml:State" xmi:id="_Gzx_sE7wEeydieOBcwhM_w" name="Vacio" stateInvariant="_gKVLMFUlEeyQMffr1HwEmw">
+          <ownedRule xmi:type="uml:Constraint" xmi:id="_gKVLMFUlEeyQMffr1HwEmw" name="vacio">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_gKVLMVUlEeyQMffr1HwEmw" name="vacio">
+              <language>OCL</language>
+              <body>self.estaVacio()</body>
+            </specification>
+          </ownedRule>
+        </subvertex>
+        <subvertex xmi:type="uml:State" xmi:id="_ISq_kE7wEeydieOBcwhM_w" name="Ocupado" stateInvariant="_n1Kv8FUlEeyQMffr1HwEmw">
+          <ownedRule xmi:type="uml:Constraint" xmi:id="_n1Kv8FUlEeyQMffr1HwEmw" name="ocupado">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_n1Kv8VUlEeyQMffr1HwEmw" name="ocupado" body="">
+              <language>OCL</language>
+            </specification>
+          </ownedRule>
+        </subvertex>
         <subvertex xmi:type="uml:Pseudostate" xmi:id="_L9tt8E7wEeydieOBcwhM_w" name="s"/>
       </region>
     </ownedBehavior>
@@ -51,13 +91,54 @@
     </ownedAttribute>
     <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_pU4cQE7wEeydieOBcwhM_w" name="Movimiento">
       <region xmi:type="uml:Region" xmi:id="_p9pFYE7wEeydieOBcwhM_w" name="Region1">
-        <transition xmi:type="uml:Transition" xmi:id="_6pTxcE7wEeydieOBcwhM_w" source="_1_u-QE7wEeydieOBcwhM_w" target="_2sUXcE7wEeydieOBcwhM_w"/>
-        <transition xmi:type="uml:Transition" xmi:id="_79CqME7wEeydieOBcwhM_w" source="_2sUXcE7wEeydieOBcwhM_w" target="_3yf8YE7wEeydieOBcwhM_w"/>
-        <transition xmi:type="uml:Transition" xmi:id="_9dz5YE7wEeydieOBcwhM_w" source="_3yf8YE7wEeydieOBcwhM_w" target="_2sUXcE7wEeydieOBcwhM_w"/>
-        <transition xmi:type="uml:Transition" xmi:id="_Ad2i8E7xEeydieOBcwhM_w" source="_2sUXcE7wEeydieOBcwhM_w" target="_2sUXcE7wEeydieOBcwhM_w"/>
+        <transition xmi:type="uml:Transition" xmi:id="_6pTxcE7wEeydieOBcwhM_w" name="create" source="_1_u-QE7wEeydieOBcwhM_w" target="_2sUXcE7wEeydieOBcwhM_w"/>
+        <transition xmi:type="uml:Transition" xmi:id="_79CqME7wEeydieOBcwhM_w" source="_2sUXcE7wEeydieOBcwhM_w" target="_3yf8YE7wEeydieOBcwhM_w">
+          <trigger xmi:type="uml:Trigger" xmi:id="_tIGsYFUpEeyQMffr1HwEmw" event="_s5FY8FUpEeyQMffr1HwEmw"/>
+        </transition>
+        <transition xmi:type="uml:Transition" xmi:id="_9dz5YE7wEeydieOBcwhM_w" source="_3yf8YE7wEeydieOBcwhM_w" target="_2sUXcE7wEeydieOBcwhM_w">
+          <trigger xmi:type="uml:Trigger" xmi:id="_yOqWgFUpEeyQMffr1HwEmw" event="_x9-2MFUpEeyQMffr1HwEmw"/>
+        </transition>
+        <transition xmi:type="uml:Transition" xmi:id="_Ad2i8E7xEeydieOBcwhM_w" source="_2sUXcE7wEeydieOBcwhM_w" target="_2sUXcE7wEeydieOBcwhM_w">
+          <trigger xmi:type="uml:Trigger" xmi:id="_9v4-AFUpEeyQMffr1HwEmw" event="_9gOxYFUpEeyQMffr1HwEmw"/>
+        </transition>
         <subvertex xmi:type="uml:Pseudostate" xmi:id="_1_u-QE7wEeydieOBcwhM_w" name="s"/>
         <subvertex xmi:type="uml:State" xmi:id="_2sUXcE7wEeydieOBcwhM_w" name="enParada"/>
-        <subvertex xmi:type="uml:State" xmi:id="_3yf8YE7wEeydieOBcwhM_w" name="enTransito"/>
+        <subvertex xmi:type="uml:State" xmi:id="_3yf8YE7wEeydieOBcwhM_w" name="enTransito" stateInvariant="_lF3UQFUpEeyQMffr1HwEmw">
+          <ownedRule xmi:type="uml:Constraint" xmi:id="_lF3UQFUpEeyQMffr1HwEmw">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_lF3UQVUpEeyQMffr1HwEmw">
+              <language>OCL</language>
+              <body>self.enMovimiento()</body>
+            </specification>
+          </ownedRule>
+        </subvertex>
+      </region>
+    </ownedBehavior>
+    <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_cAnnAFUpEeyQMffr1HwEmw" name="AveriasTren">
+      <region xmi:type="uml:Region" xmi:id="_c4hfYFUpEeyQMffr1HwEmw" name="Region1">
+        <transition xmi:type="uml:Transition" xmi:id="_TJhOAFUqEeyQMffr1HwEmw" name="create" source="_R4ZkYFUqEeyQMffr1HwEmw" target="_PTwdYFUqEeyQMffr1HwEmw"/>
+        <transition xmi:type="uml:Transition" xmi:id="_VZ9moFUqEeyQMffr1HwEmw" source="_PTwdYFUqEeyQMffr1HwEmw" target="_Q46dUFUqEeyQMffr1HwEmw">
+          <trigger xmi:type="uml:Trigger" xmi:id="_ayB3gFUqEeyQMffr1HwEmw" event="_ahGfkFUqEeyQMffr1HwEmw"/>
+        </transition>
+        <transition xmi:type="uml:Transition" xmi:id="_cqWEAFUqEeyQMffr1HwEmw" source="_Q46dUFUqEeyQMffr1HwEmw" target="_PTwdYFUqEeyQMffr1HwEmw">
+          <trigger xmi:type="uml:Trigger" xmi:id="_iB1tIFUqEeyQMffr1HwEmw" event="_hwbNAFUqEeyQMffr1HwEmw"/>
+        </transition>
+        <subvertex xmi:type="uml:State" xmi:id="_PTwdYFUqEeyQMffr1HwEmw" name="disponible" stateInvariant="_DAk_EFUrEeyQMffr1HwEmw">
+          <ownedRule xmi:type="uml:Constraint" xmi:id="_DAk_EFUrEeyQMffr1HwEmw">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_DAk_EVUrEeyQMffr1HwEmw">
+              <language>OCL</language>
+              <body>not self.averiado</body>
+            </specification>
+          </ownedRule>
+        </subvertex>
+        <subvertex xmi:type="uml:State" xmi:id="_Q46dUFUqEeyQMffr1HwEmw" name="averiado" stateInvariant="_-cYbIFUqEeyQMffr1HwEmw">
+          <ownedRule xmi:type="uml:Constraint" xmi:id="_-cYbIFUqEeyQMffr1HwEmw">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_-cYbIVUqEeyQMffr1HwEmw">
+              <language>OCL</language>
+              <body>self.averiado</body>
+            </specification>
+          </ownedRule>
+        </subvertex>
+        <subvertex xmi:type="uml:Pseudostate" xmi:id="_R4ZkYFUqEeyQMffr1HwEmw" name="s"/>
       </region>
     </ownedBehavior>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_q-ha8E7tEeydieOBcwhM_w" name="enEstacion"/>
@@ -95,10 +176,25 @@
     </ownedAttribute>
     <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_ntzmME7vEeydieOBcwhM_w" name="Reloj">
       <region xmi:type="uml:Region" xmi:id="_oVR14E7vEeydieOBcwhM_w" name="Region1">
-        <transition xmi:type="uml:Transition" xmi:id="_uNrzsE7vEeydieOBcwhM_w" source="_qflKQE7vEeydieOBcwhM_w" target="_r_sSIE7vEeydieOBcwhM_w"/>
-        <transition xmi:type="uml:Transition" xmi:id="_1ETGME7vEeydieOBcwhM_w" source="_r_sSIE7vEeydieOBcwhM_w" target="_r_sSIE7vEeydieOBcwhM_w"/>
+        <transition xmi:type="uml:Transition" xmi:id="_uNrzsE7vEeydieOBcwhM_w" name="create" source="_qflKQE7vEeydieOBcwhM_w" target="_r_sSIE7vEeydieOBcwhM_w"/>
+        <transition xmi:type="uml:Transition" xmi:id="_1ETGME7vEeydieOBcwhM_w" source="_r_sSIE7vEeydieOBcwhM_w" target="_r_sSIE7vEeydieOBcwhM_w">
+          <ownedRule xmi:type="uml:Constraint" xmi:id="_6QcDUFUjEeyQMffr1HwEmw" name="tick">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_E4CUIFUkEeyQMffr1HwEmw" name="tick">
+              <language>OCL</language>
+              <body>self.NOW &lt;> null</body>
+            </specification>
+          </ownedRule>
+          <trigger xmi:type="uml:Trigger" xmi:id="_x3YGoFUjEeyQMffr1HwEmw" name="tick()" event="_oeJtcFUjEeyQMffr1HwEmw"/>
+        </transition>
         <subvertex xmi:type="uml:Pseudostate" xmi:id="_qflKQE7vEeydieOBcwhM_w" name="s"/>
-        <subvertex xmi:type="uml:State" xmi:id="_r_sSIE7vEeydieOBcwhM_w" name="Tiempo"/>
+        <subvertex xmi:type="uml:State" xmi:id="_r_sSIE7vEeydieOBcwhM_w" name="tiempo" stateInvariant="_YR3PkFUkEeyQMffr1HwEmw">
+          <ownedRule xmi:type="uml:Constraint" xmi:id="_YR3PkFUkEeyQMffr1HwEmw" name="tiempo">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_eX7O4FUkEeyQMffr1HwEmw" name="tiempo">
+              <language>OCL</language>
+              <body>self.NOW &lt;> null</body>
+            </specification>
+          </ownedRule>
+        </subvertex>
       </region>
     </ownedBehavior>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_cf31gE7sEeydieOBcwhM_w" name="tick">
@@ -179,18 +275,37 @@
     </ownedAttribute>
     <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_bwo0IE7wEeydieOBcwhM_w" name="Via">
       <region xmi:type="uml:Region" xmi:id="_cCiccE7wEeydieOBcwhM_w" name="Region1">
-        <transition xmi:type="uml:Transition" xmi:id="_gcPnoE7wEeydieOBcwhM_w" source="_c2jTUE7wEeydieOBcwhM_w" target="_dwPUYE7wEeydieOBcwhM_w"/>
-        <transition xmi:type="uml:Transition" xmi:id="_hDFlME7wEeydieOBcwhM_w" source="_dwPUYE7wEeydieOBcwhM_w" target="_fBpR4E7wEeydieOBcwhM_w"/>
-        <transition xmi:type="uml:Transition" xmi:id="_h65-AE7wEeydieOBcwhM_w" source="_fBpR4E7wEeydieOBcwhM_w" target="_dwPUYE7wEeydieOBcwhM_w"/>
+        <transition xmi:type="uml:Transition" xmi:id="_gcPnoE7wEeydieOBcwhM_w" name="create" source="_c2jTUE7wEeydieOBcwhM_w" target="_dwPUYE7wEeydieOBcwhM_w"/>
+        <transition xmi:type="uml:Transition" xmi:id="_hDFlME7wEeydieOBcwhM_w" source="_dwPUYE7wEeydieOBcwhM_w" target="_fBpR4E7wEeydieOBcwhM_w">
+          <trigger xmi:type="uml:Trigger" xmi:id="_jMyIMFUoEeyQMffr1HwEmw" event="_jBOYcFUoEeyQMffr1HwEmw"/>
+        </transition>
+        <transition xmi:type="uml:Transition" xmi:id="_h65-AE7wEeydieOBcwhM_w" source="_fBpR4E7wEeydieOBcwhM_w" target="_dwPUYE7wEeydieOBcwhM_w">
+          <trigger xmi:type="uml:Trigger" xmi:id="_AhYDoFUpEeyQMffr1HwEmw" event="_AW0ZcFUpEeyQMffr1HwEmw"/>
+        </transition>
         <subvertex xmi:type="uml:Pseudostate" xmi:id="_c2jTUE7wEeydieOBcwhM_w" name="s"/>
-        <subvertex xmi:type="uml:State" xmi:id="_dwPUYE7wEeydieOBcwhM_w" name="Vacio"/>
-        <subvertex xmi:type="uml:State" xmi:id="_fBpR4E7wEeydieOBcwhM_w" name="Ocupado"/>
+        <subvertex xmi:type="uml:State" xmi:id="_dwPUYE7wEeydieOBcwhM_w" name="Vacio" stateInvariant="_UrXtMFUoEeyQMffr1HwEmw">
+          <ownedRule xmi:type="uml:Constraint" xmi:id="_UrXtMFUoEeyQMffr1HwEmw">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_UrXtMVUoEeyQMffr1HwEmw">
+              <language>OCL</language>
+              <body>self.estaVacio()</body>
+            </specification>
+          </ownedRule>
+        </subvertex>
+        <subvertex xmi:type="uml:State" xmi:id="_fBpR4E7wEeydieOBcwhM_w" name="Ocupado" stateInvariant="_Z55nkFUoEeyQMffr1HwEmw">
+          <ownedRule xmi:type="uml:Constraint" xmi:id="_Z55nkFUoEeyQMffr1HwEmw">
+            <specification xmi:type="uml:OpaqueExpression" xmi:id="_Z55nkVUoEeyQMffr1HwEmw">
+              <language>OCL</language>
+              <body>not self.estaVacio()</body>
+            </specification>
+          </ownedRule>
+        </subvertex>
       </region>
     </ownedBehavior>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_iSZYUE7tEeydieOBcwhM_w" name="estaVacio"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_kXJeUE7tEeydieOBcwhM_w" name="lineas"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_mEJysE7tEeydieOBcwhM_w" name="proximaSalida"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_nQEzQE7tEeydieOBcwhM_w" name="llegaTren"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_wklPwFUoEeyQMffr1HwEmw" name="saleTren"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_yxVz0E7pEeydieOBcwhM_w" name="Estaciones" visibility="public" memberEnd="_yxYQEE7pEeydieOBcwhM_w _yxasUE7pEeydieOBcwhM_w">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_yxXpAE7pEeydieOBcwhM_w" source="org.eclipse.papyrus">
@@ -248,4 +363,16 @@
     </ownedEnd>
     <ownedEnd xmi:type="uml:Property" xmi:id="_F5cbME7sEeydieOBcwhM_w" name="segmento" type="_-WyQwETUEeyVhulJTQONAQ" association="_F5b0IE7sEeydieOBcwhM_w"/>
   </packagedElement>
+  <packagedElement xmi:type="uml:CallEvent" xmi:id="_oeJtcFUjEeyQMffr1HwEmw" name="tick" operation="_cf31gE7sEeydieOBcwhM_w"/>
+  <packagedElement xmi:type="uml:CallEvent" xmi:id="_EAsxkFUmEeyQMffr1HwEmw" name="saletren" operation="_aeeJAE7tEeydieOBcwhM_w"/>
+  <packagedElement xmi:type="uml:CallEvent" xmi:id="_XrN0YFUmEeyQMffr1HwEmw" operation="_ZHu_kE7tEeydieOBcwhM_w"/>
+  <packagedElement xmi:type="uml:CallEvent" xmi:id="_v60L8FUmEeyQMffr1HwEmw" operation="_XOdJwE7tEeydieOBcwhM_w"/>
+  <packagedElement xmi:type="uml:CallEvent" xmi:id="_SDzDcFUnEeyQMffr1HwEmw" operation="_ZHu_kE7tEeydieOBcwhM_w"/>
+  <packagedElement xmi:type="uml:CallEvent" xmi:id="_jBOYcFUoEeyQMffr1HwEmw" operation="_nQEzQE7tEeydieOBcwhM_w"/>
+  <packagedElement xmi:type="uml:CallEvent" xmi:id="_AW0ZcFUpEeyQMffr1HwEmw" operation="_wklPwFUoEeyQMffr1HwEmw"/>
+  <packagedElement xmi:type="uml:CallEvent" xmi:id="_s5FY8FUpEeyQMffr1HwEmw" operation="_xPzy0E7tEeydieOBcwhM_w"/>
+  <packagedElement xmi:type="uml:CallEvent" xmi:id="_x9-2MFUpEeyQMffr1HwEmw" operation="_y5bcAE7tEeydieOBcwhM_w"/>
+  <packagedElement xmi:type="uml:CallEvent" xmi:id="_9gOxYFUpEeyQMffr1HwEmw" operation="_3VWNsE7tEeydieOBcwhM_w"/>
+  <packagedElement xmi:type="uml:CallEvent" xmi:id="_ahGfkFUqEeyQMffr1HwEmw" operation="_0bz0wE7tEeydieOBcwhM_w"/>
+  <packagedElement xmi:type="uml:CallEvent" xmi:id="_hwbNAFUqEeyQMffr1HwEmw" operation="_18fkYE7tEeydieOBcwhM_w"/>
 </uml:Model>
