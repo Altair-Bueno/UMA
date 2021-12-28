@@ -10,11 +10,45 @@ public class Acceso {
     private TipoAcceso tipo;
 
     public static Acceso crearAcceso(Profesional p, Expediente e, TipoAcceso t){
-        //TODO
-        return null;
+        //Si un profesional ya ha accedido, se modifica, si nunca ha accedido, se crea.
+        if(p.getAcceso(e) != null){ //Si ya ha accedido alguna vez, se modifica
+            Acceso a = p.getAcceso(e);
+            a.fecha = new Date(System.currentTimeMillis());
+            a.tipo = t;
+            return a;
+        } else { //Si no, se crea y se añaden a la lista.
+            Acceso a = new Acceso(p,e,t);
+            p.getSetAccesos().add(a);
+            e.getSetAccesos().add(a);
+            return a;
+        }
     }
 
     private Acceso(Profesional p, Expediente e, TipoAcceso t){
-        //TODO
+        //Precondiciones
+        assert (p != null);
+        assert (e != null);
+        assert (t != null);
+
+        this.fecha = new Date(System.currentTimeMillis());
+        this.accesor = p;
+        this.expediente = e;
+        this.tipo = t;
+    }
+
+    public Expediente getExpediente() {
+        return expediente;
+    }
+
+    public Profesional getProfesional() {
+        return accesor;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public TipoAcceso getTipo() {
+        return tipo;
     }
 }

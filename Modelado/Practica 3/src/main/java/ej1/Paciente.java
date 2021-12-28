@@ -1,27 +1,44 @@
 package ej1;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Paciente {
     private Expediente expedienteAbierto;
-    private List<Expediente> expedientes;
+    private Set<Expediente> expedientes;
 
     Paciente(){
-        //TODO
+        expedientes = new HashSet<Expediente>();
     }
 
     public static Paciente crearPaciente(){
-        //TODO
-        return null;
+        Paciente p = new Paciente();
+        Expediente exp = p.crearExpediente();
+        return p;
     }
 
-    public static Expediente crearExpediente(){
-        //TODO
-        return null;
+    public Expediente crearExpediente(){
+        Expediente exp = new Expediente(this);
+        expedientes.add(exp);
+        expedienteAbierto = exp;
+        return exp;
     }
 
-    public List<Expediente> getExpedientes(){
-        //TODO
-        return null;
+    public Set<Expediente> getExpedientes(){
+        return expedientes;
     }
+
+    public Expediente getExpedienteAbierto(){
+
+        Iterator<Expediente> iter = expedientes.iterator();
+        Expediente exp = iter.next();
+        while(iter.hasNext()) {
+            exp = (Expediente) iter.next();
+            iter.next();
+        }
+        return exp;
+    }
+
+
 }

@@ -1,16 +1,25 @@
 package ej1;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Profesional {
-    private List<Acceso> acceso;
+    private Set<Acceso> acceso;
 
-    Boolean tieneAcceso(Expediente e){
-        //TODO
-        return false;
+    public Profesional(){
+        acceso = new HashSet<Acceso>();
     }
 
-    public List<Acceso> getAcceso() {
+    Acceso getAcceso(Expediente e){
+        for(Acceso a : acceso){
+            if(a.getExpediente().equals(e)){
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public Set<Acceso> getSetAccesos() {
         return acceso;
     }
 }

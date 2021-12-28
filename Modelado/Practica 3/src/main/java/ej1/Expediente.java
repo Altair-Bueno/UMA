@@ -1,23 +1,36 @@
 package ej1;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Expediente {
     private Paciente paciente;
-    private List<Acceso> acceso;
+    private Set<Acceso> acceso;
 
 
     Expediente(Paciente p){
+        assert(p != null);
+
+        acceso = new HashSet<Acceso>();
         this.paciente = p;
     }
 
-    Boolean tieneAcceso(Profesional p){
-        //TODO
-        return false;
+    Acceso getAcceso(Expediente e){
+        for(Acceso a : acceso){
+            if(a.getExpediente().equals(e)){
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public Set<Acceso> getSetAccesos(){
+        return acceso;
     }
 
     public Paciente getPaciente(){
         //TODO
         return null;
     }
+
 }
