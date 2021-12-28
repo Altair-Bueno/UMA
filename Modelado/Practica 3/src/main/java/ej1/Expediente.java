@@ -29,8 +29,7 @@ public class Expediente {
     }
 
     public Paciente getPaciente(){
-        //TODO
-        return null;
+        return paciente;
     }
 
 }
