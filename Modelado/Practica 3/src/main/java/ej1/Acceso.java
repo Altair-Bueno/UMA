@@ -9,21 +9,6 @@ public class Acceso {
     private Date fecha;
     private TipoAcceso tipo;
 
-    public static Acceso crearAcceso(Profesional p, Expediente e, TipoAcceso t){
-        //Si un profesional ya ha accedido, se modifica, si nunca ha accedido, se crea.
-        if(p.getAcceso(e) != null){ //Si ya ha accedido alguna vez, se modifica
-            Acceso a = p.getAcceso(e);
-            a.fecha = new Date(System.currentTimeMillis());
-            a.tipo = t;
-            return a;
-        } else { //Si no, se crea y se añaden a la lista.
-            Acceso a = new Acceso(p,e,t);
-            p.getSetAccesos().add(a);
-            e.getSetAccesos().add(a);
-            return a;
-        }
-    }
-
     private Acceso(Profesional p, Expediente e, TipoAcceso t){
         //Precondiciones
         assert (p != null);
@@ -50,5 +35,21 @@ public class Acceso {
 
     public TipoAcceso getTipo() {
         return tipo;
+    }
+
+    public static Acceso crearAcceso(Profesional p, Expediente e, TipoAcceso t){
+        //Si un profesional ya ha accedido, se modifica, si nunca ha accedido, se crea.
+        if(p.getAcceso(e) == null){
+            Acceso a = new Acceso(p,e,t);
+            p.addAcceso(a);
+            e.addAcceso(a);
+            return a;
+        } else {
+            //Si no, se crea y se añaden a la lista.
+            Acceso a = p.getAcceso(e);
+            a.fecha = new Date(System.currentTimeMillis());
+            a.tipo = t;
+            return a;
+        }
     }
 }

@@ -1,15 +1,13 @@
 package ej1;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class Paciente {
     private Expediente expedienteAbierto;
     private Set<Expediente> expedientes;
 
     Paciente(){
-        expedientes = new HashSet<Expediente>();
+        expedientes = new HashSet<>();
     }
 
     public static Paciente crearPaciente(){
@@ -25,20 +23,11 @@ public class Paciente {
         return exp;
     }
 
-    public Set<Expediente> getExpedientes(){
-        return expedientes;
+    public Enumeration<Expediente> getExpedientes(){
+        return Collections.enumeration(expedientes);
     }
 
     public Expediente getExpedienteAbierto(){
-
-        Iterator<Expediente> iter = expedientes.iterator();
-        Expediente exp = iter.next();
-        while(iter.hasNext()) {
-            exp = (Expediente) iter.next();
-            iter.next();
-        }
-        return exp;
+        return expedienteAbierto;
     }
-
-
 }

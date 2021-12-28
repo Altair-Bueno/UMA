@@ -1,5 +1,7 @@
 package ej1;
 
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +13,7 @@ public class Expediente {
     Expediente(Paciente p){
         assert(p != null);
 
-        acceso = new HashSet<Acceso>();
+        acceso = new HashSet<>();
         this.paciente = p;
     }
 
@@ -23,9 +25,12 @@ public class Expediente {
         }
         return null;
     }
+    void addAcceso(Acceso a) {
+        acceso.add(a);
+    }
 
-    public Set<Acceso> getSetAccesos(){
-        return acceso;
+    public Enumeration<Acceso> getAccesos(){
+        return Collections.enumeration(acceso);
     }
 
     public Paciente getPaciente(){
