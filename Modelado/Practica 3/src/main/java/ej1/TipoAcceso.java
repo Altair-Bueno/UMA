@@ -1,5 +1,8 @@
 package ej1;
 
 public enum TipoAcceso {
-    Consulta, Modificacion, Creacion, Archivo
+  CONSULTA,
+  MODIFICACION,
+  CREACION,
+  ARCHIVO
 }

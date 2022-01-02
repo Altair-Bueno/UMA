@@ -6,25 +6,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Profesional {
-    private Set<Acceso> acceso;
+  private final Set<Acceso> acceso;
 
-    public Profesional(){
-        acceso = new HashSet<>();
-    }
+  public Profesional() {
+    acceso = new HashSet<>();
+  }
 
-    Acceso getAcceso(Expediente e){
-        for(Acceso a : acceso){
-            if(a.getExpediente().equals(e)){
-                return a;
-            }
-        }
-        return null;
+  Acceso getAcceso(Expediente e) {
+    for (Acceso a : acceso) {
+      if (a.getExpediente().equals(e)) {
+        return a;
+      }
     }
-    void addAcceso(Acceso a) {
-        acceso.add(a);
-    }
+    return null;
+  }
 
-    public Enumeration<Acceso> getAccesos() {
-        return Collections.enumeration(acceso);
-    }
+  void addAcceso(Acceso a) {
+    acceso.add(a);
+  }
+
+  public Enumeration<Acceso> getAccesos() {
+    return Collections.enumeration(acceso);
+  }
 }
