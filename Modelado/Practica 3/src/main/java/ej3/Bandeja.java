@@ -9,12 +9,14 @@ public class Bandeja {
 
     public Bandeja(int cap){
         estado = new Vacio(); //Inicialmente la bandeja esta vacia.
-        listaPiezas = new PriorityQueue<>();
+        listaPiezas = new LinkedList<>();
         capacidad = cap;
     }
 
     public void put(Pieza pieza){
-        estado.put(pieza,this);
+        if(!listaPiezas.contains(pieza)){
+            estado.put(pieza,this);
+        }
         comprobarEstado();
     }
 
