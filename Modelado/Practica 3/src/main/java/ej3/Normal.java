@@ -8,8 +8,7 @@ public class Normal implements EstadoBandeja{
 
     @Override
     public Pieza get(Bandeja bandeja) {
-        Pieza p = bandeja.listaPiezas.first();
-        bandeja.listaPiezas.remove(p);
+        Pieza p = bandeja.listaPiezas.remove();
         return p;
     }
 }

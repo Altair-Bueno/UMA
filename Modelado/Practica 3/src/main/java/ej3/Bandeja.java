@@ -4,12 +4,12 @@ import java.util.*;
 
 public class Bandeja {
     int capacidad;
-    protected SortedSet<Pieza> listaPiezas;
+    protected Queue<Pieza> listaPiezas;
     EstadoBandeja estado;
 
     public Bandeja(int cap){
         estado = new Vacio(); //Inicialmente la bandeja esta vacia.
-        listaPiezas = new TreeSet<>();
+        listaPiezas = new PriorityQueue<>();
         capacidad = cap;
     }
 
