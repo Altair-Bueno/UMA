@@ -10,12 +10,6 @@ public class Paciente {
         expedientes = new HashSet<>();
     }
 
-    public static Paciente crearPaciente(){
-        Paciente p = new Paciente();
-        Expediente exp = p.crearExpediente();
-        return p;
-    }
-
     public Expediente crearExpediente(){
         Expediente exp = new Expediente(this);
         expedientes.add(exp);
@@ -29,5 +23,11 @@ public class Paciente {
 
     public Expediente getExpedienteAbierto(){
         return expedienteAbierto;
+    }
+
+    public static Paciente crearPaciente(){
+        Paciente p = new Paciente();
+        Expediente exp = p.crearExpediente();
+        return p;
     }
 }
