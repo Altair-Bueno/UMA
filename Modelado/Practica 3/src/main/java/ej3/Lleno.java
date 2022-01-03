@@ -1,8 +1,8 @@
 package ej3;
 
 public class Lleno implements EstadoBandeja{
-    @Override
-    public void put(Pieza pieza, Bandeja bandeja) throws IllegalActionException {
+  @Override
+  public void put(Pieza pieza, Bandeja bandeja) {
         throw new IllegalActionException("Bandeja llena");
     }
 
