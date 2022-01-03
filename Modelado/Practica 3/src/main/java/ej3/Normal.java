@@ -3,9 +3,8 @@ package ej3;
 public class Normal implements EstadoBandeja{
     @Override
     public void put(Pieza pieza, Bandeja bandeja) {
-        if(!bandeja.listaPiezas.contains(pieza)){
-            bandeja.listaPiezas.add(pieza);
-        }
+    // TODO assert pieza no está ya dentro
+    bandeja.listaPiezas.add(pieza);
         comprobarEstado(bandeja);
     }
 

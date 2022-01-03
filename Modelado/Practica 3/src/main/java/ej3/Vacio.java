@@ -3,7 +3,8 @@ package ej3;
 public class Vacio implements EstadoBandeja{
     @Override
     public void put(Pieza pieza, Bandeja bandeja) {
-        bandeja.listaPiezas.add(pieza);
+    // TODO assert pieza no está ya dentro
+    bandeja.listaPiezas.add(pieza);
         comprobarEstado(bandeja);
     }
 
