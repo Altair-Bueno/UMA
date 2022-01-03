@@ -8,22 +8,22 @@ public class Bandeja {
     protected Queue<Pieza> listaPiezas;
     EstadoBandeja estado;
 
-    public Bandeja(int cap){
-    // Inicialmente la bandeja esta vacia.
-    estado = new Vacio();
+    public Bandeja(int cap) {
+        // Inicialmente la bandeja esta vacia.
+        estado = new Vacio();
         listaPiezas = new LinkedList<>();
         capacidad = cap;
     }
 
     public void put(Pieza pieza) throws IllegalActionException {
-        estado.put(pieza,this);
+        estado.put(pieza, this);
     }
 
     public Pieza get() throws IllegalActionException {
         return estado.get(this);
     }
 
-    public int size(){
+    public int size() {
         return capacidad;
     }
 }
