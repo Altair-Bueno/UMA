@@ -1,7 +1,7 @@
 package ej3;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalActionException {
         Bandeja b1 = new Bandeja(5);
         Pieza p1 = new Pieza();
         Pieza p2 = new Pieza();
