@@ -13,26 +13,15 @@ public class Bandeja {
         capacidad = cap;
     }
 
-    public void put(Pieza pieza){
-        if(!listaPiezas.contains(pieza)){
-            estado.put(pieza,this);
-        }
-        comprobarEstado();
+    public void put(Pieza pieza) throws IllegalActionException {
+        estado.put(pieza,this);
     }
 
-    public Pieza get(){
-        Pieza p = estado.get(this);
-        comprobarEstado();
-        return p;
+    public Pieza get() throws IllegalActionException {
+        return estado.get(this);
     }
 
     public int size(){
         return capacidad;
-    }
-
-    private void comprobarEstado(){
-        if(listaPiezas.isEmpty()) estado = new Vacio();
-        else if(listaPiezas.size() == capacidad) estado = new Lleno();
-        else estado = new Normal();
     }
 }
