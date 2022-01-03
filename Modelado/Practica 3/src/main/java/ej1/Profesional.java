@@ -22,7 +22,15 @@ public class Profesional {
   }
 
   void addAcceso(Acceso a) {
+    assert(a!=null);
+    assert(!acceso.contains(a));
+
+    int sizepre = acceso.size();
+
     acceso.add(a);
+
+    assert(acceso.size() == sizepre + 1);
+    assert(acceso.contains(a));
   }
 
   public Enumeration<Acceso> getAccesos() {
