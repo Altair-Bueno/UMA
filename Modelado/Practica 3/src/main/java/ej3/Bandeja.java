@@ -1,6 +1,7 @@
 package ej3;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Bandeja {
     int capacidad;
@@ -8,7 +9,8 @@ public class Bandeja {
     EstadoBandeja estado;
 
     public Bandeja(int cap){
-        estado = new Vacio(); //Inicialmente la bandeja esta vacia.
+    // Inicialmente la bandeja esta vacia.
+    estado = new Vacio();
         listaPiezas = new LinkedList<>();
         capacidad = cap;
     }
