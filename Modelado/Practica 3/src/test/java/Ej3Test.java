@@ -1,8 +1,8 @@
 import ej3.*;
 
 public class Ej3Test {
-    @org.junit.Test
-    public void test3() throws IllegalActionException {
+    @org.junit.Test(expected = AssertionError.class)
+    public void test3() {
         Bandeja b1 = new Bandeja(3);
         Bandeja b2 = new Bandeja(1);
 
@@ -11,7 +11,7 @@ public class Ej3Test {
         Pieza p3 = new Pieza();
 
         b1.put(p1);
-        b1.put(p2);
+        b1.put(p1);
         b1.put(p3);
         b1.get();
         b1.get();
