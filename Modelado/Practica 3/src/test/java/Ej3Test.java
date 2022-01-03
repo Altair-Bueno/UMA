@@ -1,7 +1,7 @@
 import ej3.*;
 public class Ej3Test {
     @org.junit.Test
-    public void test3(){
+    public void test3() throws IllegalActionException {
         Bandeja b1 = new Bandeja(3);
         Bandeja b2 = new Bandeja(1);
 
