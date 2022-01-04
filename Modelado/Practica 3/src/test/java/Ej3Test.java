@@ -17,22 +17,22 @@ public class Ej3Test {
 
   @org.junit.Test(expected = AssertionError.class)
   public void piezaEnBandeja() {
-        Bandeja b1 = new Bandeja(3);
-        Bandeja b2 = new Bandeja(1);
+    Bandeja b1 = new Bandeja(3);
+    Bandeja b2 = new Bandeja(1);
 
-        Pieza p1 = new Pieza();
-        Pieza p2 = new Pieza();
+    Pieza p1 = new Pieza();
+    Pieza p2 = new Pieza();
 
-        b1.put(p1);
-        b1.put(p1);
+    b1.put(p1);
+    b1.put(p1);
     b1.put(p2);
-        b1.get();
-        b1.get();
-        b1.get();
+    b1.get();
+    b1.get();
+    b1.get();
 
-        b2.put(p1);
-        b2.get();
-    }
+    b2.put(p1);
+    b2.get();
+  }
 
   @org.junit.Test(expected = IllegalStateException.class)
   public void bandejaVacia() {

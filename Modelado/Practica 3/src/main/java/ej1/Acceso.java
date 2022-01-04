@@ -36,7 +36,9 @@ public class Acceso {
       int cont = 0;
       for (Iterator<Acceso> it = profesional.getAccesos().asIterator(); it.hasNext(); ) {
         Acceso a1 = it.next();
-        if(a1.equals(a)){cont++;}
+        if (a1.equals(a)) {
+          cont++;
+        }
       }
       assert (cont == 1);
 
@@ -44,7 +46,9 @@ public class Acceso {
       cont = 0;
       for (Iterator<Acceso> it = expediente.getAccesos().asIterator(); it.hasNext(); ) {
         Acceso a1 = it.next();
-        if(a1.equals(a)){cont++;}
+        if (a1.equals(a)) {
+          cont++;
+        }
       }
       assert (cont == 1);
 
@@ -56,8 +60,6 @@ public class Acceso {
       a.tipo = tipoAcceso;
       return a;
     }
-
-
   }
 
   public Expediente getExpediente() {
