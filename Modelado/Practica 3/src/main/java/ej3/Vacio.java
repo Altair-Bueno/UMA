@@ -3,6 +3,9 @@ package ej3;
 public class Vacio implements EstadoBandeja {
     @Override
     public void put(Pieza pieza, Bandeja bandeja) {
+    assert pieza != null;
+    assert bandeja != null;
+    assert bandeja.listaPiezas.size() == 0;
         assert (!bandeja.listaPiezas.contains(pieza));
 
         bandeja.listaPiezas.add(pieza);
@@ -10,6 +13,7 @@ public class Vacio implements EstadoBandeja {
         else bandeja.estado = new Normal();
 
         assert (bandeja.listaPiezas.contains(pieza));
+    assert bandeja.listaPiezas.size() == 1;
     }
 
     @Override

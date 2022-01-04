@@ -9,6 +9,7 @@ public class Bandeja {
     EstadoBandeja estado;
 
     public Bandeja(int cap) {
+    assert cap > 0;
         // Inicialmente la bandeja esta vacia.
         estado = new Vacio();
         listaPiezas = new LinkedList<>();
