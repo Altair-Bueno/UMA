@@ -16,9 +16,9 @@ public class Expediente {
     this.paciente = paciente;
   }
 
-  Acceso getAcceso(Expediente expediente) {
+  Acceso getAcceso(Profesional profesional) {
     for (Acceso a : acceso) {
-      if (a.getExpediente().equals(expediente)) {
+      if (a.getProfesional().equals(profesional)) {
         return a;
       }
     }
