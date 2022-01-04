@@ -4,10 +4,23 @@ import org.junit.Test;
 public class Ej1Test {
 
   @Test
-  public void testExpAbierto() {
+  public void expedienteAbierto() {
     Paciente pac1 = Paciente.crearPaciente();
     Expediente x = pac1.getExpedienteAbierto();
     assert x == null;
+  }
+
+  @Test
+  public void cerrarExpedienteAbierto() {
+    var paciente = Paciente.crearPaciente();
+    var expediente = paciente.getExpedientes().nextElement();
+    paciente.setExpedienteAbierto(expediente);
+
+    assert paciente.getExpedienteAbierto().equals(expediente);
+
+    paciente.setExpedienteAbierto(null);
+
+    assert paciente.getExpedienteAbierto() == null;
   }
 
   @Test(expected = AssertionError.class)
