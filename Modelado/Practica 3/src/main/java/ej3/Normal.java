@@ -24,12 +24,12 @@ public class Normal implements EstadoBandeja {
     assert bandeja.listaPiezas.size() > 0;
 
     var sizePre = bandeja.listaPiezas.size();
-    Pieza p = bandeja.listaPiezas.remove();
+    Pieza pieza = bandeja.listaPiezas.remove();
     if (bandeja.listaPiezas.isEmpty()) bandeja.estado = new Vacio();
 
-    assert (!bandeja.listaPiezas.contains(p));
+    assert (!bandeja.listaPiezas.contains(pieza));
     assert sizePre == bandeja.listaPiezas.size() + 1;
 
-    return p;
+    return pieza;
   }
 }

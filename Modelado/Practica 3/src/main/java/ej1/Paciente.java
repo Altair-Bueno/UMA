@@ -14,16 +14,16 @@ public class Paciente {
   }
 
   public static Paciente crearPaciente() {
-    Paciente p = new Paciente();
-    Expediente exp = p.crearExpediente();
-    return p;
+    Paciente paciente = new Paciente();
+    Expediente expediente = paciente.crearExpediente();
+    return paciente;
   }
 
   public Expediente crearExpediente() {
-    Expediente exp = new Expediente(this);
-    expedientes.add(exp);
-    expedienteAbierto = exp;
-    return exp;
+    Expediente expediente = new Expediente(this);
+    expedientes.add(expediente);
+    expedienteAbierto = expediente;
+    return expediente;
   }
 
   public Enumeration<Expediente> getExpedientes() {

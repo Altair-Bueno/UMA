@@ -11,11 +11,11 @@ public class Lleno implements EstadoBandeja {
     assert bandeja != null;
     assert bandeja.listaPiezas.size() == bandeja.capacidad;
 
-    Pieza p = bandeja.listaPiezas.remove();
+    Pieza pieza = bandeja.listaPiezas.remove();
     bandeja.estado = bandeja.listaPiezas.isEmpty() ? new Vacio() : new Normal();
 
-    assert (!bandeja.listaPiezas.contains(p));
+    assert (!bandeja.listaPiezas.contains(pieza));
     assert bandeja.listaPiezas.size() == bandeja.capacidad - 1;
-    return p;
+    return pieza;
   }
 }

@@ -8,8 +8,10 @@ public abstract class Trabajador {
 
     //Constructor
     public Trabajador(String nombre, String numeroSeguridadSocial, double salario){
-        assert nombre != null && !nombre.equals("");
+    assert nombre != null;
+    assert !nombre.equals("");
         assert numeroSeguridadSocial != null;
+    assert !numeroSeguridadSocial.equals("");
         assert salario >= 0;
 
         this.nombre=nombre;
@@ -31,12 +33,14 @@ public abstract class Trabajador {
     }
 
     public void setNombre(String nombre) {
-        assert nombre != null && !nombre.equals("");
+    assert nombre != null;
+    assert !nombre.equals("");
         this.nombre = nombre;
     }
 
     public void setNumeroSeguridadSocial(String numeroSeguridadSocial) {
         assert numeroSeguridadSocial != null;
+    assert !numeroSeguridadSocial.equals("");
         this.numeroSeguridadSocial = numeroSeguridadSocial;
     }
 

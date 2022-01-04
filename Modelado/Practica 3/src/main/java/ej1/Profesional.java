@@ -12,25 +12,25 @@ public class Profesional {
     acceso = new HashSet<>();
   }
 
-  Acceso getAcceso(Expediente e) {
+  Acceso getAcceso(Expediente expediente) {
     for (Acceso a : acceso) {
-      if (a.getExpediente().equals(e)) {
+      if (a.getExpediente().equals(expediente)) {
         return a;
       }
     }
     return null;
   }
 
-  void addAcceso(Acceso a) {
-    assert(a!=null);
-    assert(!acceso.contains(a));
+  void addAcceso(Acceso acceso) {
+    assert (acceso != null);
+    assert (!this.acceso.contains(acceso));
 
-    int sizepre = acceso.size();
+    int sizePre = this.acceso.size();
 
-    acceso.add(a);
+    this.acceso.add(acceso);
 
-    assert(acceso.size() == sizepre + 1);
-    assert(acceso.contains(a));
+    assert (this.acceso.size() == sizePre + 1);
+    assert (this.acceso.contains(acceso));
   }
 
   public Enumeration<Acceso> getAccesos() {

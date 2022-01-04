@@ -1,8 +1,8 @@
 package ej2;
 
 public class Activo extends Trabajador {
-    //Constructor
-    public Activo(String nombre, String numeroSeguridadSocial, Double salario) {
+  // Constructor
+  public Activo(String nombre, String numeroSeguridadSocial, double salario) {
         super(nombre,numeroSeguridadSocial,salario);
     }
 
