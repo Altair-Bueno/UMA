@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Bandeja {
-  protected Queue<Pieza> listaPiezas;
+  Queue<Pieza> listaPiezas;
   int capacidad;
   EstadoBandeja estado;
 
@@ -16,11 +16,11 @@ public class Bandeja {
     this.capacidad = capacidad;
   }
 
-  public void put(Pieza pieza) throws IllegalActionException {
+  public void put(Pieza pieza) {
     estado.put(pieza, this);
   }
 
-  public Pieza get() throws IllegalActionException {
+  public Pieza get() {
     return estado.get(this);
   }
 

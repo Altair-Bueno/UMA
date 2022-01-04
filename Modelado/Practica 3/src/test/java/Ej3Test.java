@@ -1,9 +1,8 @@
 import ej3.Bandeja;
-import ej3.IllegalActionException;
 import ej3.Pieza;
 
 public class Ej3Test {
-  @org.junit.Test(expected = IllegalActionException.class)
+  @org.junit.Test(expected = IllegalStateException.class)
   public void bandejaLlena() {
     var b1 = new Bandeja(2);
     b1.put(new Pieza());
@@ -35,7 +34,7 @@ public class Ej3Test {
         b2.get();
     }
 
-  @org.junit.Test(expected = IllegalActionException.class)
+  @org.junit.Test(expected = IllegalStateException.class)
   public void bandejaVacia() {
     var b1 = new Bandeja(1);
     b1.get();

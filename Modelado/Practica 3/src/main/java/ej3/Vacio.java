@@ -17,6 +17,6 @@ public class Vacio implements EstadoBandeja {
 
   @Override
   public Pieza get(Bandeja bandeja) {
-    throw new IllegalActionException("Bandeja vacia.");
+    throw new IllegalStateException("Bandeja vacia.");
   }
 }
