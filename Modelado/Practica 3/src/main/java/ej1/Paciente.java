@@ -22,7 +22,6 @@ public class Paciente {
   public Expediente crearExpediente() {
     Expediente expediente = new Expediente(this);
     expedientes.add(expediente);
-    expedienteAbierto = expediente;
     return expediente;
   }
 
@@ -32,5 +31,9 @@ public class Paciente {
 
   public Expediente getExpedienteAbierto() {
     return expedienteAbierto;
+  }
+
+  public void setExpedienteAbierto(Expediente expediente) {
+    this.expedienteAbierto = expediente;
   }
 }
