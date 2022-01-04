@@ -6,7 +6,6 @@ public class Vacio implements EstadoBandeja {
     assert pieza != null;
     assert bandeja != null;
     assert bandeja.listaPiezas.size() == 0;
-    assert (!bandeja.listaPiezas.contains(pieza));
 
     bandeja.listaPiezas.add(pieza);
     if (bandeja.listaPiezas.size() == bandeja.capacidad) bandeja.estado = new Lleno();

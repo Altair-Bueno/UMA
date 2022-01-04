@@ -8,12 +8,12 @@ public class Bandeja {
   int capacidad;
   EstadoBandeja estado;
 
-  public Bandeja(int cap) {
-    assert cap > 0;
+  public Bandeja(int capacidad) {
+    assert capacidad > 0;
     // Inicialmente la bandeja esta vacia.
     estado = new Vacio();
     listaPiezas = new LinkedList<>();
-    capacidad = cap;
+    this.capacidad = capacidad;
   }
 
   public void put(Pieza pieza) throws IllegalActionException {
@@ -25,6 +25,6 @@ public class Bandeja {
   }
 
   public int size() {
-    return capacidad;
+    return listaPiezas.size();
   }
 }
