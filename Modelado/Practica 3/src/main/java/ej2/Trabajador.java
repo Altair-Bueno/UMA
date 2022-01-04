@@ -1,8 +1,8 @@
 package ej2;
 
 public abstract class Trabajador {
-  protected double salario;
   // Attributes
+  protected double salario;
   private String nombre;
   private String numeroSeguridadSocial;
 
