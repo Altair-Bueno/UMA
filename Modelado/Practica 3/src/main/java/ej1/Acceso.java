@@ -4,37 +4,38 @@ import java.util.Date;
 
 public class Acceso {
   private final Expediente expediente;
-  private final Profesional accesor;
+  private final Profesional profesional;
 
   private Date fecha;
   private TipoAcceso tipo;
 
-  private Acceso(Profesional p, Expediente e, TipoAcceso t) {
-    // Precondiciones
-    assert (p != null);
-    assert (e != null);
-    assert (t != null);
-
+  private Acceso(Profesional profesional, Expediente expediente, TipoAcceso tipoAcceso) {
     this.fecha = new Date(System.currentTimeMillis());
-    this.accesor = p;
-    this.expediente = e;
-    this.tipo = t;
+    this.profesional = profesional;
+    this.expediente = expediente;
+    this.tipo = tipoAcceso;
   }
 
-  public static Acceso crearAcceso(Profesional p, Expediente e, TipoAcceso t) {
-    // Si un profesional ya ha accedido, se modifica, si nunca ha accedido, se crea.
-    if (p.getAcceso(e) == null) {
-      Acceso a = new Acceso(p, e, t);
-      p.addAcceso(a);
-      e.addAcceso(a);
-      return a;
+  public static Acceso crearAcceso(
+      Profesional profesional, Expediente expediente, TipoAcceso tipoAcceso) {
+    assert (profesional != null);
+    assert (expediente != null);
+    assert (tipoAcceso != null);
+
+    Acceso acceso;
+    if (profesional.getAcceso(expediente) == null) {
+      acceso = new Acceso(profesional, expediente, tipoAcceso);
+      profesional.addAcceso(acceso);
+      expediente.addAcceso(acceso);
     } else {
-      // Si no, se crea y se añaden a la lista.
-      Acceso a = p.getAcceso(e);
-      a.fecha = new Date(System.currentTimeMillis());
-      a.tipo = t;
-      return a;
+      acceso = profesional.getAcceso(expediente);
+      acceso.fecha = new Date(System.currentTimeMillis());
+      acceso.tipo = tipoAcceso;
     }
+
+    assert profesional.getAcceso(expediente) != null;
+    assert expediente.getAcceso(profesional) != null;
+    return acceso;
   }
 
   public Expediente getExpediente() {
@@ -42,7 +43,7 @@ public class Acceso {
   }
 
   public Profesional getProfesional() {
-    return accesor;
+    return profesional;
   }
 
   public Date getFecha() {

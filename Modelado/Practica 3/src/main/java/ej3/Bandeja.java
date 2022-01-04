@@ -1,38 +1,30 @@
 package ej3;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Bandeja {
-    int capacidad;
-    protected Queue<Pieza> listaPiezas;
-    EstadoBandeja estado;
+  Queue<Pieza> pieza;
+  int capacidad;
+  EstadoBandeja estado;
 
-    public Bandeja(int cap){
-        estado = new Vacio(); //Inicialmente la bandeja esta vacia.
-        listaPiezas = new LinkedList<>();
-        capacidad = cap;
-    }
+  public Bandeja(int capacidad) {
+    assert capacidad > 0;
+    // Inicialmente la bandeja esta vacia.
+    estado = new Vacio();
+    pieza = new LinkedList<>();
+    this.capacidad = capacidad;
+  }
 
-    public void put(Pieza pieza){
-        if(!listaPiezas.contains(pieza)){
-            estado.put(pieza,this);
-        }
-        comprobarEstado();
-    }
+  public void put(Pieza pieza) {
+    estado.put(pieza, this);
+  }
 
-    public Pieza get(){
-        Pieza p = estado.get(this);
-        comprobarEstado();
-        return p;
-    }
+  public Pieza get() {
+    return estado.get(this);
+  }
 
-    public int size(){
-        return capacidad;
-    }
-
-    private void comprobarEstado(){
-        if(listaPiezas.isEmpty()) estado = new Vacio();
-        else if(listaPiezas.size() == capacidad) estado = new Lleno();
-        else estado = new Normal();
-    }
+  public int size() {
+    return pieza.size();
+  }
 }

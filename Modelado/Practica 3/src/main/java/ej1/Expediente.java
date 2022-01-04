@@ -9,24 +9,24 @@ public class Expediente {
   private final Paciente paciente;
   private final Set<Acceso> acceso;
 
-  Expediente(Paciente p) {
-    assert (p != null);
+  Expediente(Paciente paciente) {
+    assert (paciente != null);
 
     acceso = new HashSet<>();
-    this.paciente = p;
+    this.paciente = paciente;
   }
 
-  Acceso getAcceso(Expediente e) {
+  Acceso getAcceso(Profesional profesional) {
     for (Acceso a : acceso) {
-      if (a.getExpediente().equals(e)) {
+      if (a.getProfesional().equals(profesional)) {
         return a;
       }
     }
     return null;
   }
 
-  void addAcceso(Acceso a) {
-    acceso.add(a);
+  void addAcceso(Acceso acceso) {
+    this.acceso.add(acceso);
   }
 
   public Enumeration<Acceso> getAccesos() {
