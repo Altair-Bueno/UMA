@@ -34,6 +34,7 @@ public class Paciente {
   }
 
   public void setExpedienteAbierto(Expediente expediente) {
+    assert expediente == null || expediente.getPaciente().equals(this);
     this.expedienteAbierto = expediente;
   }
 }

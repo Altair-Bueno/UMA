@@ -1,27 +1,21 @@
 import ej1.*;
 import org.junit.Test;
 
-import java.util.Iterator;
-
 public class Ej1Test {
 
   @Test
-  public void testExpAbiertoEnExps() {
-    // El expediente que se crea con el
-    // paciente tiene que estar en la lista
-    // de expedientes del paciente.
-
+  public void testExpAbierto() {
     Paciente pac1 = Paciente.crearPaciente();
     Expediente x = pac1.getExpedienteAbierto();
-    int cont = 0;
-    for (Iterator<Expediente> it = pac1.getExpedientes().asIterator(); it.hasNext(); ) {
-      Expediente e = it.next();
-      if (e.equals(x)) {
-        cont++;
-      }
-    }
+    assert x == null;
+  }
 
-    assert cont == 1;
+  @Test(expected = AssertionError.class)
+  public void expedienteAbiertoDistintoPaciente() {
+    var paciente1 = Paciente.crearPaciente();
+    var expediente = paciente1.getExpedientes().nextElement();
+    var paciente2 = Paciente.crearPaciente();
+    paciente2.setExpedienteAbierto(expediente);
   }
 
   @Test
@@ -29,9 +23,9 @@ public class Ej1Test {
     Profesional p1 = new Profesional();
     Profesional p2 = new Profesional();
     Paciente pac1 = Paciente.crearPaciente();
-    Paciente pac2 = Paciente.crearPaciente();
-    Acceso ac1 = Acceso.crearAcceso(p1, pac1.getExpedienteAbierto(), TipoAcceso.CREACION);
-    Acceso ac2 = Acceso.crearAcceso(p2, pac1.getExpedienteAbierto(), TipoAcceso.MODIFICACION);
-    Acceso ac3 = Acceso.crearAcceso(p1, pac1.getExpedienteAbierto(), TipoAcceso.MODIFICACION);
+    var expediente = pac1.getExpedientes().nextElement();
+    Acceso.crearAcceso(p1, expediente, TipoAcceso.CREACION);
+    Acceso.crearAcceso(p2, expediente, TipoAcceso.MODIFICACION);
+    Acceso.crearAcceso(p1, expediente, TipoAcceso.MODIFICACION);
   }
 }
