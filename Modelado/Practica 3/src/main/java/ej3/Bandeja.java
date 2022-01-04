@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Bandeja {
-  Queue<Pieza> listaPiezas;
+  Queue<Pieza> pieza;
   int capacidad;
   EstadoBandeja estado;
 
@@ -12,7 +12,7 @@ public class Bandeja {
     assert capacidad > 0;
     // Inicialmente la bandeja esta vacia.
     estado = new Vacio();
-    listaPiezas = new LinkedList<>();
+    pieza = new LinkedList<>();
     this.capacidad = capacidad;
   }
 
@@ -25,6 +25,6 @@ public class Bandeja {
   }
 
   public int size() {
-    return listaPiezas.size();
+    return pieza.size();
   }
 }

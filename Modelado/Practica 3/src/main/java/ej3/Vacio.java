@@ -1,18 +1,18 @@
 package ej3;
 
-public class Vacio implements EstadoBandeja {
+class Vacio implements EstadoBandeja {
   @Override
   public void put(Pieza pieza, Bandeja bandeja) {
     assert pieza != null;
     assert bandeja != null;
-    assert bandeja.listaPiezas.size() == 0;
+    assert bandeja.pieza.size() == 0;
 
-    bandeja.listaPiezas.add(pieza);
-    if (bandeja.listaPiezas.size() == bandeja.capacidad) bandeja.estado = new Lleno();
+    bandeja.pieza.add(pieza);
+    if (bandeja.pieza.size() == bandeja.capacidad) bandeja.estado = new Lleno();
     else bandeja.estado = new Normal();
 
-    assert (bandeja.listaPiezas.contains(pieza));
-    assert bandeja.listaPiezas.size() == 1;
+    assert (bandeja.pieza.contains(pieza));
+    assert bandeja.pieza.size() == 1;
   }
 
   @Override
