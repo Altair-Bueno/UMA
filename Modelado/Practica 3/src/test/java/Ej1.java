@@ -1,7 +1,7 @@
 import ej1.*;
 import org.junit.Test;
 
-public class Ej1Test {
+public class Ej1 {
 
   @Test
   public void expedienteAbierto() {

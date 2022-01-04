@@ -1,7 +1,7 @@
 import ej3.Bandeja;
 import ej3.Pieza;
 
-public class Ej3Test {
+public class Ej3 {
   @org.junit.Test(expected = IllegalStateException.class)
   public void bandejaLlena() {
     var b1 = new Bandeja(2);

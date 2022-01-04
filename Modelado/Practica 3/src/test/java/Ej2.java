@@ -3,7 +3,7 @@ import ej2.MedioPensionista;
 import ej2.Pensionista;
 import org.junit.Test;
 
-public class Ej2Test {
+public class Ej2 {
   @Test
   public void testActivo() {
     Activo a1 = new Activo("av", "N1", 1500.0);
