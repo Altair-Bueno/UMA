@@ -1,21 +1,19 @@
 package ej1;
 
-import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 
 public class Acceso {
   private final Expediente expediente;
-  private final Profesional accesor;
+  private final Profesional profesional;
 
   private Date fecha;
   private TipoAcceso tipo;
 
-  private Acceso(Profesional p, Expediente e, TipoAcceso t) {
+  private Acceso(Profesional profesional, Expediente expediente, TipoAcceso tipoAcceso) {
     this.fecha = new Date(System.currentTimeMillis());
-    this.accesor = p;
-    this.expediente = e;
-    this.tipo = t;
+    this.profesional = profesional;
+    this.expediente = expediente;
+    this.tipo = tipoAcceso;
   }
 
   public static Acceso crearAcceso(
@@ -24,42 +22,20 @@ public class Acceso {
     assert (expediente != null);
     assert (tipoAcceso != null);
 
-    // Si un profesional nunca ha accedido, se crea el acceso y se añade a la lista.
+    Acceso acceso;
     if (profesional.getAcceso(expediente) == null) {
-      int tamPre = Collections.list(profesional.getAccesos()).size();
-
-      Acceso a = new Acceso(profesional, expediente, tipoAcceso);
-      profesional.addAcceso(a);
-      expediente.addAcceso(a);
-
-      //    1. El acceso 'a' añadido solamente está una vez en la lista de accesos del profesional.
-      int cont = 0;
-      for (Iterator<Acceso> it = profesional.getAccesos().asIterator(); it.hasNext(); ) {
-        Acceso a1 = it.next();
-        if (a1.equals(a)) {
-          cont++;
-        }
-      }
-      assert (cont == 1);
-
-      //    2. El acceso 'a' añadido solamente está una vez en la lista de accesos del expediente.
-      cont = 0;
-      for (Iterator<Acceso> it = expediente.getAccesos().asIterator(); it.hasNext(); ) {
-        Acceso a1 = it.next();
-        if (a1.equals(a)) {
-          cont++;
-        }
-      }
-      assert (cont == 1);
-
-      return a;
+      acceso = new Acceso(profesional, expediente, tipoAcceso);
+      profesional.addAcceso(acceso);
+      expediente.addAcceso(acceso);
     } else {
-      // Si ya lo habia hecho, se modifica el acceso.
-      Acceso a = profesional.getAcceso(expediente);
-      a.fecha = new Date(System.currentTimeMillis());
-      a.tipo = tipoAcceso;
-      return a;
+      acceso = profesional.getAcceso(expediente);
+      acceso.fecha = new Date(System.currentTimeMillis());
+      acceso.tipo = tipoAcceso;
     }
+
+    assert profesional.getAcceso(expediente) != null;
+    assert expediente.getAcceso(profesional) != null;
+    return acceso;
   }
 
   public Expediente getExpediente() {
@@ -67,7 +43,7 @@ public class Acceso {
   }
 
   public Profesional getProfesional() {
-    return accesor;
+    return profesional;
   }
 
   public Date getFecha() {
