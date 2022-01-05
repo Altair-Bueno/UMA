@@ -6,13 +6,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Paciente {
-  private final Set<Expediente> expedientes;
+  // Attributes
+  private Set<Expediente> expedientes;
   private Expediente expedienteAbierto;
 
+  // Constructor
   Paciente() {
     expedientes = new HashSet<>();
   }
 
+  // Methods
   public static Paciente crearPaciente() {
     Paciente paciente = new Paciente();
     Expediente expediente = paciente.crearExpediente();

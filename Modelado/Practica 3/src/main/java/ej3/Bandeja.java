@@ -4,10 +4,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Bandeja {
+  // Attributes
   Queue<Pieza> pieza;
   int capacidad;
   EstadoBandeja estado;
 
+  // Constructor
   public Bandeja(int capacidad) {
     assert capacidad > 0;
     // Inicialmente la bandeja esta vacia.
@@ -16,6 +18,7 @@ public class Bandeja {
     this.capacidad = capacidad;
   }
 
+  // Methods
   public void put(Pieza pieza) {
     estado.put(pieza, this);
   }

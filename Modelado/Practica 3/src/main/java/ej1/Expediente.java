@@ -6,16 +6,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Expediente {
-  private final Paciente paciente;
-  private final Set<Acceso> acceso;
+  // Attributes
+  private Paciente paciente;
+  private Set<Acceso> acceso;
 
+  // Constructor
   Expediente(Paciente paciente) {
-    assert (paciente != null);
+    assert paciente != null;
 
     acceso = new HashSet<>();
     this.paciente = paciente;
   }
 
+  // Methods
   Acceso getAcceso(Profesional profesional) {
     for (Acceso a : acceso) {
       if (a.getProfesional().equals(profesional)) {

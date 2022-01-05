@@ -6,12 +6,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Profesional {
-  private final Set<Acceso> acceso;
+  // Attributes
+  private Set<Acceso> acceso;
 
+  // Constructor
   public Profesional() {
     acceso = new HashSet<>();
   }
 
+  // Methods
   Acceso getAcceso(Expediente expediente) {
     for (Acceso a : acceso) {
       if (a.getExpediente().equals(expediente)) {
@@ -22,15 +25,15 @@ public class Profesional {
   }
 
   void addAcceso(Acceso acceso) {
-    assert (acceso != null);
-    assert (!this.acceso.contains(acceso));
+    assert acceso != null;
+    assert !this.acceso.contains(acceso);
 
     int sizePre = this.acceso.size();
 
     this.acceso.add(acceso);
 
-    assert (this.acceso.size() == sizePre + 1);
-    assert (this.acceso.contains(acceso));
+    assert this.acceso.size() == sizePre + 1;
+    assert this.acceso.contains(acceso);
   }
 
   public Enumeration<Acceso> getAccesos() {

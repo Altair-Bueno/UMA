@@ -11,7 +11,7 @@ class Vacio implements EstadoBandeja {
     if (bandeja.pieza.size() == bandeja.capacidad) bandeja.estado = new Lleno();
     else bandeja.estado = new Normal();
 
-    assert (bandeja.pieza.contains(pieza));
+    assert bandeja.pieza.contains(pieza);
     assert bandeja.pieza.size() == 1;
   }
 

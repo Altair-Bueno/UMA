@@ -7,13 +7,13 @@ class Normal implements EstadoBandeja {
     assert pieza != null;
     assert bandeja.pieza.size() < bandeja.capacidad;
     assert bandeja.pieza.size() > 0;
-    assert (!bandeja.pieza.contains(pieza));
+    assert !bandeja.pieza.contains(pieza);
 
     var sizePre = bandeja.pieza.size();
     bandeja.pieza.add(pieza);
     if (bandeja.pieza.size() == bandeja.capacidad) bandeja.estado = new Lleno();
 
-    assert (bandeja.pieza.contains(pieza));
+    assert bandeja.pieza.contains(pieza);
     assert sizePre == bandeja.pieza.size() - 1;
   }
 
@@ -27,7 +27,7 @@ class Normal implements EstadoBandeja {
     Pieza pieza = bandeja.pieza.remove();
     if (bandeja.pieza.isEmpty()) bandeja.estado = new Vacio();
 
-    assert (!bandeja.pieza.contains(pieza));
+    assert !bandeja.pieza.contains(pieza);
     assert sizePre == bandeja.pieza.size() + 1;
 
     return pieza;
