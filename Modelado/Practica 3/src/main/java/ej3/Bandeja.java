@@ -30,4 +30,8 @@ public class Bandeja {
   public int size() {
     return pieza.size();
   }
+
+  public int getCapacidad() {
+    return capacidad;
+  }
 }
