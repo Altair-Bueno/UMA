@@ -1,4 +1,4 @@
-package Ej1;
+package Ej1.x;
 
 public abstract class X {
   public abstract void rutina1();
