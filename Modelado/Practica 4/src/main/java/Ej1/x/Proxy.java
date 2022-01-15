@@ -6,7 +6,7 @@ import Ej1.C;
 
 public class Proxy extends X {
   private Object caller;
-  private XService service;
+  private X service;
 
   public Proxy(Object caller) {
     this.service = new XService();
