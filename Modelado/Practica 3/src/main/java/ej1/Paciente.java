@@ -1,0 +1,43 @@
+package ej1;
+
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Paciente {
+  // Attributes
+  private Set<Expediente> expedientes;
+  private Expediente expedienteAbierto;
+
+  // Constructor
+  Paciente() {
+    expedientes = new HashSet<>();
+  }
+
+  // Methods
+  public static Paciente crearPaciente() {
+    Paciente paciente = new Paciente();
+    Expediente expediente = paciente.crearExpediente();
+    return paciente;
+  }
+
+  public Expediente crearExpediente() {
+    Expediente expediente = new Expediente(this);
+    expedientes.add(expediente);
+    return expediente;
+  }
+
+  public Enumeration<Expediente> getExpedientes() {
+    return Collections.enumeration(expedientes);
+  }
+
+  public Expediente getExpedienteAbierto() {
+    return expedienteAbierto;
+  }
+
+  public void setExpedienteAbierto(Expediente expediente) {
+    assert expediente == null || expediente.getPaciente().equals(this);
+    this.expedienteAbierto = expediente;
+  }
+}
