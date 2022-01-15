@@ -1,8 +1,4 @@
-package Ej1.x;
-
-import Ej1.A;
-import Ej1.B;
-import Ej1.C;
+package Ej1;
 
 public class Proxy extends X {
   private Object caller;
