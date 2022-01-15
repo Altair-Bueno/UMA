@@ -1,16 +1,12 @@
-package Ej1.x;
-
-import Ej1.A;
-import Ej1.B;
-import Ej1.C;
+package Ej1;
 
 public class Proxy extends X {
   private Object caller;
-  private XService service;
+  private X service;
 
-  public Proxy(Object caller) {
-    this.service = new XService();
+  public Proxy(Object caller, X service) {
     this.caller = caller;
+    this.service = service;
   }
 
   @Override
