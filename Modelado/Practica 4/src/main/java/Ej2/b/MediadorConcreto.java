@@ -14,7 +14,7 @@ public class MediadorConcreto implements Mediador{
         this.estadoActual = this.estadoRojo;
     }
 
-    void notifyAbrir(EstadoTriestable sender){
+    protected void notifyAbrir(EstadoTriestable sender){
         if(sender.equals(this.estadoRojo)){
             cambiarAAmarillo();
         } else if (sender.equals(this.estadoAmarillo)){
@@ -22,7 +22,7 @@ public class MediadorConcreto implements Mediador{
         }
     }
 
-    void notifyCerrar(EstadoTriestable sender){
+    protected void notifyCerrar(EstadoTriestable sender){
         if(sender.equals(this.estadoVerde)){
             cambiarAAmarillo();
         } else if (sender.equals(this.estadoAmarillo)){
