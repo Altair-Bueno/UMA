@@ -1,24 +1,12 @@
 package Ej2.b;
 
 public class Amarillo extends EstadoTriestable{
-    private MediadorConcreto m;
-
     public Amarillo(MediadorConcreto m){
-        this.m = m;
+        super(m);
     }
 
     @Override
-    void abrir() {
-        m.notifyAbrir(this);
-    }
-
-    @Override
-    void cerrar() {
-        m.notifyCerrar(this);
-    }
-
-    @Override
-    String estado() {
+    public String estado() {
         return "precaucion";
     }
 }

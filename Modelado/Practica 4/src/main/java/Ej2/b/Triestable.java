@@ -1,9 +1,7 @@
 package Ej2.b;
 
 public class Triestable {
-
     private MediadorConcreto m;
-
 
     public Triestable(MediadorConcreto m){
         this.m = m;
