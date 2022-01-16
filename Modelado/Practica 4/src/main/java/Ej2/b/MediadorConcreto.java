@@ -1,51 +1,48 @@
 package Ej2.b;
 
-import Ej1.A;
-
 public class MediadorConcreto implements Mediador{
-    private Verde v;
-    private Rojo r;
-    private Amarillo a;
+    private Verde estadoVerde;
+    private Rojo estadoRojo;
+    private Amarillo estadoAmarillo;
     private EstadoTriestable estadoActual;
 
     public MediadorConcreto(){
-        v = new Verde(this);
-        r = new Rojo(this);
-        a = new Amarillo(this);
+        this.estadoVerde = new Verde(this);
+        this.estadoRojo = new Rojo(this);
+        this.estadoAmarillo = new Amarillo(this);
 
-        estadoActual = r;
+        this.estadoActual = this.estadoRojo;
     }
 
     void notifyAbrir(EstadoTriestable sender){
-        if(sender.equals(r)){
+        if(sender.equals(this.estadoRojo)){
             cambiarAAmarillo();
-        } else if (sender.equals(a)){
+        } else if (sender.equals(this.estadoAmarillo)){
             cambiarAVerde();
         }
     }
 
     void notifyCerrar(EstadoTriestable sender){
-        if(sender.equals(v)){
+        if(sender.equals(this.estadoVerde)){
             cambiarAAmarillo();
-        } else if (sender.equals(a)){
+        } else if (sender.equals(this.estadoAmarillo)){
             cambiarARojo();
         }
     }
 
     private void cambiarARojo(){
-        estadoActual = r;
+        this.estadoActual = this.estadoRojo;
     }
 
     private void cambiarAAmarillo(){
-        estadoActual = a;
+        this.estadoActual = this.estadoAmarillo;
     }
 
     private void cambiarAVerde(){
-        estadoActual = v;
+        this.estadoActual = this.estadoVerde;
     }
 
     public EstadoTriestable getEstadoActual() {
-        return estadoActual;
+        return this.estadoActual;
     }
-
 }
