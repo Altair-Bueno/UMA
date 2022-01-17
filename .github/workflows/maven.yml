@@ -19,6 +19,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - run: pwd
+    - run: ls
     - run: cd "Modelado/Practica 4"
     - run: pwd
     - name: Build with Maven
