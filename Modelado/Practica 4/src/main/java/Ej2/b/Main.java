@@ -1,6 +1,8 @@
 package Ej2.b;
 
 public class Main {
+    private static final int numEstados = 3;
+
     public static void main(String[] args) {
         MediadorConcreto m = new MediadorConcreto();
         Triestable t = new Triestable(m);
@@ -8,7 +10,7 @@ public class Main {
         int cont = 0;
 
         while(true){
-            if(cont < 2){
+            if(cont < numEstados-1){
                 System.out.println("ESTADO: " + t.estado());
                 System.out.println("Abriendo...");
 
@@ -21,7 +23,7 @@ public class Main {
 
                 t.cerrar();
 
-                if(cont == 3){
+                if(cont == numEstados){
                     cont = 0;
                 }else{
                     cont++;
