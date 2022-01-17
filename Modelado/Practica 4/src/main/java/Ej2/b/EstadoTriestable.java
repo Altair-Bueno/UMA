@@ -5,5 +5,5 @@ public abstract class EstadoTriestable {
     abstract void cerrar();
     abstract String estado();
 
-    Mediador m;
+    Mediador mediador;
 }

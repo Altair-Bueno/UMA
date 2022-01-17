@@ -2,22 +2,22 @@ package Ej2.b;
 
 public class Triestable {
 
-    private MediadorConcreto m;
+    private MediadorConcreto mediadorConcreto;
 
 
-    public Triestable(MediadorConcreto m){
-        this.m = m;
+    public Triestable(MediadorConcreto mediadorConcreto){
+        this.mediadorConcreto = mediadorConcreto;
     }
 
     public String estado(){
-        return m.getEstadoActual().estado();
+        return mediadorConcreto.getEstadoActual().estado();
     }
 
     public void abrir(){
-        m.getEstadoActual().abrir();
+        mediadorConcreto.getEstadoActual().abrir();
     }
 
     public void cerrar(){
-        m.getEstadoActual().cerrar();
+        mediadorConcreto.getEstadoActual().cerrar();
     }
 }

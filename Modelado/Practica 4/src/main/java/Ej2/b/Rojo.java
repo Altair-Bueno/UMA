@@ -1,20 +1,20 @@
 package Ej2.b;
 
 public class Rojo extends EstadoTriestable{
-    private MediadorConcreto m;
+    private MediadorConcreto mediadorConcreto;
 
-    public Rojo(MediadorConcreto m){
-        this.m = m;
+    public Rojo(MediadorConcreto mediadorConcreto){
+        this.mediadorConcreto = mediadorConcreto;
     }
 
     @Override
     void abrir() {
-        m.notifyAbrir(this);
+        mediadorConcreto.notifyAbrir(this);
     }
 
     @Override
     void cerrar() {
-        m.notifyCerrar(this);
+        mediadorConcreto.notifyCerrar(this);
     }
 
     @Override
