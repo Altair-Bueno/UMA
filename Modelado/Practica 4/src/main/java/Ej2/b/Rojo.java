@@ -1,8 +1,8 @@
 package Ej2.b;
 
 public class Rojo extends EstadoTriestable{
-    public Rojo(MediadorConcreto m) {
-        super(m);
+    public Rojo(MediadorConcreto mediadorConcreto) {
+        super(mediadorConcreto);
     }
 
     @Override

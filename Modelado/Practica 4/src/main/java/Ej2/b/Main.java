@@ -5,29 +5,30 @@ public class Main {
         MediadorConcreto m = new MediadorConcreto();
         Triestable t = new Triestable(m);
 
+        int cont = 0;
 
-        System.out.println("ESTADO: " + t.estado());
-        System.out.println("Abriendo...");
+        while(true){
+            if(cont < 2){
+                System.out.println("ESTADO: " + t.estado());
+                System.out.println("Abriendo...");
 
-        t.abrir();
+                t.abrir();
 
-        System.out.println("ESTADO: " + t.estado());
-        System.out.println("Abriendo...");
+                cont++;
+            } else {
+                System.out.println("ESTADO: " + t.estado());
+                System.out.println("Cerrando...");
 
-        t.abrir();
+                t.cerrar();
 
-        System.out.println("ESTADO: " + t.estado());
-        System.out.println("Cerrando...");
+                if(cont == 3){
+                    cont = 0;
+                }else{
+                    cont++;
+                }
+            }
 
-        t.cerrar();
-
-        System.out.println("ESTADO: " + t.estado());
-        System.out.println("Cerrando...");
-
-        t.cerrar();
-
-        System.out.println("ESTADO: " + t.estado());
-        System.out.println("Cerrando...");
+        }
 
     }
 }
