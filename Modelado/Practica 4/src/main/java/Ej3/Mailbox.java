@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Mailbox {
   private SortStrategy strategy;
-  private List<Email> email;
+  private final List<Email> email;
 
   public Mailbox(SortStrategy strategy) {
     email = new ArrayList<>();

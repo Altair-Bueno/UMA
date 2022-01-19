@@ -3,12 +3,13 @@ package Ej1.x;
 import Ej1.A;
 import Ej1.B;
 import Ej1.C;
+import Ej1.Client;
 
 public class Proxy extends X {
-  private Object caller;
-  private X service;
+  private final Client caller;
+  private final XService service;
 
-  public Proxy(Object caller) {
+  public Proxy(Client caller) {
     this.caller = caller;
     this.service = new XService();
   }
@@ -21,14 +22,14 @@ public class Proxy extends X {
   @Override
   public void rutina2(double y) {
     if (!(caller instanceof A) && !(caller instanceof B))
-      throw new IllegalCallerException("Caller must be instance of class A or B");
+      throw new IllegalCallerException("Caller must be an instance of class A or B");
     service.rutina2(y);
   }
 
   @Override
   public boolean rutina3(int i) {
     if (!(caller instanceof A) && !(caller instanceof C))
-      throw new IllegalCallerException("Caller must be instance of class A or C");
+      throw new IllegalCallerException("Caller must be an instance of class A or C");
     return service.rutina3(i);
   }
 
