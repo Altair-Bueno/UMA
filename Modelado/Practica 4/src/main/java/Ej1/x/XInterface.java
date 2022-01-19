@@ -1,12 +1,7 @@
 package Ej1.x;
 
-import Ej1.Client;
-
-public abstract class X {
-  public static X getInstance(Client caller) {
-    return new Proxy(caller);
-  }
-
+// Defines an interface for the Proxy and Service
+public abstract class XInterface {
   public abstract void rutina1();
 
   public abstract void rutina2(double y);

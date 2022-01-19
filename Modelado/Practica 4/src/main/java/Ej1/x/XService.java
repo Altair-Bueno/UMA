@@ -1,6 +1,7 @@
 package Ej1.x;
 
-class XService extends X {
+// Provides a service
+class XService extends XInterface {
 
   @Override
   public void rutina1() {

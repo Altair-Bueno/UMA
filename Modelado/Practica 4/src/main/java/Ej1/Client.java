@@ -1,12 +1,12 @@
 package Ej1;
 
-import Ej1.x.X;
+import Ej1.x.XProxy;
 
 public class Client {
-  private X x;
+  private XProxy x;
 
   public Client() {
-    x = X.getInstance(this);
+    x = new XProxy(this);
   }
 
   public void runRutina1() {

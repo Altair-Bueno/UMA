@@ -5,11 +5,12 @@ import Ej1.B;
 import Ej1.C;
 import Ej1.Client;
 
-public class Proxy extends X {
+// Guards the service implementation
+public class XProxy extends XInterface {
   private Client caller;
   private XService service;
 
-  public Proxy(Client caller) {
+  public XProxy(Client caller) {
     this.caller = caller;
     this.service = new XService();
   }
