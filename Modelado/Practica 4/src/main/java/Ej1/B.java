@@ -1,3 +1,3 @@
 package Ej1;
 
-public class B {}
+public class B extends Client {}
