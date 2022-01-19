@@ -7,9 +7,9 @@ public class Main {
     SortStrategy e = new SubjectSortStrategy();
     Mailbox m = new Mailbox(e);
 
-    Email e1 = new Email("av", "abc", new Date(), Priority.P1, "Un saludo, Antono");
+    Email e1 = new Email("av", "abc", new Date(), Priority.P1, "prueba");
     Email e2 = new Email("bav", "bcd", new Date(), Priority.P3, "Un saludo");
-    Email e3 = new Email("inshallah", "zzz", new Date(), Priority.P2, "pls");
+    Email e3 = new Email("test", "zzz", new Date(), Priority.P2, "pls");
 
     m.addMail(e1);
     m.addMail(e2);
