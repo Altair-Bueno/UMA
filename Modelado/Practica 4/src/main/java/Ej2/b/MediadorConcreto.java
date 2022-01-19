@@ -1,9 +1,9 @@
 package Ej2.b;
 
 public class MediadorConcreto implements Mediador {
-  private final Verde estadoVerde;
-  private final Rojo estadoRojo;
-  private final Amarillo estadoAmarillo;
+  private Verde estadoVerde;
+  private Rojo estadoRojo;
+  private Amarillo estadoAmarillo;
   private EstadoTriestable estadoActual;
 
   public MediadorConcreto() {

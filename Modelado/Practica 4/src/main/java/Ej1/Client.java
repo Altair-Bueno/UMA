@@ -3,7 +3,7 @@ package Ej1;
 import Ej1.x.X;
 
 public class Client {
-  private final X x;
+  private X x;
 
   public Client() {
     x = X.getInstance(this);

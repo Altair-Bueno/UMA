@@ -1,7 +1,7 @@
 package Ej2.b;
 
 public class Main {
-  private static final int numEstados = 3;
+  private static int numEstados = 3;
 
   public static void main(String[] args) {
     MediadorConcreto m = new MediadorConcreto();

@@ -6,8 +6,8 @@ import Ej1.C;
 import Ej1.Client;
 
 public class Proxy extends X {
-  private final Client caller;
-  private final XService service;
+  private Client caller;
+  private XService service;
 
   public Proxy(Client caller) {
     this.caller = caller;

@@ -1,7 +1,7 @@
 package Ej2.b;
 
 public abstract class EstadoTriestable {
-  private final MediadorConcreto mediador;
+  private MediadorConcreto mediador;
 
   public EstadoTriestable(MediadorConcreto m) {
     this.mediador = m;

@@ -2,7 +2,7 @@ package Ej2.b;
 
 public class Triestable {
 
-  private final MediadorConcreto mediadorConcreto;
+  private MediadorConcreto mediadorConcreto;
 
   public Triestable(MediadorConcreto mediadorConcreto) {
     this.mediadorConcreto = mediadorConcreto;
