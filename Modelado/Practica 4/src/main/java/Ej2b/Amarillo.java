@@ -1,4 +1,4 @@
-package Ej2b1;
+package Ej2b;
 
 public class Amarillo extends EstadoSemaforo {
     @Override

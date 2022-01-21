@@ -1,4 +1,4 @@
-package Ej2b1;
+package Ej2b;
 
 public abstract class Semaforo {
     protected EstadoSemaforo estadoSemaforo;

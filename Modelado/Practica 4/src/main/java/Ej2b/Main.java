@@ -1,4 +1,4 @@
-package Ej2b1;
+package Ej2b;
 
 public class Main {
     public static void main(String[] args) {
