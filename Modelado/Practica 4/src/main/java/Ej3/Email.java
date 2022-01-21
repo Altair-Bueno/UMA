@@ -10,6 +10,12 @@ public class Email {
   private String text;
 
   public Email(String from, String subject, Date date, Priority priority, String text) {
+    assert from != null;
+    assert subject != null;
+    assert date != null;
+    assert priority != null;
+    assert text != null;
+
     this.from = from;
     this.subject = subject;
     this.date = date;
@@ -37,6 +43,7 @@ public class Email {
     return text;
   }
 
+  @Override
   public String toString() {
     return "From: "
         + from

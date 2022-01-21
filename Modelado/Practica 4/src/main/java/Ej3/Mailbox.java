@@ -1,6 +1,7 @@
 package Ej3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Mailbox {
@@ -8,12 +9,16 @@ public class Mailbox {
   private List<Email> email;
 
   public Mailbox(SortStrategy strategy) {
+    setStrategy(strategy);
     email = new ArrayList<>();
-    this.strategy = strategy;
   }
 
   public void addMail(Email e) {
+    assert e != null;
+
     email.add(e);
+
+    assert email.contains(e);
   }
 
   public void show() {
@@ -23,7 +28,13 @@ public class Mailbox {
   }
 
   public void setStrategy(SortStrategy strategy) {
+    assert strategy != null;
+
     this.strategy = strategy;
+  }
+
+  public List<Email> getEmail() {
+    return Collections.unmodifiableList(email);
   }
 
   public void sort() {
