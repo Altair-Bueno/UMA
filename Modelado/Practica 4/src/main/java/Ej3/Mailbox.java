@@ -38,12 +38,12 @@ public class Mailbox {
   }
 
   public void sort() {
-    for (int i = 2; i <= email.size(); i++) {
-      for (int j = email.size(); j >= i; j--) {
-        if (strategy.before(email.get(j), email.get(j - 1))) {
-          Email temp = email.get(j);
-          email.set(j - 1, temp);
-          email.set(j, email.get(j - 1));
+    for (int i = email.size() - 1; i > 0; i--) {
+      for (int j = 0; j < i; j++) {
+        if (strategy.before(email.get(j), email.get(j + 1))) {
+          var temp = email.get(j + 1);
+          email.set(j + 1, email.get(j));
+          email.set(j, temp);
         }
       }
     }
