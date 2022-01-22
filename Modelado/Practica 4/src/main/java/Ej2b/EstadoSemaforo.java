@@ -1,5 +1,5 @@
 package Ej2b;
 
-public abstract class EstadoSemaforo {
-    public abstract String estado();
+public interface EstadoSemaforo {
+  String estado();
 }

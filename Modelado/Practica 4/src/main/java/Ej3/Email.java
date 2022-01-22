@@ -42,22 +42,4 @@ public class Email {
   public String getText() {
     return text;
   }
-
-  @Override
-  public String toString() {
-    return "From: "
-        + from
-        + "\n"
-        + "Subject: "
-        + subject
-        + "\n"
-        + "Date: "
-        + date
-        + "\n"
-        + "Priority: "
-        + priority
-        + "\n"
-        + "Text: "
-        + text;
-  }
 }

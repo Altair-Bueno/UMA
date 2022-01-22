@@ -1,6 +1,6 @@
 package Ej2b;
 
-public class Verde extends EstadoSemaforo {
+public class Verde implements EstadoSemaforo {
     @Override
     public String estado() {
         return "Verde";
