@@ -1,8 +1,14 @@
 package Ej2b;
 
-public class Rojo implements EstadoSemaforo {
+public abstract class Rojo implements EstadoSemaforo{
     @Override
     public String estado() {
         return "Rojo";
     }
+
+    @Override
+    public abstract EstadoSemaforo abrir();
+
+    @Override
+    public abstract EstadoSemaforo cerrar();
 }

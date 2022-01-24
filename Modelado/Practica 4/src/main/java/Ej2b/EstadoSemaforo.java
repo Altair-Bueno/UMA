@@ -1,5 +1,7 @@
 package Ej2b;
 
 public interface EstadoSemaforo {
-  String estado();
+    public String estado();
+    public EstadoSemaforo abrir();
+    public EstadoSemaforo cerrar();
 }

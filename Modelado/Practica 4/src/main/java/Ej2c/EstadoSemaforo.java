@@ -1,5 +1,7 @@
 package Ej2c;
 
-public abstract class EstadoSemaforo {
-    public abstract String estado();
+public interface EstadoSemaforo {
+    public String estado();
+    public EstadoSemaforo abrir();
+    public EstadoSemaforo cerrar();
 }

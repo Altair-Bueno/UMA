@@ -1,21 +1,29 @@
 package Ej2c;
 
 public abstract class Semaforo {
-    protected EstadoSemaforo estadoSemaforo;
+    private EstadoSemaforo estado;
 
     public Semaforo(){
-        estadoSemaforo = new Rojo(); //Default en rojo.
+        setEstado(getEstadoInicial());
     }
 
-    protected Semaforo(EstadoSemaforo estadoSemaforo){
-        this.estadoSemaforo = estadoSemaforo;
+    public String estado(){
+        return estado.estado();
     }
 
-    public String estado() {
-        return estadoSemaforo.estado();
+    public void abrir(){
+        setEstado(estado.abrir());
     }
-    public abstract void abrir();
-    public abstract void cerrar();
 
+    public void cerrar(){
+        setEstado(estado.cerrar());
+    }
 
+    protected abstract EstadoSemaforo getEstadoInicial();
+
+    public EstadoSemaforo getEstado(){ return estado; }
+
+    protected void setEstado(EstadoSemaforo estado){
+        this.estado = estado;
+    }
 }
