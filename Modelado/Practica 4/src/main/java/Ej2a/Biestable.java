@@ -1,6 +1,5 @@
 package Ej2a;
 
-import Ej2b.EstadoSemaforo;
 
 public class Biestable {
 
@@ -22,7 +21,7 @@ public class Biestable {
         estado.cerrar(this);
     }
 
-    public void setEstado(EstadoBiestable estado){
+  void setEstado(EstadoBiestable estado) {
         this.estado=estado;
     }
 }
