@@ -6,7 +6,7 @@ import Ej1.C;
 import Ej1.Client;
 
 /** Protege la clase XService de accesos no deseados */
-public class XProxy extends XInterface {
+public class XProxy extends X {
   private Client client;
   private XService service;
 

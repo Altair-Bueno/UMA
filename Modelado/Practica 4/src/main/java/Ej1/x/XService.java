@@ -1,7 +1,7 @@
 package Ej1.x;
 
 /** Provee los servicios de X */
-class XService extends XInterface {
+class XService extends X {
   XService() {}
 
   @Override
