@@ -7,11 +7,11 @@ public abstract class Semaforo {
     private EstadoSemaforo estado;
 
     /**
-     * Crea un nuevo semáforo haciendo uso de {@link #setEstado(EstadoSemaforo)},
+     * Crea un nuevo semáforo haciendo uso de {@link #setEstadoSemaforo(EstadoSemaforo)} (EstadoSemaforo)},
      * pasando como parámetro de la función el valor de retorno de {@link #getEstadoInicial()}.
      */
     public Semaforo(){
-        setEstado(getEstadoInicial());
+        setEstadoSemaforo(getEstadoInicial());
     }
 
     /**
@@ -28,7 +28,7 @@ public abstract class Semaforo {
      * la operación al método {@link EstadoSemaforo#abrir()}.
      */
     public void abrir(){
-        setEstado(estado.abrir());
+        setEstadoSemaforo(estado.abrir());
     }
 
     /**
@@ -36,19 +36,17 @@ public abstract class Semaforo {
      * la operación al método {@link EstadoSemaforo#cerrar()}.
      */
     public void cerrar(){
-        setEstado(estado.cerrar());
+        setEstadoSemaforo(estado.cerrar());
     }
-
     /**
      * Establece el {@link EstadoSemaforo} que recibe por parámetro
      * como estado actual del semáforo.
      * @param estado {@link EstadoSemaforo} a establecer como estado
      *                                      del semáforo.
      */
-    protected void setEstado(EstadoSemaforo estado){
+    protected void setEstadoSemaforo(EstadoSemaforo estado) {
         this.estado = estado;
     }
-
     /**
      * @return El estado actual del semáforo.
      */
