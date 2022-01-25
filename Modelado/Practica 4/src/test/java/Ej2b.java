@@ -21,43 +21,43 @@ public class Ej2b {
     public void testBiestable3(){
         Semaforo s = new Biestable();
         s.abrir();
-        assert s.estado().equals("Verde");
+        assert s.estado().equals("abierto");
         s.cerrar();
-        assert s.estado().equals("Rojo");
+        assert s.estado().equals("cerrado");
         s.abrir();
-        assert s.estado().equals("Verde");
+        assert s.estado().equals("abierto");
     }
 
     @Test (expected = IllegalStateException.class)
     public void testTriestable1(){
         Semaforo s = new Triestable();
-        assert s.estado().equals("Rojo");
+        assert s.estado().equals("cerrado");
         s.cerrar();
     }
 
     @Test (expected = IllegalStateException.class)
     public void testTriestable2(){
         Semaforo s = new Triestable();
-        assert s.estado().equals("Rojo");
+        assert s.estado().equals("cerrado");
         s.abrir();
-        assert s.estado().equals("Amarillo");
+        assert s.estado().equals("precaución");
         s.abrir();
-        assert s.estado().equals("Verde");
+        assert s.estado().equals("abierto");
         s.abrir();
     }
 
     @Test
     public void testTriestable3(){
         Semaforo s = new Triestable();
-        assert s.estado().equals("Rojo");
+        assert s.estado().equals("cerrado");
         s.abrir();
-        assert s.estado().equals("Amarillo");
+        assert s.estado().equals("precaución");
         s.abrir();
-        assert s.estado().equals("Verde");
+        assert s.estado().equals("abierto");
         s.cerrar();
-        assert s.estado().equals("Amarillo");
+        assert s.estado().equals("precaución");
         s.cerrar();
-        assert s.estado().equals("Rojo");
+        assert s.estado().equals("cerrado");
     }
 
 

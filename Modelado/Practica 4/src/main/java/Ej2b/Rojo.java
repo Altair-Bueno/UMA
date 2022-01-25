@@ -3,7 +3,7 @@ package Ej2b;
 public abstract class Rojo implements EstadoSemaforo{
     @Override
     public String estado() {
-        return "Rojo";
+        return "cerrado";
     }
 
     @Override

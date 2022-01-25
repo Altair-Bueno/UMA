@@ -12,8 +12,8 @@ public class EstadoTriestable implements EstadoTransformador{
     @Override
     public EstadoSemaforo getTraducido(Transformador transformador) {
         return switch(transformador.estado()){
-            case "Verde"-> new BiestableVerde();
-            case "Rojo"-> new BiestableRojo();
+            case "abierto"-> new BiestableVerde();
+            case "cerrado"-> new BiestableRojo();
             default->throw new IllegalStateException();
         };
     }

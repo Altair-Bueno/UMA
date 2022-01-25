@@ -5,7 +5,7 @@ import Ej2b.EstadoSemaforo;
 public class TriestableAmarillo implements EstadoSemaforo {
     @Override
     public String estado() {
-        return "Amarillo";
+        return "precaución";
     }
 
     @Override
