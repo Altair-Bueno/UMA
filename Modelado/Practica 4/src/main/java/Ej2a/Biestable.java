@@ -1,10 +1,13 @@
 package Ej2a;
 
+import Ej2b.EstadoSemaforo;
+
 public class Biestable {
+
     private EstadoBiestable estado;
 
     public Biestable(){
-        this.estado = new Rojo();
+        this.estado=new Rojo();
     }
 
     public String estado(){
@@ -12,18 +15,14 @@ public class Biestable {
     }
 
     public void abrir(){
-        if(estado.estado().equals(("Abierto"))){
-            throw new IllegalStateException();
-        } else {
-            estado = new Verde();
-        }
+        estado.abrir(this);
     }
 
     public void cerrar(){
-        if(estado.estado().equals(("Cerrado"))){
-            throw new IllegalStateException();
-        } else {
-            estado = new Rojo();
-        }
+        estado.cerrar(this);
+    }
+
+    public void setEstado(EstadoBiestable estado){
+        this.estado=estado;
     }
 }
