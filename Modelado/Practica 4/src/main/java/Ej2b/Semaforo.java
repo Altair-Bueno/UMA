@@ -24,4 +24,8 @@ public abstract class Semaforo {
     protected void setEstado(EstadoSemaforo estado){
         this.estado = estado;
     }
+
+  public EstadoSemaforo getEstadoSemaforo() {
+    return estado;
+  }
 }

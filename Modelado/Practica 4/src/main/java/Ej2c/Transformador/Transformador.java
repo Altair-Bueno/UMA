@@ -15,14 +15,14 @@ public class Transformador extends Semaforo{
         return new BiestableRojo();
     }
 
-    @Override
-    protected void setEstado(EstadoSemaforo estado) {
-        super.setEstado(estado);
+  @Override
+  protected void setEstadoSemaforo(EstadoSemaforo estado) {
+    super.setEstadoSemaforo(estado);
     }
 
     public void cambio(){
         EstadoSemaforo estado = estadoTransformador.getTraducido(this);
         estadoTransformador.cambio(this);
-        setEstado(estado);
+    setEstadoSemaforo(estado);
     }
 }
