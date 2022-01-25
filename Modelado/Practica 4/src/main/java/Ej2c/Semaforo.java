@@ -4,7 +4,7 @@ public abstract class Semaforo {
     private EstadoSemaforo estado;
 
     public Semaforo(){
-        setEstado(getEstadoInicial());
+    setEstadoSemaforo(getEstadoInicial());
     }
 
     public String estado(){
@@ -12,18 +12,22 @@ public abstract class Semaforo {
     }
 
     public void abrir(){
-        setEstado(estado.abrir());
+    setEstadoSemaforo(estado.abrir());
     }
 
     public void cerrar(){
-        setEstado(estado.cerrar());
+    setEstadoSemaforo(estado.cerrar());
     }
 
     protected abstract EstadoSemaforo getEstadoInicial();
 
     public EstadoSemaforo getEstado(){ return estado; }
 
-    protected void setEstado(EstadoSemaforo estado){
+  public EstadoSemaforo getEstadoSemaforo() {
+    return estado;
+  }
+
+  protected void setEstadoSemaforo(EstadoSemaforo estado) {
         this.estado = estado;
     }
 }

@@ -5,11 +5,16 @@ import Ej1.B;
 import Ej1.C;
 import Ej1.Client;
 
-// Guards the service implementation
-public class XProxy extends XInterface {
+/** Protege la clase XService de accesos no deseados */
+public class XProxy extends X {
   private Client client;
   private XService service;
 
+  /**
+   * Construye un nuevo proxy que guarda una instancia de XService
+   *
+   * @param client clase que llama los métodos
+   */
   public XProxy(Client client) {
     this.client = client;
     this.service = new XService();
