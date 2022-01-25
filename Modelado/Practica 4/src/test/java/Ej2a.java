@@ -1,13 +1,13 @@
+import Ej2a.Biestable;
 import org.junit.Test;
-import Ej2a.*;
 
 public class Ej2a {
     @Test
     public void test1(){
         Biestable b = new Biestable();
-        assert b.estado().equals("Cerrado");
+    assert b.estado().equals("cerrado");
         b.abrir();
-        assert  b.estado().equals("Abierto");
+    assert b.estado().equals("abierto");
     }
 
     @Test (expected = IllegalStateException.class)
