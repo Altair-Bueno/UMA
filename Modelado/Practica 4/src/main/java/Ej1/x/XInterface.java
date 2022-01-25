@@ -1,6 +1,6 @@
 package Ej1.x;
 
-// Defines an interface for the Proxy and Service
+/** Define una interfaz común para el Proxy y su servicio */
 abstract class XInterface {
   public abstract void rutina1();
 

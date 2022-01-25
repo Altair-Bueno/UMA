@@ -2,6 +2,7 @@ package Ej1;
 
 import Ej1.x.XProxy;
 
+/** Clase base para comprobar el funcionamiento de las clases */
 public class Client {
   private XProxy x;
 

@@ -1,6 +1,6 @@
 package Ej1.x;
 
-// Provides a service
+/** Provee los servicios de X */
 class XService extends XInterface {
   XService() {}
 
