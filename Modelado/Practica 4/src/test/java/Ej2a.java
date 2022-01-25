@@ -3,21 +3,23 @@ import org.junit.Test;
 
 public class Ej2a {
     @Test
-    public void test1(){
+    public void cambioDeEstadosCorrecto(){
         Biestable b = new Biestable();
-    assert b.estado().equals("cerrado");
+        assert b.estado().equals("cerrado");
         b.abrir();
-    assert b.estado().equals("abierto");
+        assert b.estado().equals("abierto");
+        b.cerrar();
+        assert b.estado().equals("cerrado");
     }
 
     @Test (expected = IllegalStateException.class)
-    public void test2(){
+    public void noPuedeCerrarEnRojo(){
         Biestable b = new Biestable();
         b.cerrar();
     }
 
     @Test (expected = IllegalStateException.class)
-    public void test3(){
+    public void noPuedeAbrirEnVerde(){
         Biestable b = new Biestable();
         b.abrir();
         b.abrir();
