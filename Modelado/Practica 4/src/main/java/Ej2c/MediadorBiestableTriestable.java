@@ -2,16 +2,16 @@ package Ej2c;
 
 /** Interfaz que se encarga de alternar los semáforos entre biestable y triestable */
 public class MediadorBiestableTriestable implements Mediador {
-  private Semaforo semaforoActual;
+  private Semaforo semaforo;
 
   public MediadorBiestableTriestable() {
-    semaforoActual = new Biestable();
-    semaforoActual.setMediador(this);
+    semaforo = new Biestable();
+    semaforo.setMediador(this);
   }
 
   @Override
   public void notificar(Semaforo transmisor) {
-    semaforoActual = transmisor;
+    semaforo = transmisor;
     if (transmisor instanceof Biestable) {
       cambiarATriestable();
     } else {
@@ -20,29 +20,29 @@ public class MediadorBiestableTriestable implements Mediador {
   }
 
   public void cambiarABiestable() {
-    if (semaforoActual.getEstado() instanceof Amarillo) {
+    if (semaforo.getEstado() instanceof Amarillo) {
       throw new IllegalStateException();
     }
-    semaforoActual = new Biestable(semaforoActual.getEstado());
+    semaforo = new Biestable(semaforo.getEstado());
   }
 
   public void cambiarATriestable() {
-    semaforoActual = new Triestable(semaforoActual.getEstado());
+    semaforo = new Triestable(semaforo.getEstado());
   }
 
   public void abrir() {
-    semaforoActual.abrir();
+    semaforo.abrir();
   }
 
   public void cerrar() {
-    semaforoActual.cerrar();
+    semaforo.cerrar();
   }
 
   public void cambiar() {
-    notificar(semaforoActual);
+    notificar(semaforo);
   }
 
   public String estado() {
-    return semaforoActual.estado();
+    return semaforo.estado();
   }
 }
