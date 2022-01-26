@@ -1,19 +1,22 @@
 package Ej2b;
 
+/** Representa un semáforo que cambia de estado */
 public abstract class Semaforo {
-    protected EstadoSemaforo estado;
+  protected EstadoSemaforo estado;
 
-    public Semaforo(){
-        estado = new Rojo();
-    }
+  /** Crea un nuevo semáforo y establece su estado inicial en Rojo */
+  public Semaforo() {
+    estado = new Rojo();
+  }
 
-    public String estado(){
-        return estado.estado();
-    }
+  /** Devuelve una cadena indicando el estado actual */
+  public String estado() {
+    return estado.estado();
+  }
 
-    public abstract void abrir();
+  /** Abre el semáforo */
+  public abstract void abrir();
 
-    public abstract void cerrar();
-
-
+  /** Cierra el semáforo */
+  public abstract void cerrar();
 }

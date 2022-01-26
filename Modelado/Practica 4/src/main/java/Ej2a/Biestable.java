@@ -23,10 +23,6 @@ public class Biestable {
   /**
    * Abre el semáforo
    *
-   * <p>Posibles transiciones:
-   *
-   * <p>{@code Rojo -> Verde}
-   *
    * @throws IllegalCallerException Si la máquina de estados no permite esa transición
    */
   public void abrir() {
@@ -36,17 +32,13 @@ public class Biestable {
   /**
    * Cierra el semáforo
    *
-   * <p>Posibles transiciones:
-   *
-   * <p>{@code Rojo -> Verde}
-   *
    * @throws IllegalCallerException Si la máquina de estados no permite esa transición
    */
   public void cerrar() {
         estado.cerrar(this);
     }
 
-    public void setEstado(EstadoBiestable estado){
+  public void setEstado(EstadoBiestable estado) {
         this.estado=estado;
     }
 }
