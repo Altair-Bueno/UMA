@@ -2,9 +2,15 @@ package Ej3;
 
 import java.util.Objects;
 
+/** Representa la prioridad de un email */
 public class Priority implements Comparable<Priority> {
-  private int level;
+  private final int level;
 
+  /**
+   * Crea una nueva instancia con un determinado nivel de prioridad
+   *
+   * @param level nivel de prioridad
+   */
   public Priority(int level) {
     this.level = level;
   }

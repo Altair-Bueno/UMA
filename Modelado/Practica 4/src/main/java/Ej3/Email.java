@@ -2,12 +2,13 @@ package Ej3;
 
 import java.util.Date;
 
+/** Representa un email */
 public class Email {
-  private String from;
-  private String subject;
-  private Date date;
-  private Priority priority;
-  private String text;
+  private final String from;
+  private final String subject;
+  private final Date date;
+  private final Priority priority;
+  private final String text;
 
   public Email(String from, String subject, Date date, Priority priority, String text) {
     assert from != null;

@@ -7,8 +7,8 @@ import Ej1.Client;
 
 /** Protege la clase XService de accesos no deseados */
 public class XProxy extends X {
-  private Client client;
-  private XService service;
+  private final Client client;
+  private final XService service;
 
   /**
    * Construye un nuevo proxy que guarda una instancia de XService
