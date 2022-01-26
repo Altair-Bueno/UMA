@@ -1,35 +1,34 @@
 package Ej2c;
 
+public abstract class Semaforo {
+  private Mediador mediador;
+  private EstadoSemaforo estado;
 
-public abstract class Semaforo{
-    private Mediador mediador;
-    private EstadoSemaforo estado;
+  public Semaforo() {
+    estado = new Rojo();
+  }
 
-    public Semaforo() {
-        estado = new Rojo();
-    }
+  Semaforo(EstadoSemaforo estado) {
+    this.estado = estado;
+  }
 
-    Semaforo(EstadoSemaforo estado){
-        this.estado = estado;
-    }
+  protected EstadoSemaforo getEstado() {
+    return this.estado;
+  }
 
-    protected EstadoSemaforo getEstado(){
-        return this.estado;
-    }
+  protected void setEstado(EstadoSemaforo estado) {
+    this.estado = estado;
+  }
 
-    protected void setEstado(EstadoSemaforo estado){
-        this.estado = estado;
-    }
+  public void setMediador(Mediador mediador) {
+    this.mediador = mediador;
+  }
 
-    public void setMediador(Mediador mediador){
-        this.mediador = mediador;
-    }
+  public String estado() {
+    return estado.estado();
+  }
 
-    public String estado(){
-        return estado.estado();
-    }
+  public abstract void abrir();
 
-    public abstract void abrir();
-    public abstract void cerrar();
-
+  public abstract void cerrar();
 }
