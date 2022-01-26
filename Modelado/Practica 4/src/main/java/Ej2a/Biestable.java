@@ -8,45 +8,37 @@ package Ej2a;
  */
 public class Biestable {
 
-    private EstadoBiestable estado;
+  private EstadoBiestable estado;
 
   /** Crea un nuevo semáforo Biestable en el estado inicial Rojo */
   public Biestable() {
-        this.estado=new Rojo();
-    }
+    this.estado = new Rojo();
+  }
 
   /** Devuelve una cadena indicando el estado actual */
   public String estado() {
-        return estado.estado();
-    }
+    return estado.estado();
+  }
 
   /**
    * Abre el semáforo
    *
-   * <p>Posibles transiciones:
-   *
-   * <p>{@code Rojo -> Verde}
-   *
    * @throws IllegalCallerException Si la máquina de estados no permite esa transición
    */
   public void abrir() {
-        estado.abrir(this);
-    }
+    estado.abrir(this);
+  }
 
   /**
    * Cierra el semáforo
    *
-   * <p>Posibles transiciones:
-   *
-   * <p>{@code Rojo -> Verde}
-   *
    * @throws IllegalCallerException Si la máquina de estados no permite esa transición
    */
   public void cerrar() {
-        estado.cerrar(this);
-    }
+    estado.cerrar(this);
+  }
 
-    public void setEstado(EstadoBiestable estado){
-        this.estado=estado;
-    }
+  public void setEstado(EstadoBiestable estado) {
+    this.estado = estado;
+  }
 }
