@@ -1,7 +1,21 @@
 package Ej2a;
 
+/** Interfaz común para los posibles estados de un semáforo Biestable */
 public interface EstadoBiestable {
-    public String estado();
-    public void abrir(Biestable biestable);
-    public void cerrar(Biestable biestable);
+  /** Devuelve una cadena indicando el estado actual */
+  String estado();
+
+  /**
+   * Realiza las transiciones de la operación {@link Biestable#abrir()} para un semáforo Biestable
+   *
+   * @param biestable Semáforo a transitar
+   */
+  void abrir(Biestable biestable);
+
+  /**
+   * Realiza las transiciones de la operación {@link Biestable#cerrar()} para un semáforo Biestable
+   *
+   * @param biestable Semáforo a transitar
+   */
+  void cerrar(Biestable biestable);
 }
