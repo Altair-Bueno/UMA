@@ -1,5 +1,6 @@
 package Ej2c;
 
+/** Interfaz que se encarga de alternar los semáforos entre biestable y triestable */
 public class MediadorBiestableTriestable implements Mediador {
   private Semaforo semaforoActual;
 

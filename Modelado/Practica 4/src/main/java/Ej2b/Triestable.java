@@ -1,9 +1,9 @@
 package Ej2b;
 
 /**
- * Semáforo Biestable
+ * Semáforo Triestable
  *
- * <p>El semáforo Biestable transita entre tres estados posibles utilizando los métodos {@link
+ * <p>El semáforo Triestable transita entre tres estados posibles utilizando los métodos {@link
  * Triestable#abrir()} y {@link Triestable#cerrar()}
  */
 public class Triestable extends Semaforo {

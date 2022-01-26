@@ -1,5 +1,11 @@
 package Ej2c;
 
+/**
+ * Semáforo Triestable
+ *
+ * <p>El semáforo Triestable transita entre tres estados posibles utilizando los métodos {@link
+ * Ej2c.Triestable#abrir()} y {@link Ej2c.Triestable#cerrar()}
+ */
 public class Triestable extends Semaforo {
   public Triestable() {
     super();
