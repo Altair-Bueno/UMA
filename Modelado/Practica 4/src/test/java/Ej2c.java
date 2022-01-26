@@ -1,29 +1,28 @@
-import Ej2c.Transformador.Transformador;
 import org.junit.Test;
-
-import java.util.Locale;
+import Ej2c.*;
 
 public class Ej2c {
     @Test
     public void test1(){
-        Transformador t = new Transformador();
-        assert t.estado().equals("cerrado");
-        t.abrir();
-        assert t.estado().equals("abierto");
-        t.cerrar();
-        assert t.estado().equals("cerrado");
-        t.cambio();
-        assert t.estado().equals("cerrado");
-        t.abrir();
-        assert t.estado().equals("precaución");
-        t.abrir();
-        assert t.estado().equals("abierto");
-        t.cambio();
-        assert t.estado().equals("abierto");
-        t.cerrar();
-        assert t.estado().equals("cerrado");
+        MediadorBiestableTriestable mediador = new MediadorBiestableTriestable();
+        assert mediador.estado().equals("cerrado");
+        mediador.abrir();
+        assert mediador.estado().equals("abierto");
+        mediador.cerrar();
+        assert mediador.estado().equals("cerrado");
+        mediador.cambiar();
+        assert mediador.estado().equals("cerrado");
+        mediador.abrir();
+        assert mediador.estado().equals("precaución");
+        mediador.abrir();
+        assert mediador.estado().equals("abierto");
+        mediador.cambiar();
+        assert mediador.estado().equals("abierto");
+        mediador.cerrar();
+        assert mediador.estado().equals("cerrado");
     }
 
+    /*
     @Test (expected = IllegalStateException.class)
     public void test2(){
         Transformador t = new Transformador();
@@ -78,6 +77,8 @@ public class Ej2c {
         assert t.estado().equals("cerrado");
         t.cerrar();
     }
+
+     */
 
 
 }

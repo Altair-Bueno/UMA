@@ -1,18 +1,7 @@
 package Ej2b;
 
-public interface EstadoSemaforo {
-    /**
-     * @return Cadena de caracteres que representa al estado
-     */
-    public String estado();
+public abstract class EstadoSemaforo {
+    public EstadoSemaforo(){}
 
-    /**
-     * @return Estado siguiente a este
-     */
-    public EstadoSemaforo abrir();
-
-    /**
-     * @return Estado anterior a este
-     */
-    public EstadoSemaforo cerrar();
+    public abstract String estado();
 }

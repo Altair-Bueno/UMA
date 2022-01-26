@@ -1,10 +1,9 @@
-import Ej2b.Biestable.Biestable;
-import Ej2b.Triestable.Triestable;
 import org.junit.Test;
+
 import Ej2b.*;
 
 public class Ej2b {
-    @Test (expected = IllegalStateException.class)
+    @Test(expected = IllegalStateException.class)
     public void testBiestable1(){
         Semaforo s = new Biestable();
         s.abrir();
@@ -59,6 +58,8 @@ public class Ej2b {
         s.cerrar();
         assert s.estado().equals("cerrado");
     }
+
+
 
 
 }
