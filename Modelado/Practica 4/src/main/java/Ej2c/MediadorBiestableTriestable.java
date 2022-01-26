@@ -1,7 +1,7 @@
 package Ej2c;
 
 public class MediadorBiestableTriestable implements Mediador{
-    public Semaforo semaforoActual;
+    private Semaforo semaforoActual;
 
     public MediadorBiestableTriestable(){
         semaforoActual = new Biestable();
@@ -38,7 +38,7 @@ public class MediadorBiestableTriestable implements Mediador{
     }
 
     public void cambiar(){
-        semaforoActual.cambiar();
+        notificar(semaforoActual);
     }
 
     public String estado(){
