@@ -3,7 +3,7 @@ package Ej2c;
 
 public abstract class Semaforo{
     private Mediador mediador;
-    protected EstadoSemaforo estado;
+    private EstadoSemaforo estado;
 
     public Semaforo() {
         estado = new Rojo();
@@ -13,12 +13,12 @@ public abstract class Semaforo{
         this.estado = estado;
     }
 
-    public void cambiar(){
-        mediador.notificar(this);
-    }
-
     protected EstadoSemaforo getEstado(){
         return this.estado;
+    }
+
+    protected void setEstado(EstadoSemaforo estado){
+        this.estado = estado;
     }
 
     public void setMediador(Mediador mediador){
