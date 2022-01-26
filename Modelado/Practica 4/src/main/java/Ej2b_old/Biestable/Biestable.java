@@ -1,7 +1,7 @@
-package Ej2b.Biestable;
+package Ej2b_old.Biestable;
 
-import Ej2b.EstadoSemaforo;
-import Ej2b.Semaforo;
+import Ej2b_old.EstadoSemaforo;
+import Ej2b_old.Semaforo;
 
 public class Biestable extends Semaforo {
     public Biestable(){

@@ -1,7 +1,7 @@
-package Ej2b.Triestable;
+package Ej2c_old.Triestable;
 
-import Ej2b.EstadoSemaforo;
-import Ej2b.Verde;
+import Ej2c_old.EstadoSemaforo;
+import Ej2c_old.Verde;
 
 public class TriestableVerde extends Verde {
     @Override

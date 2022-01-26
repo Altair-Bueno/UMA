@@ -1,7 +1,5 @@
 package Ej2a;
 
-import Ej2b.EstadoSemaforo;
-
 public class Biestable {
 
     private EstadoBiestable estado;

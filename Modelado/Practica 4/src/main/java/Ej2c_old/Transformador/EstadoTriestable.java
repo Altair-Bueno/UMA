@@ -1,10 +1,10 @@
-package Ej2c.Transformador;
+package Ej2c_old.Transformador;
 
-import Ej2c.Biestable.BiestableRojo;
-import Ej2c.Biestable.BiestableVerde;
-import Ej2c.EstadoSemaforo;
-import Ej2c.Triestable.TriestableRojo;
-import Ej2c.Triestable.TriestableVerde;
+import Ej2c_old.Biestable.BiestableRojo;
+import Ej2c_old.Biestable.BiestableVerde;
+import Ej2c_old.EstadoSemaforo;
+import Ej2c_old.Triestable.TriestableRojo;
+import Ej2c_old.Triestable.TriestableVerde;
 
 public class EstadoTriestable implements EstadoTransformador{
     @Override

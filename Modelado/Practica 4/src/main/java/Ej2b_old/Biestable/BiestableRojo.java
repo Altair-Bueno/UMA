@@ -1,7 +1,7 @@
-package Ej2c.Biestable;
+package Ej2b_old.Biestable;
 
-import Ej2c.EstadoSemaforo;
-import Ej2c.Rojo;
+import Ej2b_old.EstadoSemaforo;
+import Ej2b_old.Rojo;
 
 public class BiestableRojo extends Rojo {
     @Override

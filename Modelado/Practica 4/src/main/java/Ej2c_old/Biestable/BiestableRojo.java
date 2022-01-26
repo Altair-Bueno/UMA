@@ -1,12 +1,12 @@
-package Ej2c.Triestable;
+package Ej2c_old.Biestable;
 
-import Ej2c.EstadoSemaforo;
-import Ej2c.Rojo;
+import Ej2c_old.EstadoSemaforo;
+import Ej2c_old.Rojo;
 
-public class TriestableRojo extends Rojo {
+public class BiestableRojo extends Rojo {
     @Override
     public EstadoSemaforo abrir() {
-        return new TriestableAmarillo();
+        return new BiestableVerde();
     }
 
     @Override

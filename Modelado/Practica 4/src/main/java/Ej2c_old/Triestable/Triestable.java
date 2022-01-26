@@ -1,7 +1,7 @@
-package Ej2b.Triestable;
+package Ej2c_old.Triestable;
 
-import Ej2b.EstadoSemaforo;
-import Ej2b.Semaforo;
+import Ej2c_old.EstadoSemaforo;
+import Ej2c_old.Semaforo;
 
 public class Triestable extends Semaforo {
     public Triestable(){

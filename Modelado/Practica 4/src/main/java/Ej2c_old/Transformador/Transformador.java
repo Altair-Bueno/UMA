@@ -1,7 +1,7 @@
-package Ej2c.Transformador;
-import Ej2c.Biestable.BiestableRojo;
-import Ej2c.EstadoSemaforo;
-import Ej2c.Semaforo;
+package Ej2c_old.Transformador;
+import Ej2c_old.Biestable.BiestableRojo;
+import Ej2c_old.EstadoSemaforo;
+import Ej2c_old.Semaforo;
 
 public class Transformador extends Semaforo{
     EstadoTransformador estadoTransformador;

@@ -1,6 +1,6 @@
-package Ej2c.Triestable;
+package Ej2c_old.Triestable;
 
-import Ej2c.EstadoSemaforo;
+import Ej2c_old.EstadoSemaforo;
 
 public class TriestableAmarillo implements EstadoSemaforo {
     @Override
