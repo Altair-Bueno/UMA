@@ -11,7 +11,7 @@ public class Biestable extends Semaforo{
 
     @Override
     public void abrir() {
-        if(this.estado instanceof Verde){
+        if(this.getEstado() instanceof Verde){
             throw new IllegalStateException();
         } else {
             this.estado = new Verde();
@@ -20,7 +20,7 @@ public class Biestable extends Semaforo{
 
     @Override
     public void cerrar() {
-        if(this.estado instanceof Rojo){
+        if(this.getEstado() instanceof Rojo){
             throw new IllegalStateException();
         } else {
             this.estado = new Rojo();

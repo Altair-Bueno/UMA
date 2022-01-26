@@ -11,9 +11,9 @@ public class Triestable extends Semaforo{
 
     @Override
     public void abrir() {
-        if(this.estado instanceof Rojo){
+        if(this.getEstado() instanceof Rojo){
             this.estado = new Amarillo();
-        } else if (this.estado instanceof Amarillo){
+        } else if (this.getEstado() instanceof Amarillo){
             this.estado = new Verde();
         } else {
             throw new IllegalStateException();
@@ -22,9 +22,9 @@ public class Triestable extends Semaforo{
 
     @Override
     public void cerrar() {
-        if(this.estado instanceof Verde){
+        if(this.getEstado() instanceof Verde){
             this.estado = new Amarillo();
-        } else if(this.estado instanceof Amarillo){
+        } else if(this.getEstado() instanceof Amarillo){
             this.estado = new Rojo();
         } else {
             throw new IllegalStateException();

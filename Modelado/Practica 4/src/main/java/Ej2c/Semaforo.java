@@ -17,6 +17,10 @@ public abstract class Semaforo{
         mediador.notificar(this);
     }
 
+    protected EstadoSemaforo getEstado(){
+        return this.estado;
+    }
+
     public void setMediador(Mediador mediador){
         this.mediador = mediador;
     }
