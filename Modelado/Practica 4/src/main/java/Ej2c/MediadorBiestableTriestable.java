@@ -38,7 +38,7 @@ public class MediadorBiestableTriestable implements Mediador{
     }
 
     public void cambiar(){
-        semaforoActual.cambiar();
+        notificar(semaforoActual);
     }
 
     public String estado(){
