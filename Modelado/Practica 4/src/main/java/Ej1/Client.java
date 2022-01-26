@@ -2,9 +2,9 @@ package Ej1;
 
 import Ej1.x.XProxy;
 
-/** Clase base de los clientes */
+/** Clase base para los clientes de X */
 public class Client {
-  private XProxy x;
+  private final XProxy x;
 
   public Client() {
     x = new XProxy(this);

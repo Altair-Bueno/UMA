@@ -1,5 +1,6 @@
 package Ej3;
 
+/** Ordena los emails por su asunto */
 public class SubjectSortStrategy implements SortStrategy {
   @Override
   public boolean before(Email e1, Email e2) {
