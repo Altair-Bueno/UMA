@@ -19,14 +19,14 @@ public class MediadorBiestableTriestable implements Mediador{
     }
 
     public void cambiarABiestable(){
-        if(semaforoActual.estado instanceof Amarillo){
+        if(semaforoActual.getEstado() instanceof Amarillo){
             throw new IllegalStateException();
         }
-        semaforoActual = new Biestable(semaforoActual.estado);
+        semaforoActual = new Biestable(semaforoActual.getEstado());
     }
 
     public void cambiarATriestable(){
-        semaforoActual = new Triestable(semaforoActual.estado);
+        semaforoActual = new Triestable(semaforoActual.getEstado());
     }
 
     public void abrir(){
