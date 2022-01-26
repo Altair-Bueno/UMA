@@ -1,5 +1,11 @@
 package Ej2c;
 
+/**
+ * Semáforo Biestable
+ *
+ * <p>El semáforo Biestable transita entre dos estados posibles utilizando los métodos {@link
+ * Ej2c.Biestable#abrir()} y {@link Ej2c.Biestable#cerrar()}
+ */
 public class Biestable extends Semaforo {
   public Biestable() {
     super();
