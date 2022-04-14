@@ -31,3 +31,8 @@
 - Jenkins
 - Travis CI
 - Azure Pipelines
+
+# Otros enlaces
+
+- <https://github.com/marp-team/marp-core>
+- <https://marpit.marp.app/markdown>
