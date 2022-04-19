@@ -78,7 +78,9 @@ Fuente: https://circleci.com/pricing/
 | Server      | Todo        | Custom   | Custom      | Custom     | Grandes empresas           |
 
 > \* Docker, VMs (linux, windows, macOS, ARM linux), baremetal macOS, NVIDIA GPU
-> cluster (versiones linux y windows) \*\* Proyectos OSS tienen más créditos
+> cluster (versiones linux y windows) 
+> 
+> \*\* Proyectos OSS tienen más créditos
 
 ---
 
