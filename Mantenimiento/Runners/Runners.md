@@ -47,7 +47,9 @@ organización y gestionar sus runners
 
 ## `config.yml`
 
-Fichero YAML ubicado en la carpeta `.circleci` en cualquier rama del repositorio. Podemos editarlo manualmente desde nuestro editor de código favorito o desde la web
+Fichero YAML ubicado en la carpeta `.circleci` en cualquier rama del
+repositorio. Podemos editarlo manualmente desde nuestro editor de código
+favorito o desde la web
 
 ---
 
@@ -73,7 +75,7 @@ jobs:
     # Entorno de ejecución (`docker`, `machine`, `macos` or `executor`)
     executor:
       name: node/default
-      tag: '10.4'
+      tag: "10.4"
     # Etapas que componen el trabajo
     steps:
       - checkout
@@ -82,6 +84,7 @@ jobs:
             - run: npm install
       - run: npm run test
 ```
+
 ---
 
 # Orbs
@@ -92,6 +95,7 @@ jobs:
 - Simplifican enormemente el desarrollo de workflows multiplataforma
 
 ---
+
 <!--
 _color: white
 _backgroundColor: #222
@@ -100,7 +104,7 @@ _footer: 'Fuente: https://circleci.com/developer/orbs/orb/circleci/rust#commands
 -->
 
 ```yaml
-version: '2.1'
+version: "2.1"
 orbs:
   # Orb de Rust (aka. `from circleci import rust@x.y.z as rust `)
   rust: circleci/rust@x.y.z
@@ -108,7 +112,7 @@ workflows:
   # Definimos los distintos workflows disponibles (aka. `production.py`)
   production:
     jobs:
-      # Ejecutamos la función `build` dentro del orb definido 
+      # Ejecutamos la función `build` dentro del orb definido
       # anteriormente (aka. `rust.build(release=True)`)
       - rust/build:
           release: true
@@ -120,7 +124,8 @@ workflows:
 
 - Funciones a llamar para ser ejecutadas
 - Cada job puede ser en un entorno distinto
-- Pueden definirse globalmente para todos los workflows o para un workflow concreto
+- Pueden definirse globalmente para todos los workflows o para un workflow
+  concreto
 
 ---
 
@@ -139,7 +144,7 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
       - image: cimg/ruby:2.6.8 # specifically, a docker image with ruby 2.6.8
         auth:
           username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+          password: $DOCKERHUB_PASSWORD # context / project UI env-var reference
     # Steps are a list of commands to run inside the docker container above.
     steps:
       - checkout # this pulls code down from GitHub
@@ -157,6 +162,46 @@ workflows:
 # Demo
 
 Link: [Altair-Bueno/paintr](https://github.com/Altair-Bueno/paintr)
+
+---
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+```yml
+version: 2.1
+executors:
+  rust-executor:
+    docker:
+      - image: cimg/rust:1.60.0
+jobs:
+  test-kahlo:
+    executor: rust-executor
+    steps:
+      - checkout
+      - restore_cache:
+          key: kahlo-rust-cache-{{ checksum "kahlo/Cargo.lock" }}
+      - run: |
+          cd ./kahlo
+          cargo test
+      - save_cache:
+          key: kahlo-rust-cache-{{ checksum "kahlo/Cargo.lock" }}
+          paths:
+            - "~/.cargo"
+            - "./kahlo/target"
+orbs:
+  node: circleci/node@5.0.2
+workflows:
+  test:
+    jobs:
+      - test-kahlo
+      - node/run:
+          app-dir: "./dali"
+          npm-run: "test"
+```
 
 ---
 
@@ -180,8 +225,8 @@ _footer: Fuente: https://circleci.com/pricing/
 | Server      | Todo        | Custom   | Custom      | Custom     | Grandes empresas           |
 
 > \* Docker, VMs (linux, windows, macOS, ARM linux), baremetal macOS, NVIDIA GPU
-> cluster (versiones linux y windows) 
-> 
+> cluster (versiones linux y windows)
+>
 > \*\* Proyectos OSS tienen más créditos
 
 ---
@@ -217,6 +262,9 @@ _footer: Fuente: https://circleci.com/pricing/
   **gráficas NVIDIA** tanto en windows como linux
 - Soporte de primer grado para contenedores de **Docker**
 - El plan gratuito no requiere tarjeta de crédito
+- Acceso a los workflows mediante ssh tras su finalización
+- Todos los jobs se ejecutan en paralelo
+- Los jobs no se ejecutan si los ficheros no se han cambiado
 
 ---
 
