@@ -45,14 +45,9 @@ organización y gestionar sus runners
 
 ---
 
-# `config.yml`
+## `config.yml`
 
----
-
-- Fichero de configuración en formato YAML
-- Puede estar ubicado en cualquier rama del repositorio, pero obligatoriamente
-  dentro de la carpeta `.circleci`
-- Podemos editar el fichero sin abandonar la web
+Fichero YAML ubicado en la carpeta `.circleci` en cualquier rama del repositorio. Podemos editarlo manualmente desde nuestro editor de código favorito o desde la web
 
 ---
 
@@ -60,9 +55,116 @@ organización y gestionar sus runners
 
 ---
 
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+### Estructura
+
+```yaml
+version: 2.1
+# Orbs requeridos
+orbs:
+  node: circleci/node@4.7.0
+jobs:
+  build:
+    # Entorno de ejecución (`docker`, `machine`, `macos` or `executor`)
+    executor:
+      name: node/default
+      tag: '10.4'
+    # Etapas que componen el trabajo
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm install
+      - run: npm run test
+```
+---
+
+# Orbs
+
+- Utilidades por la comunidad o por Circle CI
+- Funcionan como **módulos**
+- Se importan y se exportan
+- Simplifican enormemente el desarrollo de workflows multiplataforma
+
+---
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+_footer: 'Fuente: https://circleci.com/developer/orbs/orb/circleci/rust#commands-build'
+-->
+
+```yaml
+version: '2.1'
+orbs:
+  # Orb de Rust (aka. `from circleci import rust@x.y.z as rust `)
+  rust: circleci/rust@x.y.z
+workflows:
+  # Definimos los distintos workflows disponibles (aka. `production.py`)
+  production:
+    jobs:
+      # Ejecutamos la función `build` dentro del orb definido 
+      # anteriormente (aka. `rust.build(release=True)`)
+      - rust/build:
+          release: true
+```
+
+---
+
+# Jobs
+
+- Funciones a llamar para ser ejecutadas
+- Cada job puede ser en un entorno distinto
+- Pueden definirse globalmente para todos los workflows o para un workflow concreto
+
+---
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+```yaml
+version: 2
+jobs: # we now have TWO jobs, so that a workflow can coordinate them!
+  # aka. `def hello-world():`
+  hello-world: # This is our first job.
+    docker: # it uses the docker executor
+      - image: cimg/ruby:2.6.8 # specifically, a docker image with ruby 2.6.8
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    # Steps are a list of commands to run inside the docker container above.
+    steps:
+      - checkout # this pulls code down from GitHub
+      # aka. `hello-world()`
+      - run: echo "A first hello" # This prints "A first hello" to stdout.
+workflows:
+  version: 2
+  one_and_two: # this is the name of our workflow
+    jobs: # and here we list the jobs we are going to run.
+      - hello-world
+```
+
+---
+
+# Demo
+
+Link: [Altair-Bueno/paintr](https://github.com/Altair-Bueno/paintr)
+
+---
+
 # Planes y precios
 
-Fuente: https://circleci.com/pricing/
+<!--
+_footer: Fuente: https://circleci.com/pricing/
+-->
 
 ---
 
@@ -86,7 +188,7 @@ Fuente: https://circleci.com/pricing/
 
 # Créditos
 
-## Moneda digital de Circle CI utilizado para pagar, en tiempo real, por los servicios utilizados
+### Moneda digital de Circle CI utilizado para pagar, en tiempo real, por los servicios utilizados
 
 ---
 
@@ -113,7 +215,8 @@ Fuente: https://circleci.com/pricing/
 - Permite configurar runners concurrentes de forma sencilla
 - Amplio abanico de ofertas hardware. Especialmente interesante el soporte para
   **gráficas NVIDIA** tanto en windows como linux
-- Soporte de primer grado para contenedores de Docker
+- Soporte de primer grado para contenedores de **Docker**
+- El plan gratuito no requiere tarjeta de crédito
 
 ---
 
