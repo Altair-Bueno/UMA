@@ -11,6 +11,8 @@ paginate: true
 
 # Circle CI
 
+_Plataformas exóticas_
+
 ---
 
 <!--
@@ -83,6 +85,36 @@ jobs:
           steps:
             - run: npm install
       - run: npm run test
+```
+
+---
+
+# Workflows
+
+- Conjunto de jobs a ejecutar en **paralelo**
+- Se pueden definir dependencias entre trabajos (esperar que acabe la etapa de
+  `build` para iniciar los test)
+
+---
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+```yml
+version: 2.1
+jobs:
+  hello-world:
+    docker:
+      - image: cimg/node:17.2.0 # the primary container, where your job's commands are run
+    steps:
+      - checkout # check out the code in the project directory
+      - run: echo "hello world" # run the `echo` command
+workflows:
+  hello:
+    - hello-world
 ```
 
 ---
