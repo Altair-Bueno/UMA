@@ -635,9 +635,15 @@ _footer: Fuente: https://circleci.com/pricing/
 
 # Conclusión
 
+---
+
+## Conclusión
+
+<!--
+  Añade las conclusiones respecto a tu runner. Estas diapositivas van
+  AL FINAL DE LA PRESENTACIón
+-->
+
 - **GitHub Actions**: La mejor manera de comenzar a trabajar con CI/CD.
 - **Circle CI**: Desarrollo multiplataforma, GPU computing o con alta
   dependencia en Dockers
-
----
-
