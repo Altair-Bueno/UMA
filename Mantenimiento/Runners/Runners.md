@@ -1,11 +1,14 @@
 ---
-marp: true
+marp: false
 theme: default
 class: invert
 paginate: true
 ---
 
 # Servicios de CI/CD
+
+¿Qué es CI/CD?
+[Vídeo explicativo](https://www.youtube.com/watch?v=scEDHsr3APg)
 
 ---
 
@@ -304,3 +307,271 @@ _footer: Fuente: https://circleci.com/pricing/
 
 - **Circle CI**: Desarrollo multiplataforma, GPU computing o con alta
   dependencia en Dockers
+
+---
+
+# GitHub Actions
+
+![](resources/44036562.png) <br>
+
+---
+
+# Workflow
+
+¿Qué es un workflow?
+
+![](resources/workflow.png) <br>
+
+---
+
+- **Workflow** es un proceso automatizado el cual se añade a un repositorio.
+- **Job** es un conjunto de **steps** o pasos que se ejecutan en nuestro proceso.
+- **Step** es una tarea individual que puede ejecutar comandos dentro de un **job**
+- **Action** son los comandos de ejecución del proceso, ejecutados en un **step** para crear un **job**. Son el bloque de construcción más pequeño que hay.
+
+---
+
+# Ejemplo desde cero
+- Vamos a crear una aplicación con **Maven**, como hemos estado haciendo en la asignatura de Mantenimiento.
+- Creamos un **repositorio de GitHub** y creamos la carpeta ```.github/workflows/```. 
+- Dentro de esa carpeta irá nuestro archivo ```workflow.yml```.
+
+---
+
+Contenido inicial de ```workflow.yml```:
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+```yml
+name: Build and test of Java Project
+ 
+on: [push]
+ 
+jobs:
+ build:
+   runs-on: ubuntu-latest
+ 
+   steps:
+     - uses: actions/checkout@v2
+     - name: Set up JDK 1.8
+       uses: actions/setup-java@v1
+       with:
+         java-version: 1.8
+     - name: Build with Maven
+       run: mvn -B package --file pom.xml
+```
+
+---
+
+# Entendiendo por partes el fichero:
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+```yml
+name: Build and test of Java Project
+ 
+on: [push]
+ 
+jobs:
+ build:
+   runs-on: ubuntu-latest
+```
+
+
+- ```name: Build and test of Java Project```: Nombre opcional que le das al fichero, para saber qué hemos hecho.
+- ```on: [push]```: ¿Cuándo se va a ejecutar la action? Cuando hagamos push. 
+- ```jobs```: Sección donde se pueden especificar todos los jobs que se van a ejecutar.
+- ```build```: Único job de este ejemplo, este nombre **sí** es obligatorio.
+- ```runs on: ubuntu-latest```: Configura el workflow para que se ejecute en la última versión de ubuntu. Ejecutable también en windows, mac, ...
+
+---
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+```yml
+   steps:
+     - uses: actions/checkout@v2
+     - name: Set up JDK 1.8
+       uses: actions/setup-java@v1
+       with:
+         java-version: 1.8
+     - name: Build with Maven
+       run: mvn -B package --file pom.xml
+```
+
+- ```steps```: Sección donde se especifican los pasos del job.
+- ```uses: actions/checkout@v2```: La palabra clave *uses* le dice al job de obtener la versión **v2** de la acción **actions/checkout**, son de dominio público en GitHub y hay millones de acciones ya hechas. Esta action comprueba nuestro repositorio y lo descarga en nuestra instancia, permitiendo que sobre el código podamos ejecutar más actions.
+- ```Name: Set up JDK.18```: Nombre opcional que se le ha dado a la acción.
+
+---
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+```yml
+   steps:
+     - uses: actions/checkout@v2
+     - name: Set up JDK 1.8
+       uses: actions/setup-java@v1
+       with:
+         java-version: 1.8
+     - name: Build with Maven
+       run: mvn -B package --file pom.xml
+```
+
+- ```uses: actions/setup-java@v1```: Esta action se encarga de descargar e instalar una versión de java, en este caso podemos ver la línea *with: java-version: 1.8*, es la versión 1.8.
+- ```run: mvn -B package --file pom.xml```: La palabra **run** le dice al job de ejecutar un comando en el runner, en este caso en la línea de comandos de ubuntu. En este caso, estamos utilizando **maven** para compilar y empaquetar nuestro proyecto.
+
+---
+
+# Configuración y ejecución de un workflow
+
+Ahora, una vez creado el workflow, hacemos **push** a nuestro repo en GitHub, justo después podremos verlo en la sección de **Actions** en la página principal del proyecto:
+
+![](resources/1.png)
+
+Como podemos observar, ya ha sido creado automáticamente. El icono en amarillo indica que aún está trabajando y no ha sido completado.
+
+---
+
+Además, podemos consultar logs de cada uno de los jobs pulsando sobre ellos:
+
+![](resources/2.png)
+
+---
+
+# Automatizar tests
+
+Aplicándolo a lo ya trabajado en la asignatura, si además hemos añadido tests, éstos se ejecutarán y mostrarán los resultados también:
+
+![](resources/3.png)
+
+Si alguno de los tests falla, el workflow aparecerá con un aspa roja al lado indicando que algo ha ido mal, una vez arreglado se volverá a ejecutar y si todo va bien aparecerá un tick verde que indicará que todo ha funcionado con éxito.
+
+---
+
+# Construir imagen con Docker
+
+Github Actions nos da la posibilidad de correr nuestro entorno en una imagen Docker, con todas las ventajas que ello tiene. Para ello vamos a añadir el siguiente fichero **dockerfile** a la raíz del proyecto:
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+```yml
+FROM maven:3.6.0-jdk-8-slim AS build
+COPY src /usr/src/app/src
+COPY pom.xml /usr/src//app
+RUN mvn -B package --file /usr/src/app/pom.xml
+
+FROM java:8
+EXPOSE 8080
+COPY --from=build /usr/src/app/target/project-test-github-1.0-SNAPSHOT.jar /usr/app/project-test-github-1.0-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/usr/app/project-test-github-1.0-SNAPSHOT.jar"]
+```
+
+---
+
+Una vez añadido el fichero, tenemos que modificar nuestro ```workflow.yml```para indicar que queremos utilizar Docker a través de un Dockerfile, quedando así:
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+```yml
+name: Build and test of Java Project
+
+on: [push]
+
+jobs:
+  build:
+    name: Build with Docker
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Building the image from the Dockerfile
+        uses: ./.github/action-docker
+```
+---
+
+# ¿Qué ha ocurrido?
+
+Como podemos ver, archivo ```workflow.yml``` ha quedado más pequeño, ya que ahora aparte de la acción del *checkout* simplemente añadimos otra nueva acción que hace referencia a una nueva carpeta que hemos creado llamada ```action-docker```, en esta carpeta añadimos otro ```.yml```con el action que especifica que queremos hacer uso del **dockerfile**:
+
+![](resources/4.png)
+
+
+Es muy importante saber que este archivo dentro de la carpeta ```action-docker``` se tiene que llamar ```action.yml``` si no, **no funcionará**, y este es su contenido:
+
+---
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+```yml
+name: "Using Docker"
+runs:
+  using: "docker"
+  image: "../../Dockerfile"
+```
+
+- Indicamos en *image* donde tenemos nuestro **dockerfile**, ya que lo utilizará para crear la imagen. 
+- Si ahora hacemos push de todo esto (*y no nos hemos equivocado ;)*) en los logs del workflow podremos ver como compila:
+
+![](resources/5.png)
+
+---
+
+# Secretos
+
+- Los secretos de GitHub actions nos permiten almacenar información sensible en nuestro repositorio para luego poder usarlo en nuestros **workflows**.
+- Son **variables de entorno** encriptadas por GitHub, haciendo uso de *libsodium sealed box*
+- *Libsodium sealed box* son *"cajas selladas"* que están diseñadas para enviar mensajes a destinatarios dada su clave pública. Sólo el destinatario puede desencriptar el mensaje usando su clave privada.
+
+---
+
+# Añadiendo un secreto en GitHub Actions
+
+![](resources/6.png) 
+
+Una vez pulsado el botón **New Secret** nos encontraremos lo siguiente:
+
+![](resources/7.png)
+
+Rellenamos los campos y será accesible desde todos nuestros pipelines.
+
+---
+
+# Conclusión
+
+- Github nos ofrece una herramienta muy interesante para la integración continua de nuestros proyectos en sus repositorios.
+- Puede ser aplicable a trabajos actuales de la facultad como por ejemplo lo visto en la presentación aplicado al testeo de software.
+- Rápido y fácil de usar.
+  
+
+
+
+
