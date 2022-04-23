@@ -632,7 +632,9 @@ Por ejemplo, si tu organización utiliza GitHub Team y permite gastos ilimitados
 
 # Conclusión
 
-**GitHub Actions**: La mejor manera de comenzar a trabajar con CI/CD.
+- **Circle CI**: Desarrollo multiplataforma, GPU computing o con alta
+  dependencia en Dockers
+- **GitHub Actions**: La mejor manera de comenzar a trabajar con CI/CD.
 
 
   
