@@ -1,5 +1,5 @@
 ---
-marp: false
+marp: true
 theme: default
 class: invert
 paginate: true
@@ -14,7 +14,7 @@ paginate: true
 
 # GitHub Actions
 
-![](resources/44036562.png) <br>
+![bg 30% right](resources/44036562.png)
 
 ---
 
@@ -22,7 +22,7 @@ paginate: true
 
 ¿Qué es un workflow?
 
-![](resources/workflow.png) <br>
+![](resources/workflow.png)
 
 ---
 
@@ -340,13 +340,9 @@ Por ejemplo, si tu organización utiliza GitHub Team y permite gastos ilimitados
 
 ---
 
-# Conclusión
-
-- **GitHub Actions**: La mejor manera de comenzar a trabajar con CI/CD.
-
----
-
 # Circle CI
+
+![bg 30% right invert](resources/2022-04-23-20-01-06.png)
 
 _Plataformas exóticas_
 
