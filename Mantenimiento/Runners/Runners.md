@@ -565,11 +565,76 @@ Rellenamos los campos y será accesible desde todos nuestros pipelines.
 
 ---
 
+# Minutos y almacenamiento incluidos
+
+Para repositorios privados, cada cuenta de GitHub recibe una cantidad determinada de minutos y almacenamiento gratuito, dependiendo del producto usado:
+
+| Producto                         | Almacenamiento    | Minutos (por mes) |
+| -----------                      | -----------       | --------          | 
+| GitHub Free                      | 500 MB            | 2.000             | 
+| GitHub Pro                       | 1 GB              | 3.000             |
+| GitHub Free para organizaciones  | 500 MB            | 2.000             | 
+| GitHub Team                      | 2 GB              | 3.000             | 
+| Nube de GitHub Enterprise        | 50 GB             | 50.000            | 
+
+---
+
+# Multiplicadores por minuto
+
+Los jobs que se ejecutan en Windows y macOS y que se hospedan en GitHub consumen minutos en una proporción de 2 a 10 veces mayor que aquellos que se ejecutan en Linux. Por ejemplo, utilizar 1,000 minutos en Windows consumirá 2,000 de los minutos incluidos en tu cuenta. Utilizar 1,000 minutos en macOS consumiría 10,000 de los minutos incluidos en tu cuenta.
+
+| Sistema operativo | Multiplicador de minutos
+| -----------       | ----------- 
+| Linux             | 1
+| macOS             | 10
+| Windows           | 2
+
+---
+
+
+# Tasas por minuto
+
+Si tu uso de cuenta sobrepasa estos límites y habías configurado un límite de gastos mayor a $0 USD, pagarás $0.25 USD por GB de almacenamiento por mes y por minuto de uso dependiendo en el sistema operativo que utilice el ejecutor hospedado en GitHub. GitHub redondea hacia arriba los minutos que utiliza cada job.
+
+| Sistema operativo | Tasa por minuto (USD)
+| -----------       | ----------- 
+| Linux             | $0.008
+| macOS             | $0.08
+| Windows           | $0.016
+
+---
+
+# Ejemplo de cálculos de costo por minuto
+
+Por ejemplo, si tu organización utiliza GitHub Team y permite gastos ilimitados, utilizar 5,000 minutos podría tener un costo extra de almacenamiento y minutos de $56 USD dependiendo de los sistemas operativos que se utilizan para ejecutar jobs:
+
+- 5,000 minutos (3,000 de Linux y 2,000 de Windows) = $56 USD ($24 USD + $32 USD).
+  - 3,000 minutos de Linux a $0.008 USD por minuto = $24 USD.
+  - 2,000 minutos de Windows a $0.016 USD por minuto = $32 USD.
+
+--- 
+
+# Ventajas
+
+- Las acciones de GitHub son solo ejecuciones consecutivas de Docker. Muy fácil razonar y depurar. Fácil de reproducir el entorno de compilación.
+- Hay infinidad de implementaciones de acciones en GitHub, por lo que muy rara vez habrá que crear una acción desde cero.
+- Secretos.
+
+---
+
+# Inconvenientes
+- No tienen almacenamiento en caché de manera nativa.
+- Documentación escasa.
+- Hay algunas actions en GitHub de calidad dudosa.
+- No es la mejor manera de ejecutar tests unitarios.
+
+---
+
 # Conclusión
 
-- Github nos ofrece una herramienta muy interesante para la integración continua de nuestros proyectos en sus repositorios.
-- Puede ser aplicable a trabajos actuales de la facultad como por ejemplo lo visto en la presentación aplicado al testeo de software.
-- Rápido y fácil de usar.
+**GitHub Actions**: La mejor manera de comenzar a trabajar con CI/CD.
+
+
   
 
 
