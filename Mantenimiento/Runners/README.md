@@ -20,6 +20,8 @@
 
 - GitHub actions (Jota)
 - Circle CI (Altair)
+- GitLab Runners (Carmen)
+- Travis CI (Carlos)
 
 ## Sin asignar
 
@@ -27,9 +29,6 @@
 > tienen porque hacerse, es solo una lista de las posibles opciones que conozco
 
 - Jenkins
-- GitLab Runners
-- Jenkins
-- Travis CI
 - Azure Pipelines
 
 # Otros enlaces
