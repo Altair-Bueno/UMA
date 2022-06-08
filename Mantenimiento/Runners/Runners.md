@@ -633,6 +633,190 @@ _footer: Fuente: https://circleci.com/pricing/
 
 ---
 
+# TravisCI
+
+![bg 70% right](resources/travis/travis-icon.png)
+
+---
+
+![bg](resources/travis/start-today.PNG)
+
+---
+
+![bg 100%](resources/travis/main.PNG)
+
+---
+
+![bg](resources/travis/repos.PNG)
+
+---
+
+# Jobs
+
+---
+
+## Install
+- Instala las dependencias necesarias
+
+## Script
+- Ejecuta el script/comando que se le proporcione
+
+## Otros
+- `before_install`
+- `before_script`
+- `after_script`
+- `after_success`
+- `after_failure`
+
+---
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+## Matrix
+```yml
+language: ruby
+rvm:
+- 1.9.3
+- 2.0.0
+- 2.1.0
+env:
+- DB=mongodb
+- DB=redis
+- DB=mysql
+gemfile:
+- Gemfile
+- gemfiles/rails4.gemfile
+- gemfiles/rails31.gemfile
+- gemfiles/rails32.gemfile
+jobs:
+  exclude:
+  - rvm: 2.0.0
+    gemfile: Gemfile
+```
+
+---
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+## Stages
+```yml
+jobs:
+  include:
+    - stage: "Tests"                
+      name: "Unit Tests"            
+      script: ./unit-tests
+    - script: ./integration-tests
+      name: "Integration Tests"   
+
+    - stage: deploy
+      name: "Deploy"
+      script: ./deploy
+```
+
+---
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+## Conditional Jobs
+```yml
+jobs:
+  include:
+      if: branch = master
+      env: FOO=baz
+```
+
+---
+
+# Demo
+[CTMarin/acnhpedia-back](https://github.com/CTMarin/acnhpedia-back)
+
+---
+
+## .travis.yml
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+```yml
+language: rust
+cache: cargo
+rust:
+  - stable
+  - beta
+  - nightly
+jobs:
+  include:
+    - stage: "Tests"
+      script: cargo test
+      allow_failures:
+        - rust: nightly
+      fast_finish: true
+
+    - stage: "Deploy"
+      deploy:
+        on:
+          branch: master
+        provider: cargo
+        token: $CRATES_TOKEN
+```
+---
+
+# Planes y precios
+
+---
+
+## Concurrency Plan
+
+![](resources/travis/EL-PLAN.PNG)
+
+---
+
+## Usage-based Plan
+
+<div style="display: flex; justify-content: space-around">
+
+| Mensual | Creditos | Precio |
+| ------- | -------- | ------ |
+|         | 50K      | $30    |
+|         | 100K     | $60    |
+|         | 200K     | $120   |
+|         | 300K     | $180   |
+|         | 400K     | $240   |
+|         | 500K     | $300   |
+
+| Anual | Creditos | Precio |
+| ----- | -------- | ------ |
+|       | 600K     | $330   |
+|       | 1200K    | $660   |
+|       | 2400K    | $1320  |
+|       | 3600K    | $1980  |
+|       | 4800K    | $2640  |
+|       | 6000K    | $3300  |
+
+</div>
+
+---
+
+# Puntos fuertes
+* Sintaxis sencilla y fácil de interpretar
+* Muy buena documentación
+
+# Puntos débiles
+* Versión gratuíta necesita tarjeta
+* Versión gratuíta dura 1 mes
+
+---
+
 # Conclusión
 
 ---
@@ -641,9 +825,10 @@ _footer: Fuente: https://circleci.com/pricing/
 
 <!--
   Añade las conclusiones respecto a tu runner. Estas diapositivas van
-  AL FINAL DE LA PRESENTACIón
+  AL FINAL DE LA PRESENTACIÓN
 -->
 
 - **GitHub Actions**: La mejor manera de comenzar a trabajar con CI/CD.
 - **Circle CI**: Desarrollo multiplataforma, GPU computing o con alta
   dependencia en Dockers
+- **Travis CI**: Rapidez para escribir los workflows
