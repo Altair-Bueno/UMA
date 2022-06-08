@@ -336,7 +336,6 @@ Por ejemplo, si tu organización utiliza GitHub Team y permite gastos ilimitados
 - No tienen almacenamiento en caché de manera nativa.
 - Documentación escasa.
 - Hay algunas actions en GitHub de calidad dudosa.
-- No es la mejor manera de ejecutar tests unitarios.
 
 ---
 
