@@ -810,10 +810,161 @@ jobs:
 # Puntos fuertes
 * Sintaxis sencilla y fácil de interpretar
 * Muy buena documentación
+* Flexibilidad en planes de precios
 
 # Puntos débiles
 * Versión gratuíta necesita tarjeta
 * Versión gratuíta dura 1 mes
+
+---
+
+# GitLab Runners
+
+![bg 100% right](resources/gitlab-icon.png)
+
+---
+
+![](resources/gitlab-main-page.png)
+
+---
+
+# Runners
+
+---
+
+![](resources/gitlab-menu-cicd.png)
+
+---
+
+![](resources/gitlab-templates.png)
+
+### Proporciona templates en diversos lenguajes para generar el pipeline, como Django, LaTeX, Rust, Nodejs, Python, Scala...
+
+---
+
+![](resources/gitlab-maven-template.png)
+
+---
+
+![](resources/gitlab-yml.png)
+
+---
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+```yaml
+stages:          
+  - build
+  - test
+  - deploy
+```
+
+# Stages
+
+- Listas de jobs a realizar y su orden
+- A continuación se define cada stage
+
+---
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+```yaml
+build-job:
+  stage: build
+  script:
+    - echo "Compiling..."
+    - mvn compile
+    - echo "Compile complete."
+
+unit-test-job:
+  stage: test
+  script:
+    - echo "Running unit tests..."
+    - mvn test
+    - echo "Tests verified"
+
+deploy-job:
+  stage: deploy
+  script:
+    - echo "Deploying application..."
+    - mvn deploy
+    - echo "Application successfully deployed."
+```
+
+---
+
+## Cada bloque job descrito en el fichero `.yml` contiene
+
+- Título `<phase>-job`
+- Stage al que pertenece `stage`
+- Orden de los comandos a realizar `script`
+
+---
+
+<!--
+_color: white
+_backgroundColor: #222
+_class: []
+-->
+
+```yaml
+unit-test-job:
+  stage: test
+  script:
+    - echo "Running unit tests..."
+    - mvn test
+    - echo "Tests verified"
+```
+
+---
+
+# Runner funcionando
+
+![bg right 90%](resources/gitlab-runner-valid.png)
+
+---
+
+# Runner generado
+
+![bg right 90%](resources/gitlab-runner-wrong.PNG)
+
+---
+
+# Planes y precios
+
+---
+
+![bg](resources/gitlab-pricing.png)
+
+---
+
+|                                    | Free | Premium | Ultimate | 
+| ---------------------------------- | ---- | ------- | -------- | 
+| Minutos de CI/CD por mes           | 400 | 10.000   | 50.000   | 
+| Open Source / Licencia MIT         | X   | X        | X        |
+| Método Ágil incluido               |     | X        | X        |
+| Testing de Seguridad Avanzado      |     |          | X        | 
+| Mitigación de riesgos de Seguridad |     |          | X        | 
+
+- +$10 por 1.000 **minutos de CI/CD** extra
+- +$60 por 10GB de **almacenamiento** y 20GB de **transferencia** extra
+
+---
+
+# Puntos fuertes
+
+- Viene integrado en GitLab
+- Compatibilidad entre versiones distintas de GitLab
+- Monitorización de runners mediante Prometheus
+- Permite limitar el número de jobs concurrentes por token
 
 ---
 
