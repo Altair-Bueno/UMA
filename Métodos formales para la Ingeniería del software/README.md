@@ -6,6 +6,12 @@
 Galo - Altair
 ```
 
+## Segunda práctica
+
+```text
+Tapia - Altair
+```
+
 ## Trabajo
 
 ```text
