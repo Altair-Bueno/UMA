@@ -17,6 +17,7 @@ Tapia - Altair
 
 ```text
 Carlos - Altair
+Tapia - Carmen  
 ```
 
 ## Cuarta práctica
@@ -30,4 +31,5 @@ Carmen - Altair
 ```text
 Jota - Altair
 Carlos - Carmen
+Tapia - Antonio
 ```
