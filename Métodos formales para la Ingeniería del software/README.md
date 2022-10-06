@@ -1,35 +1,39 @@
 # Parejas
 
-## Primera práctica
-
-```text
-Galo - Altair
-Antonio - Carlos
+## Primera
+```
+Galo - altair
+Jota-nico
+Carmen-tapia
+Carlos- antonio
 ```
 
-## Segunda práctica
+## Segunda
 
-```text
-Tapia - Altair
+```
+Carmen - migue
+Tapia- altair
+Carlos-jota 
 ```
 
-## Tercera práctica
+## Tercera
 
-```text
-Carlos - Altair
-Tapia - Carmen  
+```
+Carlos- altair
+Antonio-carmen
+Tapia-jota
 ```
 
-## Cuarta práctica
-```text
-Jota - Carlos
-Carmen - Altair
+## Cuarta
+```
+Carmen- altair
+Tapia-carlos
+Jota-antonio
 ```
 
 ## Trabajo
-
-```text
-Jota - Altair
-Carlos - Carmen
-Tapia - Antonio
+```
+Jota-altair
+Tapia-antonio
+Carlos - carmen 
 ```
